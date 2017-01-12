@@ -1,0 +1,24 @@
+{
+  "name": "graphic",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GraphicApp/Graphic.git"
+  },
+  "author": "Sid, Brett, Jason, Breydan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GraphicApp/Graphic/issues"
+  },
+  "homepage": "https://github.com/GraphicApp/Graphic#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "request": "^2.79.0",
+    "winston": "^2.3.0"
+  }
+}
