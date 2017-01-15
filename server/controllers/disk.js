@@ -21,6 +21,11 @@ if (settings.config.modules.diskSpace.status) {
   }, settings.config.modules.diskSpace.interval);
 }
 
-// si.blockDevices()
-//   .then(data => console.log('DISKS/PARTITIONS -', data))
-//   .catch(error => winston.log.error(error));
+
+exports.getDiskData = (req, res) => {
+  // get from database
+}
+
+exports.getDiskSpaceData = (req, res) => {
+  // get from database
+}

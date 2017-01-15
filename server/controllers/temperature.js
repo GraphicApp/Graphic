@@ -28,3 +28,7 @@ if (settings.config.modules.temperature.status) {
     }
   }, settings.config.modules.temperature.interval);
 }
+
+exports.getTemperatureData = (req, res) => {
+  // get from database
+}

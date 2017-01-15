@@ -5,13 +5,15 @@ const defaultSettings = {
   logLevel: 'warn',
   modules: {
     cpu: {status: true, interval: 1000},
+    processes: {status: false, interval: 2000},
     memory: {status: true, interval: 1000},
     temperature: {status: true, interval: 1000},
     fan: {status: true, interval: 1000},
     battery: {status: true, interval: 1000},
     disk: {status: true, interval: 1000},
     diskSpace: {status: true, interval: 3600*1000},
-    network: {status: true, interval: 1000},
+    network: {status: true, interval: 1000, iface: '', ping: ''},
+    networkConnections: {status: false, interval: 3600*1000}
   },
 };
 

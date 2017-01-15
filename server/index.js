@@ -2,14 +2,12 @@ const express = require('express'),
       winston = require('./services/winston'),
       request = require('request');
 
-const
-      // api = require('./controllers/api'),
-      // system = require('./controllers/system'),
-      // cpu = require('./controllers/cpu'),
-      // memory = require('./controllers/memory'),
-      // temperature = require('./controllers/temperature'),
-      // disk = require('./controllers/disk'),
-      network = require('./controllers/network');
+// const system = require('./controllers/system'),
+//       cpu = require('./controllers/cpu'),
+//       memory = require('./controllers/memory'),
+//       temperature = require('./controllers/temperature'),
+//       disk = require('./controllers/disk'),
+//       network = require('./controllers/network');
 
 var app = module.exports = express();
 

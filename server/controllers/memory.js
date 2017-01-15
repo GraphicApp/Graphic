@@ -10,11 +10,6 @@ if (settings.config.modules.memory.status) {
   }, settings.config.modules.memory.interval)
 }
 
-
-
-
-// (()=>{
-//   console.log('MEMORY - free:', os.freemem() / ( 1024 * 1024 ));
-//   console.log('MEMORY - total:', os.totalmem() / ( 1024 * 1024 ));
-//   console.log('MEMORY - % free:', Math.ceil(os.freemem() / os.totalmem()).toFixed(2) + '%');
-// })();
+exports.getMemoryData = (req, res) => {
+  // get from database
+}

@@ -5,6 +5,10 @@
             "status": true,
             "interval": 1000
         },
+        "processes": {
+            "status": false,
+            "interval": 2000
+        },
         "memory": {
             "status": true,
             "interval": 1000
@@ -31,7 +35,13 @@
         },
         "network": {
             "status": true,
-            "interval": 1000
+            "interval": 1000,
+            "iface": "",
+            "ping": ""
+        },
+        "networkConnections": {
+            "status": false,
+            "interval": 3600000
         }
     }
 }

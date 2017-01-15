@@ -22,7 +22,7 @@
     "express": "^4.14.0",
     "pify": "^2.3.0",
     "request": "^2.79.0",
-    "systeminformation": "^3.13.0",
+    "systeminformation": "^3.14.0",
     "winston": "^2.3.0"
   }
 }

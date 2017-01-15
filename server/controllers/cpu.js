@@ -15,8 +15,40 @@ if (settings.config.modules.cpu.status) {
     si.fullLoad()
         .then(data => console.log('LOAD (FULL) -', data))
         .catch(error => winston.log.error(error));
-  }, settings.config.modules.cpu.interval)
+  }, settings.config.modules.cpu.interval);
 }
 
 
-// PROCESSES
+if (settings.config.modules.processes.status) {
+  setInterval(() => {
+    si.processes()
+        .then(data => console.log('PROCESSES -', data))
+        .catch(error => winston.log.error(error));
+  }, settings.config.modules.processes.interval);
+}
+
+exports.getServices = (req, res) => {
+  si.processLoad(req.params.service)
+      .then(data => res.status(200).send(data))
+      .catch(error => {
+        winston.log.error(error);
+        res.status(504).send();
+      });
+}
+
+exports.getProcessLoad = (req, res) => {
+  si.processLoad(req.params.process)
+      .then(data => res.status(200).send(data))
+      .catch(error => {
+        winston.log.error(error);
+        res.status(504).send();
+      });
+}
+
+exports.getCpuData = (req, res) => {
+  // get from database
+}
+
+exports.getProcesses = (req, res) => {
+  // get from database
+}
