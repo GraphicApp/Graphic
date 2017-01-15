@@ -1,10 +1,9 @@
 const winston = require('winston'),
       fs = require('fs');
+      settings = require('../services/settings');
 
-const logDir = 'server/log';
-if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir);
-}
+const logDir = 'server/logs';
+if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
 
 const tsFormat = () => (new Date()).toLocaleTimeString();
 function logFormat(options) {
@@ -13,7 +12,25 @@ function logFormat(options) {
 }
 
 
+const logLevel = settings.config.logLevel;
 // levels: { error: 0, warn: 1, info: 2, verbose: 3, debug: 4, silly: 5 }
+const log = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)({
+      timestamp: tsFormat,
+      colorize: true,
+      level: 'warn'
+    }),
+    new (winston.transports.File)({
+      filename: `${logDir}/log.json`,
+      timestamp: tsFormat,
+      level: logLevel
+    })
+  ]
+});
+
+
+
 const logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)({
@@ -24,87 +41,14 @@ const logger = new (winston.Logger)({
     new (winston.transports.File)({
       filename: `${logDir}/results.json`,
       timestamp: tsFormat,
-      level: 'info',
+      level: 'debug',
     })
   ]
 });
 
-const logLevel = 'warn';
-setLogLevel = (req, res) => {
-  logLevel = req.params.level;
-  res.status(200).send();
-}
 
-const database = new (winston.Logger)({
-  transports: [
-    new (winston.transports.Console)({
-      timestamp: tsFormat,
-      colorize: true,
-      level: 'warn'
-    }),
-    new (winston.transports.File)({
-      filename: `${logDir}/database.json`,
-      timestamp: tsFormat,
-      level: logLevel
-    }),
-    // new (winston.transports.File)({
-    //   filename: `${logDir}/errors.log`,
-    //   timestamp: tsFormat,
-    //   level: 'warn',
-    //   json: false,
-    //   formatter: logFormat
-    // })
-  ]
-});
-
-const system = new (winston.Logger)({
-  transports: [
-    new (winston.transports.Console)({
-      timestamp: tsFormat,
-      colorize: true,
-      level: 'warn'
-    }),
-    new (winston.transports.File)({
-      filename: `${logDir}/system.json`,
-      timestamp: tsFormat,
-      level: logLevel
-    }),
-    // new (winston.transports.File)({
-    //   filename: `${logDir}/errors.log`,
-    //   timestamp: tsFormat,
-    //   level: 'warn',
-    //   json: false,
-    //   formatter: logFormat
-    // })
-  ]
-});
-
-const endpoints = new (winston.Logger)({
-  transports: [
-    new (winston.transports.Console)({
-      timestamp: tsFormat,
-      colorize: true,
-      level: 'warn'
-    }),
-    new (winston.transports.File)({
-      filename: `${logDir}/endpoints.json`,
-      timestamp: tsFormat,
-      level: logLevel
-    }),
-    // new (winston.transports.File)({
-    //   filename: `${logDir}/errors.log`,
-    //   timestamp: tsFormat,
-    //   level: 'warn',
-    //   json: false,
-    //   formatter: logFormat
-    // })
-  ]
-});
 
 module.exports = {
-  log: logger,
-  db: database,
-  sys: system,
-  http: endpoints,
-  setLogLevel: setLogLevel
+  dev: logger,
+  log
 }

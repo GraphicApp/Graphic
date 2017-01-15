@@ -1,15 +1,19 @@
 const express = require('express'),
       winston = require('./services/winston'),
-      request = require('request'),
-      system = require('./controllers/system');
+      request = require('request');
+
+const
+      // api = require('./controllers/api'),
+      // system = require('./controllers/system'),
+      // cpu = require('./controllers/cpu'),
+      // memory = require('./controllers/memory'),
+      // temperature = require('./controllers/temperature'),
+      // disk = require('./controllers/disk'),
+      network = require('./controllers/network');
 
 var app = module.exports = express();
-
 
 let port = 3000;
 app.listen(port, () => {
   console.log('listening on ' + port);
 });
-
-
-system.getStats();
