@@ -1,15 +1,15 @@
 const express = require('express'),
+      bodyParser = require('body-parser'),
+      cors = require('cors'),
       winston = require('./services/winston'),
       request = require('request');
 
-// const system = require('./controllers/system'),
-//       cpu = require('./controllers/cpu'),
-//       memory = require('./controllers/memory'),
-//       temperature = require('./controllers/temperature'),
-//       disk = require('./controllers/disk'),
-//       network = require('./controllers/network');
+const app = module.exports = express();
+// app.use(express.static('public'));
+app.use(cors());
+app.use(bodyParser.json());
+const api = require('./controllers/api');
 
-var app = module.exports = express();
 
 let port = 3000;
 app.listen(port, () => {

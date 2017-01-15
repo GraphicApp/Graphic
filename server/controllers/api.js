@@ -9,7 +9,6 @@ const system = require('./system'),
       network = require('./network');
 
 app.get('/api/system/info', system.getSystemInfo);
-app.get('/api/system/data', system.getSystemData);
 
 app.get('/api/cpu/data', cpu.getCpuData);
 
@@ -25,6 +24,7 @@ app.get('/api/disk/data', disk.getDiskData);
 app.get('/api/disk/dataspace', disk.getDiskSpaceData);
 
 app.get('/api/network/data', network.getNetworkData);
+app.get('/api/ip', network.getPublicIp);
 app.get('/api/checkurl/:url', network.getCheckUrl);
 
 

@@ -1,7 +1,7 @@
 'use strict';
-const dgram = require('dgram');
-const dns = require('dns-socket');
-const pify = require('pify');
+const dgram = require('dgram'),
+			dns = require('dns-socket'),
+			pify = require('pify');
 
 const type = {
 	v4: {

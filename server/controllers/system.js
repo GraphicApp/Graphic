@@ -21,9 +21,7 @@ if (settings.config.modules.battery.status) {
 }
 
 // SYSTEM INFO
-(()=> {
-  console.log('HOST -', os.hostname());
-})();
+console.log('HOST -', os.hostname());
 si.users()
     .then(data => console.log('USERS -', data))
     .catch(error => winston.log.error(error));
@@ -38,6 +36,7 @@ console.log(`TIMES - ${si.time()}`)
 si.networkInterfaces()
     .then(data => console.log(data))
     .catch(error => winston.log.error(error));
+
 
 si.system()
     .then(data => console.log('HARDWARE -', data))

@@ -1,7 +1,9 @@
 const si = require('systeminformation'),
       os = require('os'),
       settings = require('../services/settings'),
-      winston = require('../services/winston');
+      winston = require('../services/winston'),
+      getip = require('../services/getip');
+
 
 if (settings.config.modules.network.status) {
   setInterval(() => {
@@ -36,6 +38,11 @@ exports.getNetworkConnections = (req, res) => {
   }
 }
 
+exports.getPublicIp = (req, res) => {
+  getip.v4().then(ip => res.status(200).send(data));
+  getip.v6().then(ip => console.log(ip));
+}
+
 exports.getCheckUrl = (req, res) => {
   si.inetChecksite(req.params.url)
       .then(data => res.status(200).send(data))
@@ -44,10 +51,3 @@ exports.getCheckUrl = (req, res) => {
         res.status(504).send();
       });
 }
-
-
-// const getip = require('../services/getip');
-// console.log('network interfaces:', os.networkInterfaces());
-// console.log(`NETWORK - internal ip: ${os.networkInterfaces().en0[0].address} | mac address: ${os.networkInterfaces().en0[0].mac}`);
-// getip.v4().then(ip => console.log(`public ip: ${ip}`));
-// getip.v6().then(ip => console.log(ip));

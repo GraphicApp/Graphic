@@ -18,6 +18,11 @@ if (settings.config.modules.cpu.status) {
   }, settings.config.modules.cpu.interval);
 }
 
+exports.getCpuData = (req, res) => {
+  // get from database
+}
+
+
 
 if (settings.config.modules.processes.status) {
   setInterval(() => {
@@ -45,9 +50,6 @@ exports.getProcessLoad = (req, res) => {
       });
 }
 
-exports.getCpuData = (req, res) => {
-  // get from database
-}
 
 exports.getProcesses = (req, res) => {
   // get from database
