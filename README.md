@@ -20,7 +20,7 @@ Everything you'd want to see about your Mac or Linux machine. With the ability t
 - [Sid](https://github.com/matthewsidneyjacobs)
 - [Brett](https://github.com/brettinternet)
 - [Jason](https://github.com/JasonMarkWomack)
-- [Breydan](https://github.com/Kymbolde)
+- [Brayden](https://github.com/Kymbolde)
 
 ## Credits
 [systeminformation](https://github.com/sebhildebrandt/systeminformation)
