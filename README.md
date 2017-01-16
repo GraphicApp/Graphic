@@ -3,7 +3,7 @@ Inspired by [Grafana](http://play.grafana.org/), we have set out to improve visu
 
 Many advanced CPU dashboards either require advanced software knowledge to implement Grafana with Collectd and a database, or the InfluxData software stack, or they're too simple and only display simple realtime data. We wanted to view our over time and watch progression with various CPU, memory and network metrics which especially interest us as developers. Graphic solves this need producing a full stack desktop app.
 
-### Project Status
+### Development Status
 This project is currently incomplete.
 [Project ruberic](https://docs.google.com/spreadsheets/d/1NnR_H7F6Ocec5QttvUbtUrtSZAw1vbfDjFquP_HYTl8/edit#gid=1688051739)
 
@@ -16,13 +16,13 @@ Everything you'd want to see about your Mac or Linux machine. With the ability t
 ## To Do
 
 
-## Created By
+## Developed By
 - [Sid](https://github.com/matthewsidneyjacobs)
 - [Brett](https://github.com/brettinternet)
 - [Jason](https://github.com/JasonMarkWomack)
 - [Breydan](https://github.com/Kymbolde)
 
 ## Credits
+[systeminformation](https://github.com/sebhildebrandt/systeminformation)
 [Node-SMC](https://github.com/mmarcon/node-smc)
 [Public IP](https://github.com/sindresorhus/public-ip)
-[systeminformation](https://github.com/sebhildebrandt/systeminformation)

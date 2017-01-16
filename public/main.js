@@ -1,6 +1,9 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
-const url = require('url');
+const { app, BrowserWindow } = require('electron'),
+      path = require('path'),
+      url = require('url'),
+      settings = require('../server/services/settings');
+
+const server = require('../server/index');
 
 disableHA = () => {
   return app.disableHardwareAcceleration();
@@ -160,7 +163,7 @@ function createWindow () {
         }
       }]
     }];
-    
+
   } else {
     template = [{
       label: '&File',

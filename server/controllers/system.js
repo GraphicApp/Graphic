@@ -1,5 +1,4 @@
 const os = require('os'),
-      process = require('process'),
       si = require('systeminformation'),
       winston = require('../services/winston'),
       settings = require('../services/settings');

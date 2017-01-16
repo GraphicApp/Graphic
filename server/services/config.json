@@ -2,40 +2,40 @@
     "logLevel": "warn",
     "modules": {
         "cpu": {
-            "status": true,
-            "interval": 1000
-        },
-        "processes": {
             "status": false,
             "interval": 2000
         },
+        "processes": {
+            "status": false,
+            "interval": 10000
+        },
         "memory": {
-            "status": true,
-            "interval": 1000
+            "status": false,
+            "interval": 2000
         },
         "temperature": {
-            "status": true,
-            "interval": 1000
+            "status": false,
+            "interval": 2000
         },
         "fan": {
-            "status": true,
-            "interval": 1000
+            "status": false,
+            "interval": 2000
         },
         "battery": {
-            "status": true,
-            "interval": 1000
+            "status": false,
+            "interval": 2000
         },
         "disk": {
-            "status": true,
-            "interval": 1000
+            "status": false,
+            "interval": 2000
         },
         "diskSpace": {
-            "status": true,
+            "status": false,
             "interval": 3600000
         },
         "network": {
             "status": true,
-            "interval": 1000,
+            "interval": 2000,
             "iface": "",
             "ping": ""
         },

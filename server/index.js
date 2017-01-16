@@ -12,6 +12,11 @@ const api = require('./controllers/api');
 
 
 let port = 3000;
-app.listen(port, () => {
-  console.log('listening on ' + port);
-});
+require('http').createServer((req, res) => {
+  winston.log.info('Starting node server on', port);
+  res.end('Node server initiated by Electron');
+}).listen(port);
+
+// app.listen(port, () => {
+//   console.log('listening on ' + port);
+// });

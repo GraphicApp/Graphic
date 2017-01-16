@@ -1,2 +1,3 @@
 server/config.js
 node_modules/
+server/services/config.json
