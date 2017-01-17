@@ -1,24 +1,77 @@
 const si = require('systeminformation'),
       settings = require('../services/settings'),
-      winston = require('../services/winston');
+      winston = require('../services/winston'),
+      app = require('../index'),
+      db = app.get('db');
+
+
 
 if (settings.config.modules.disk.status) {
+  let module = 'disk';
   setInterval(() => {
     si.fsStats()
-        .then(data => console.log(data))
+        .then(data => {
+          for (let prop in data) {
+            if (data.hasOwnProperty(prop) && data[prop] > -1) {
+              if (settings.config.db.postgres.status) {
+                let values = {
+                  name: module +'.'+ prop,
+                  value: data[prop]
+                }
+                db.sysinput.insert(values, (err, article) => {
+                  if (err) winston.log.error(err);
+                });
+              }
+              // other DB
+            }
+          }
+        })
         .catch(error => winston.log.error(error));
     si.disksIO()
-        .then(data => console.log('DISKIO -', data))
+        .then(data => {
+          for (let prop in data) {
+            if (data.hasOwnProperty(prop) && data[prop] > -1) {
+              if (settings.config.db.postgres.status) {
+                let values = {
+                  name: module +'.'+ prop,
+                  value: data[prop]
+                }
+                db.sysinput.insert(values, (err, article) => {
+                  if (err) winston.log.error(err);
+                });
+              }
+              // other DB
+            }
+          }
+        })
         .catch(error => winston.log.error(error));
   }, settings.config.modules.disk.interval)
 }
 
-if (settings.config.modules.diskSpace.status) {
+if (settings.config.modules.diskfs.status) {
+  let module = 'diskfs'
   setInterval(() => {
     si.fsSize()
-        .then(data => console.log('FILESYSTEM -', data))
+        .then(data => {
+          data.forEach(el => {
+            for (let prop in el) {
+              if (el.hasOwnProperty(prop) && prop !== 'fs' && prop !== 'type' && prop !== 'mount') {
+                if (settings.config.db.postgres.status) {
+                  let values = {
+                    name: module +'.'+ prop,
+                    value: el[prop]
+                  }
+                  db.sysinput.insert(values, (err, article) => {
+                    if (err) winston.log.error(err);
+                  });
+                }
+                // other DB
+              }
+            }
+          })
+        })
         .catch(error => winston.log.error(error));
-  }, settings.config.modules.diskSpace.interval);
+  }, settings.config.modules.diskfs.interval);
 }
 
 

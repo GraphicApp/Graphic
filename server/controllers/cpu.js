@@ -1,19 +1,83 @@
 const si = require('systeminformation'),
       winston = require('../services/winston'),
-      settings = require('../services/settings');
+      settings = require('../services/settings'),
+      app = require('../index'),
+      db = app.get('db');
 
 if (settings.config.modules.cpu.status) {
+  let module = 'cpu';
   setInterval(() => {
     si.cpuCurrentspeed()
-        .then(data => console.log('CPU speeds', data))
+        .then(data => {
+          for (let prop in data) {
+            if (data.hasOwnProperty(prop)) {
+              if (settings.config.db.postgres.status) {
+                if (typeof(data[prop]) === 'boolean') {
+                  data[prop] = data[prop] ? 1 : 0;
+                }
+                let values = {
+                  name: module +'.'+ prop,
+                  value: data[prop]
+                }
+                db.sysinput.insert(values, (err, article) => {
+                  if (err) winston.log.error(err);
+                });
+              }
+              // other DB
+            }
+          }
+        })
         .catch(error => winston.log.error(error));
 
     si.currentLoad()
-        .then(data => console.log('LOAD (CURRENT) -', data))
+        .then(data => {
+          for (let prop in data) {
+            if (data.hasOwnProperty(prop) && !data[prop] instanceof Array) {
+              if (settings.config.db.postgres.status) {
+                if (typeof(data[prop]) === 'boolean') {
+                  data[prop] = data[prop] ? 1 : 0;
+                }
+                let values = {
+                  name: module +'.'+ prop,
+                  value: data[prop]
+                }
+                db.sysinput.insert(values, (err, article) => {
+                  if (err) winston.log.error(err);
+                });
+              }
+            } else if (data.hasOwnProperty(prop) && data[prop] instanceof Array) {
+              data[prop].forEach((el, i) => {
+                for (let key in el) {
+                  if (el.hasOwnProperty(key)) {
+                    let values = {
+                      name: module +'.'+ i + '.' + key,
+                      value: el[key]
+                    }
+                    db.sysinput.insert(values, (err, article) => {
+                      if (err) winston.log.error(err);
+                    });
+                  }
+                }
+              });
+            }
+          }
+        })
         .catch(error => winston.log.error(error));
 
     si.fullLoad()
-        .then(data => console.log('LOAD (FULL) -', data))
+        .then(data => {
+          if (settings.config.db.postgres.status) {
+            let values = {
+              name: module +'.'+ 'fullLoad',
+              value: data
+            }
+            db.sysinput.insert(values, (err, article) => {
+              if (err) winston.log.error(err);
+            });
+          }
+          // other DB
+
+        })
         .catch(error => winston.log.error(error));
   }, settings.config.modules.cpu.interval);
 }

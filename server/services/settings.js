@@ -3,35 +3,26 @@ const fs = require('fs');
 // dev settings
 const defaultSettings = {
   logLevel: 'warn',
+  saveData: true,
   modules: {
+    system: {status: false},
     cpu: {status: false, interval: 2000},
-    processes: {status: false, interval: 10000},
+    processes: {status: false, interval: 10000}, // todo database
     memory: {status: false, interval: 2000},
     temperature: {status: false, interval: 2000},
     fan: {status: false, interval: 2000},
     battery: {status: false, interval: 2000},
     disk: {status: false, interval: 2000},
-    diskSpace: {status: false, interval: 3600*1000},
-    network: {status: true, interval: 2000, iface: '', ping: ''},
-    networkConnections: {status: false, interval: 3600*1000}
+    diskfs: {status: false, interval: 900*1000},
+    network: {status: false, interval: 2000, iface: '', ping: ''},
+    netConnections: {status: false, interval: 1800*1000}
   },
+  db: {
+    rethinkdb: {status: false, host: '', port: '', authKey: '', dbname: ''},
+    postgres: {status: true, host: 'localhost', port: 5432, user: 'postgres', pass: '', dbname: 'sysdata'},
+    pouchdb: {status: false}
+  }
 };
-
-// const defaultSettings = {
-//   logLevel: 'warn',
-//   modules: {
-//     cpu: {status: true, interval: 2000},
-//     processes: {status: false, interval: 10000},
-//     memory: {status: true, interval: 2000},
-//     temperature: {status: true, interval: 2000},
-//     fan: {status: true, interval: 2000},
-//     battery: {status: true, interval: 2000},
-//     disk: {status: true, interval: 2000},
-//     diskSpace: {status: true, interval: 3600*1000},
-//     network: {status: true, interval: 2000, iface: '', ping: ''},
-//     networkConnections: {status: false, interval: 3600*1000}
-//   },
-// };
 const configFile = './server/services/config.json';
 
 if (!fs.existsSync(configFile)) {
