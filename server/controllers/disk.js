@@ -2,15 +2,21 @@ const si = require('systeminformation'),
       settings = require('../services/settings'),
       winston = require('../services/winston'),
       app = require('../index'),
-      db = app.get('db');
-
-
+      db = app.get('db'),
+      pdb = require('../db/pouchdb');
 
 if (settings.config.modules.disk.status) {
   let module = 'disk';
   setInterval(() => {
     si.fsStats()
         .then(data => {
+          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            let obj = {};
+            obj.time = new Date().getTime();
+            obj.name = module;
+            obj.value = data;
+            pdb.store(obj);
+          }
           for (let prop in data) {
             if (data.hasOwnProperty(prop) && data[prop] > -1) {
               if (settings.config.db.postgres.status) {
@@ -29,6 +35,13 @@ if (settings.config.modules.disk.status) {
         .catch(error => winston.log.error(error));
     si.disksIO()
         .then(data => {
+          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            let obj = {};
+            obj.time = new Date().getTime();
+            obj.name = module;
+            obj.value = data;
+            pdb.store(obj);
+          }
           for (let prop in data) {
             if (data.hasOwnProperty(prop) && data[prop] > -1) {
               if (settings.config.db.postgres.status) {
@@ -53,6 +66,13 @@ if (settings.config.modules.diskfs.status) {
   setInterval(() => {
     si.fsSize()
         .then(data => {
+          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            let obj = {};
+            obj.time = new Date().getTime();
+            obj.name = module;
+            obj.value = data;
+            pdb.store(obj);
+          }
           data.forEach(el => {
             for (let prop in el) {
               if (el.hasOwnProperty(prop) && prop !== 'fs' && prop !== 'type' && prop !== 'mount') {

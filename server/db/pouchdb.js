@@ -5,81 +5,63 @@ const PouchDB = require('pouchdb'),
 
 if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
   let database = 'server/db/graphicdb';
-  if (settings.config.db.couchdb.status) {
-    let couch = settings.config.db.couchdb.status;
-    database = 'http://' +couch.host+ ':' + couch.port.toString() +'/'+ couch.dbname;
+  if (settings.config.db.couchdb.status && !settings.config.db.pouchdb.status) {
+    let couch = settings.config.db.couchdb;
+    database = (couch.ssl ? 'https://' : 'http://') +couch.host+ ':' + couch.port.toString() +'/'+ (couch.dbname ? couch.dbname : 'graphicdb');
   }
-  // https://github.com/pouchdb/express-pouchdb
-  // app.use('/pouchdb', require('express-pouchdb')(PouchDB));
+  winston.log.info('Connecting to', (settings.config.db.couchdb.status ? 'CouchDB':'PouchDB'), database);
+
+  app.use('/pouchdb', require('express-pouchdb')(PouchDB));
   const pdb = new PouchDB(database); // , {auto_compaction: true}
 
-  // pdb.get('system')
-  //   .then(() => {
-  //     winston.log.info('PouchDB loaded successfully.');
-  //     console.log('HURRAY~~');
-  //   })
-  //   .catch(e => {
-  //     winston.log.info('Could not find existing PouchDB...Creating new PouchDB from scratch.');
-  //
-  //     winston.log.info('New PouchDB docs created from scratch.');
-  //     console.log('New PouchDB docs created from scratch.');
-  //   });
-
-  // console.log('TEST INSERT');
-  // let data = {"Test": "testing"};
-  // pdb.get('battery')
-  //   .then(doc => doc.data.push(data))
-  //   .catch(e => winston.log.error(e));
-
-
-  // exports.pdb = pdb.info();
-  // app.set('pdb');
-  // const pdb = app.get('pdb');
-  // let system = require('../controllers/system'),
-  //       cpu = require('../controllers/cpu'),
-  //       memory = require('../controllers/memory'),
-  //       temperature = require('../controllers/temperature'),
-  //       disk = require('../controllers/disk'),
-  //       network = require('../controllers/network');
-
-
-  let data = {
-    "_id": new Date(),
-    "name": "temperature.F0N1",
-    "value": {"test2 key": "test object value"}
+  exports.store = (obj) => {
+    pdb.post(obj)
+      .then(doc => {
+        // console.log(doc);
+        // send to sockets?
+      })
+      .catch(err => {
+        winston.log.error('Could not store metric for', obj.name+'...', err);
+      })
   }
 
-  pdb.put(data)
-  .then(doc => {
-    console.log(doc);
-  })
-  // .then(doc => {
-  //   console.log(doc);
-  // })
-  .catch(e => {
-    console.error(e);
-  });
-
-  pdb.allDocs()
-  .then(docs => {
-    console.log(docs);
-  })
-  .catch(e => {
-    console.error(e);
-  });
-  // pdb.get('network')
-  //   .then(doc => {
-  //     doc.data.push(newValue);
-  //     return pdb.put(doc);
-  //   })
-  //   .then(function () {
-  //     return pdb.get('network');
-  //   })
-  //   .then(function (doc) {
-  //     console.log(doc);
-  //   })
-  //   .catch(err => console.log(err));
+  exports.destroyPouchDb = (req, res) => {
+    pdb.destroy()
+      .then(() => {
+        res.status(200).send();
+        winston.log.warn('PouchDB has been deleted by the user.')
+      })
+      .catch(err => {
+        winston.log.err('Could not delete PouchDB database...', err);
+        res.status(504).send(err);
+      });
+  }
 }
+
+// https://github.com/pouchdb/express-pouchdb
+
+// pdb.allDocs({
+//   // limit: ,
+//   endkey: new Date().getTime() + 10
+// })
+// .then(docs => {
+//   console.log('ALL DOCS QUERY HERE');
+//   console.log(docs);
+//
+// })
+// .catch(e => {
+//   console.error(e);
+// });
+//
+// let when = new Date().getTime() + 600;
+// function getPostsSince(when) {
+//   console.log('QUERY');
+//   pdb.query('by_time', {endkey: when, descending: true})
+//   .then(docs => console.log(docs))
+//   .catch(e => console.error(e));
+// }
+// getPostsSince(when);
+
 
 // pdb.bulkDocs = {
 //   "_id": "system",

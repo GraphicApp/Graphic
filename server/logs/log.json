@@ -38,3 +38,13 @@
 	{"message":"missing","status":404,"name":"not_found","error":true,"reason":"missing"}
 9:02:07 PM ERROR 
 	{"message":"missing","status":404,"name":"not_found","error":true,"reason":"missing"}
+10:03:09 PM ERROR 
+	{"message":"obj is not defined","stack":"ReferenceError: obj is not defined\n    at si.battery.then.data (/Users/Elk/Dropbox/Code/devmtn/projects/Graphic/server/controllers/system.js:31:19)"}
+10:03:11 PM ERROR 
+	{"message":"obj is not defined","stack":"ReferenceError: obj is not defined\n    at si.battery.then.data (/Users/Elk/Dropbox/Code/devmtn/projects/Graphic/server/controllers/system.js:31:19)"}
+10:34:56 PM ERROR 
+	{"message":"unix_timestamp is not defined","stack":"ReferenceError: unix_timestamp is not defined\n    at si.battery.then.data (/Users/Elk/Dropbox/Code/devmtn/projects/Graphic/server/controllers/system.js:32:39)\n    at process._tickCallback (internal/process/next_tick.js:103:7)"}
+10:34:58 PM ERROR 
+	{"message":"unix_timestamp is not defined","stack":"ReferenceError: unix_timestamp is not defined\n    at si.battery.then.data (/Users/Elk/Dropbox/Code/devmtn/projects/Graphic/server/controllers/system.js:32:39)\n    at process._tickCallback (internal/process/next_tick.js:103:7)"}
+10:36:10 PM ERROR 
+	{"message":"unix_timestamp is not defined","stack":"ReferenceError: unix_timestamp is not defined\n    at si.battery.then.data (/Users/Elk/Dropbox/Code/devmtn/projects/Graphic/server/controllers/system.js:32:39)"}

@@ -2,13 +2,21 @@ const si = require('systeminformation'),
       settings = require('../services/settings'),
       winston = require('../services/winston'),
       app = require('../index'),
-      db = app.get('db');
+      db = app.get('db'),
+      pdb = require('../db/pouchdb');
 
 if (settings.config.modules.memory.status) {
   let module = 'memory';
   setInterval(() => {
     si.mem()
         .then(data => {
+          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            let obj = {};
+            obj.time = new Date().getTime();
+            obj.name = module;
+            obj.value = data;
+            pdb.store(obj);
+          }
           for (let prop in data) {
             if (data.hasOwnProperty(prop)) {
               if (settings.config.db.postgres.status) {

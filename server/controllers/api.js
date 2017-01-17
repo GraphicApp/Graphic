@@ -6,7 +6,8 @@ const system = require('./system'),
       memory = require('./memory'),
       temperature = require('./temperature'),
       disk = require('./disk'),
-      network = require('./network');
+      network = require('./network'),
+      pdb = require('../db/pouchdb');
 
 app.get('/api/system/info', system.getSystemInfo);
 
@@ -30,3 +31,5 @@ app.get('/api/checkurl/:url', network.getCheckUrl);
 
 app.get('/api/settings', settings.getSettings);
 app.post('/api/settings', settings.postSettings);
+
+app.delete('/api/db/pouchdb', pdb.destroyPouchDb);

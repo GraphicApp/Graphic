@@ -12,6 +12,13 @@ if (settings.config.modules.battery.status) {
     si.battery()
         .then(data => {
           if (data.hasbattery) {
+            if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+              let obj = {};
+              obj.time = new Date().getTime();
+              obj.name = module;
+              obj.value = data;
+              pdb.store(obj);
+            }
             for (let prop in data) {
               if (data.hasOwnProperty(prop) && prop !== 'hasbattery') {
                 if (settings.config.db.postgres.status) {
@@ -27,11 +34,6 @@ if (settings.config.modules.battery.status) {
                     winston.log.info('New data stored in', module)
                   });
                 }
-                // if (settings.config.db.pouchdb.status) {
-                //   pdb.get('battery')
-                //     .then(doc => doc.data.push(data))
-                //     .catch(e => winston.log.error(e));
-                // }
               }
             }
           }

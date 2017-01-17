@@ -2,13 +2,21 @@ const si = require('systeminformation'),
       winston = require('../services/winston'),
       settings = require('../services/settings'),
       app = require('../index'),
-      db = app.get('db');
+      db = app.get('db'),
+      pdb = require('../db/pouchdb');
 
 if (settings.config.modules.cpu.status) {
   let module = 'cpu';
   setInterval(() => {
     si.cpuCurrentspeed()
         .then(data => {
+          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            let obj = {};
+            obj.time = new Date().getTime();
+            obj.name = module;
+            obj.value = data;
+            pdb.store(obj);
+          }
           for (let prop in data) {
             if (data.hasOwnProperty(prop)) {
               if (settings.config.db.postgres.status) {
@@ -31,6 +39,13 @@ if (settings.config.modules.cpu.status) {
 
     si.currentLoad()
         .then(data => {
+          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            let obj = {};
+            obj.time = new Date().getTime();
+            obj.name = module;
+            obj.value = data;
+            pdb.store(obj);
+          }
           for (let prop in data) {
             if (data.hasOwnProperty(prop) && !data[prop] instanceof Array) {
               if (settings.config.db.postgres.status) {
@@ -66,6 +81,13 @@ if (settings.config.modules.cpu.status) {
 
     si.fullLoad()
         .then(data => {
+          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            let obj = {};
+            obj.time = new Date().getTime();
+            obj.name = module;
+            obj.value = data;
+            pdb.store(obj);
+          }
           if (settings.config.db.postgres.status) {
             let values = {
               name: module +'.'+ 'fullLoad',
@@ -91,7 +113,15 @@ exports.getCpuData = (req, res) => {
 if (settings.config.modules.processes.status) {
   setInterval(() => {
     si.processes()
-        .then(data => console.log('PROCESSES -', data))
+        .then(data => {
+          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            let obj = {};
+            obj.time = new Date().getTime();
+            obj.name = module;
+            obj.value = data;
+            pdb.store(obj);
+          }
+        })
         .catch(error => winston.log.error(error));
   }, settings.config.modules.processes.interval);
 }

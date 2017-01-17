@@ -4,14 +4,21 @@ const si = require('systeminformation'),
       winston = require('../services/winston'),
       getip = require('../services/getip'),
       app = require('../index'),
-      db = app.get('db');
-
+      db = app.get('db'),
+      pdb = require('../db/pouchdb');
 
 if (settings.config.modules.network.status) {
   let module = 'network';
   setInterval(() => {
     si.networkStats(settings.config.modules.network.iface)
         .then(data => {
+          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            let obj = {};
+            obj.time = new Date().getTime();
+            obj.name = module;
+            obj.value = data;
+            pdb.store(obj);
+          }
           for (let prop in data) {
             if (data.hasOwnProperty(prop) && data[prop] > -1 && prop !== 'iface' && prop !== 'operstate') {
               if (settings.config.db.postgres.status) {
@@ -30,6 +37,13 @@ if (settings.config.modules.network.status) {
         .catch(error => winston.log.error(error));
     si.inetLatency(settings.config.modules.network.ping)
         .then(data => {
+          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            let obj = {};
+            obj.time = new Date().getTime();
+            obj.name = module;
+            obj.value = data;
+            pdb.store(obj);
+          }
           if (settings.config.db.postgres.status) {
             let values = {
               name: module +'.latency',
