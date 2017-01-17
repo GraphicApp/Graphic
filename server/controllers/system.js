@@ -3,7 +3,8 @@ const os = require('os'),
       winston = require('../services/winston'),
       settings = require('../services/settings'),
       app = require('../index'),
-      db = app.get('db');
+      db = app.get('db'),
+      pdb = require('../db/pouchdb');
 
 if (settings.config.modules.battery.status) {
   let module = 'battery';
@@ -23,9 +24,14 @@ if (settings.config.modules.battery.status) {
                   }
                   db.sysinput.insert(values, (err, article) => {
                     if (err) winston.log.error(err);
+                    winston.log.info('New data stored in', module)
                   });
                 }
-                // other DB
+                // if (settings.config.db.pouchdb.status) {
+                //   pdb.get('battery')
+                //     .then(doc => doc.data.push(data))
+                //     .catch(e => winston.log.error(e));
+                // }
               }
             }
           }

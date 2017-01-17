@@ -11,7 +11,7 @@ const defaultSettings = {
     memory: {status: false, interval: 2000},
     temperature: {status: false, interval: 2000},
     fan: {status: false, interval: 2000},
-    battery: {status: false, interval: 2000},
+    battery: {status: true, interval: 2000},
     disk: {status: false, interval: 2000},
     diskfs: {status: false, interval: 900*1000},
     network: {status: false, interval: 2000, iface: '', ping: ''},
@@ -19,8 +19,9 @@ const defaultSettings = {
   },
   db: {
     rethinkdb: {status: false, host: '', port: '', authKey: '', dbname: ''},
-    postgres: {status: true, host: 'localhost', port: 5432, user: 'postgres', pass: '', dbname: 'sysdata'},
-    pouchdb: {status: false}
+    postgres: {status: false, host: 'localhost', port: 5432, user: 'postgres', pass: '', dbname: 'sysdata'},
+    pouchdb: {status: true},
+    couchdb: {status: false, host: 'localhost', port: 5984, dbname: ''}
   }
 };
 const configFile = './server/services/config.json';

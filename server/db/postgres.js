@@ -24,7 +24,7 @@ if (settings.config.db.postgres.status) {
     connectionString: connectionString
   });
 
-  createTable.run("CREATE TABLE IF NOT EXISTS sysinput(id SERIAL PRIMARY KEY not null, name VARCHAR(100) not null, value DECIMAL, time TIMESTAMP DEFAULT NOW())", (err, res) => {
+  createTable.run("CREATE TABLE IF NOT EXISTS graphicdb(id SERIAL PRIMARY KEY not null, name VARCHAR(100) not null, value DECIMAL, time TIMESTAMP DEFAULT NOW())", (err, res) => {
     if (err) winston.log.error('Could not create/load Postgres table.', err);
     winston.log.info('Postgres table "sysinput" setup complete.');
   });
