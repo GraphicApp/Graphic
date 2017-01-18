@@ -1,32 +1,40 @@
-const app = require('../index'),
+const app = require('../index');
+
+const getSystem = require('../endpoints/getSystem'),
+      getCpu = require('../endpoints/getCpu'),
+      getMemory = require('../endpoints/getMemory'),
+      getTemperature = require('../endpoints/getTemperature'),
+      getDisk = require('../endpoints/getDisk'),
+      getNetwork = require('../endpoints/getNetwork'),
+      deletePouchDb = require('../endpoints/deletePouchDb'),
       settings = require('../services/settings');
 
-const system = require('./system'),
-      cpu = require('./cpu'),
-      memory = require('./memory'),
-      temperature = require('./temperature'),
-      disk = require('./disk'),
-      network = require('./network');
+      // getSettings = require('../endpoints/getSettings'),
+      // putSettings = require('../endpoints/getSettings'),
 
-app.get('/api/system/info', system.getSystemInfo);
+app.get('/api/system/info', getSystem.getSystemInfo);
+app.get('/api/battery/data/:time', getSystem.getBatteryData);
 
-app.get('/api/cpu/data', cpu.getCpuData);
+app.get('/api/cpu/data/:time', getCpu.getCpuData);
+app.get('/api/services/:service', getCpu.getServices);
+app.get('/api/process/data/:time', getCpu.getProcesses);
+app.get('/api/process/:process', getCpu.getProcessLoad);
 
-app.get('/api/services/:service', cpu.getServices);
-app.get('/api/process/data', cpu.getProcesses);
-app.get('/api/process/:process', cpu.getProcessLoad);
+app.get('/api/memory/data/:time', getMemory.getMemoryData);
 
-app.get('/api/memory/data', memory.getMemoryData);
+app.get('/api/temperature/data/:time', getTemperature.getTemperatureData);
+app.get('/api/fan/data/:time', getTemperature.getFanData);
 
-app.get('/api/temperature/data', temperature.getTemperatureData);
+app.get('/api/disk/data/:time', getDisk.getDiskData);
+app.get('/api/diskfs/data/:time', getDisk.getDiskfsData);
 
-app.get('/api/disk/data', disk.getDiskData);
-app.get('/api/disk/dataspace', disk.getDiskSpaceData);
-
-app.get('/api/network/data', network.getNetworkData);
-app.get('/api/ip', network.getPublicIp);
-app.get('/api/checkurl/:url', network.getCheckUrl);
+app.get('/api/network/data/:time', getNetwork.getNetworkData);
+app.get('/api/netConnections/data/:time', getNetwork.getNetConnections);
+app.get('/api/ip', getNetwork.getPublicIp);
+app.get('/api/checkurl/:url', getNetwork.getCheckUrl);
 
 
 app.get('/api/settings', settings.getSettings);
-app.post('/api/settings', settings.postSettings);
+app.put('/api/settings', settings.putSettings);
+
+app.delete('/api/db/pouchdb', deletePouchDb.destroyPouchDb);

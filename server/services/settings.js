@@ -1,37 +1,29 @@
 const fs = require('fs');
 
-// dev settings
 const defaultSettings = {
   logLevel: 'warn',
+  saveData: true,
+  port: 3000,
   modules: {
-    cpu: {status: false, interval: 2000},
-    processes: {status: false, interval: 10000},
-    memory: {status: false, interval: 2000},
-    temperature: {status: false, interval: 2000},
-    fan: {status: false, interval: 2000},
-    battery: {status: false, interval: 2000},
-    disk: {status: false, interval: 2000},
-    diskSpace: {status: false, interval: 3600*1000},
-    network: {status: true, interval: 2000, iface: '', ping: ''},
-    networkConnections: {status: false, interval: 3600*1000}
+    system: {status: false},
+    cpu: {status: true, interval: 5000},
+    processes: {status: false, interval: 30000}, // TODO: database
+    memory: {status: true, interval: 5000},
+    temperature: {status: true, interval: 5000},
+    fan: {status: true, interval: 5000},
+    battery: {status: true, interval: 5000},
+    disk: {status: true, interval: 5000},
+    diskfs: {status: false, interval: 900*1000},
+    network: {status: true, interval: 5000, iface: '', ping: ''},
+    netConnections: {status: false, interval: 1800*1000}
   },
+  db: {
+    rethinkdb: {status: false, host: '', port: '', authKey: '', dbname: ''},
+    postgres: {status: false, host: 'localhost', port: 5432, user: 'postgres', pass: '', dbname: 'graphicdb'},
+    pouchdb: {status: true},
+    couchdb: {status: false, host: 'localhost', port: 5984, dbname: '', ssl: false}
+  }
 };
-
-// const defaultSettings = {
-//   logLevel: 'warn',
-//   modules: {
-//     cpu: {status: true, interval: 2000},
-//     processes: {status: false, interval: 10000},
-//     memory: {status: true, interval: 2000},
-//     temperature: {status: true, interval: 2000},
-//     fan: {status: true, interval: 2000},
-//     battery: {status: true, interval: 2000},
-//     disk: {status: true, interval: 2000},
-//     diskSpace: {status: true, interval: 3600*1000},
-//     network: {status: true, interval: 2000, iface: '', ping: ''},
-//     networkConnections: {status: false, interval: 3600*1000}
-//   },
-// };
 const configFile = './server/services/config.json';
 
 if (!fs.existsSync(configFile)) {
@@ -48,7 +40,7 @@ if (!fs.existsSync(configFile)) {
   }
 }
 
-exports.postSettings = (req, res) => {
+exports.putSettings = (req, res) => {
   var appSettings = req.body.settings;
   let saveConfig = JSON.stringify(appSettings, null, 4);
   try {

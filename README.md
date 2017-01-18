@@ -14,7 +14,8 @@ Everything you'd want to see about your Mac or Linux machine. With the ability t
 `NPM install` the dependencies. Then, `NPM start` to start the Electron app.
 
 ## To Do
-
+- D3 graphc implementation
+- Frontend in React
 
 ## Developed By
 - [Sid](https://github.com/matthewsidneyjacobs)
@@ -23,6 +24,6 @@ Everything you'd want to see about your Mac or Linux machine. With the ability t
 - [Brayden](https://github.com/Kymbolde)
 
 ## Credits
-[systeminformation](https://github.com/sebhildebrandt/systeminformation)
-[Node-SMC](https://github.com/mmarcon/node-smc)
-[Public IP](https://github.com/sindresorhus/public-ip)
+- [systeminformation](https://github.com/sebhildebrandt/systeminformation)
+- [Node-SMC](https://github.com/mmarcon/node-smc)
+- [Public IP](https://github.com/sindresorhus/public-ip)

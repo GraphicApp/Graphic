@@ -1,6 +1,6 @@
 {
   "name": "graphic",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "server/index.js",
   "scripts": {
@@ -23,7 +23,11 @@
     "dns-socket": "^1.4.2",
     "electron": "^1.4.14",
     "express": "^4.14.0",
+    "express-pouchdb": "^2.1.4",
+    "lovefield": "^2.1.11",
+    "massive": "^2.5.0",
     "pify": "^2.3.0",
+    "pouchdb": "^6.1.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
