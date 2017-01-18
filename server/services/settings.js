@@ -1,21 +1,20 @@
 const fs = require('fs');
 
-// dev settings
 const defaultSettings = {
   logLevel: 'warn',
   saveData: true,
   port: 3000,
   modules: {
     system: {status: false},
-    cpu: {status: true, interval: 2000},
-    processes: {status: false, interval: 10000}, // todo database
-    memory: {status: true, interval: 2000},
-    temperature: {status: true, interval: 2000},
-    fan: {status: true, interval: 2000},
-    battery: {status: true, interval: 2000},
-    disk: {status: true, interval: 2000},
+    cpu: {status: true, interval: 5000},
+    processes: {status: false, interval: 30000}, // TODO: database
+    memory: {status: true, interval: 5000},
+    temperature: {status: true, interval: 5000},
+    fan: {status: true, interval: 5000},
+    battery: {status: true, interval: 5000},
+    disk: {status: true, interval: 5000},
     diskfs: {status: false, interval: 900*1000},
-    network: {status: true, interval: 2000, iface: '', ping: ''},
+    network: {status: true, interval: 5000, iface: '', ping: ''},
     netConnections: {status: false, interval: 1800*1000}
   },
   db: {

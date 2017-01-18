@@ -3,8 +3,6 @@ const { app, BrowserWindow } = require('electron'),
       url = require('url'),
       settings = require('../server/services/settings');
 
-const server = require('../server/index');
-
 disableHA = () => {
   return app.disableHardwareAcceleration();
 }

@@ -10,6 +10,7 @@ if (settings.config.modules.cpu.status) {
   setInterval(() => {
     si.cpuCurrentspeed()
         .then(data => {
+          console.log('yup');
           if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
             let obj = {};
             obj.time = new Date().getTime();

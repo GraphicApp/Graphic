@@ -1,4 +1,0 @@
-[Wed, 18 Jan 2017 07:03:00 GMT] [info] [<0.000.0>] ::ffff:127.0.0.1 - - GET /graphicdb/_design/battery/_view/today 200
-[Wed, 18 Jan 2017 07:04:41 GMT] [info] [<0.000.0>] ::ffff:127.0.0.1 - - GET /graphicdb/_design/battery/_view/today 200
-[Wed, 18 Jan 2017 07:06:50 GMT] [info] [<0.000.0>] ::ffff:127.0.0.1 - - GET /graphicdb/_design/cpu/_view/thisMonth 200
-[Wed, 18 Jan 2017 07:07:03 GMT] [info] [<0.000.0>] ::ffff:127.0.0.1 - - GET /graphicdb/_design/cpu/_view/today 200
