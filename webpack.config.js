@@ -21,7 +21,7 @@ module.exports = {
 		extensions: ['', '.js', '.jsx']
 	}
 	, output: {
-		path: __dirname + 'public/dist'
+		path: __dirname + '/dist'
 		, publicPath: '/public'
 		, filename: 'bundle.js'
 	}
@@ -30,6 +30,12 @@ module.exports = {
 		, historyApiFallback: true
 		, stats: {
 			colors: true
+		},
+		proxy: {
+			'/api': {
+				target: 'http://localhost:3000',
+				secure: false
+			}
 		}
 	}
 };

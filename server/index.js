@@ -3,19 +3,21 @@ const express = require('express'),
       cors = require('cors'),
       winston = require('./services/winston'),
       request = require('request'),
-      http = require('http');
+      http = require('http'),
+      settings = require('./services/settings');
 
 const app = module.exports = express();
 // app.use(express.static('public'));
 app.use(cors());
 app.use(bodyParser.json());
 
+winston.log.error('TESTING this is the message yo');
 
-const postgres = require('./db/postgres');
 // const lovefield = require('./db/lovefield');
-const pouchdb = require('./db/pouchdb');
 // const rethinkdb = require('./db/rethinkdb');
-const api = require('./controllers/api');
+const pouchdb = require('./db/pouchdb'),
+      postgres = require('./db/postgres'),
+      api = require('./controllers/api');
 
 let port = 3000;
 http.createServer(app).listen(port, () => {

@@ -17,9 +17,9 @@ if (settings.config.modules.cpu.status) {
             obj.value = data;
             pdb.store(obj);
           }
-          for (let prop in data) {
-            if (data.hasOwnProperty(prop)) {
-              if (settings.config.db.postgres.status) {
+          if (settings.config.db.postgres.status) {
+            for (let prop in data) {
+              if (data.hasOwnProperty(prop)) {
                 if (typeof(data[prop]) === 'boolean') {
                   data[prop] = data[prop] ? 1 : 0;
                 }
@@ -27,11 +27,10 @@ if (settings.config.modules.cpu.status) {
                   name: module +'.'+ prop,
                   value: data[prop]
                 }
-                db.sysinput.insert(values, (err, article) => {
+                db.graphicdb.insert(values, (err, article) => {
                   if (err) winston.log.error(err);
                 });
               }
-              // other DB
             }
           }
         })
@@ -46,9 +45,9 @@ if (settings.config.modules.cpu.status) {
             obj.value = data;
             pdb.store(obj);
           }
-          for (let prop in data) {
-            if (data.hasOwnProperty(prop) && !data[prop] instanceof Array) {
-              if (settings.config.db.postgres.status) {
+          if (settings.config.db.postgres.status) {
+            for (let prop in data) {
+              if (data.hasOwnProperty(prop) && !data[prop] instanceof Array) {
                 if (typeof(data[prop]) === 'boolean') {
                   data[prop] = data[prop] ? 1 : 0;
                 }
@@ -56,24 +55,24 @@ if (settings.config.modules.cpu.status) {
                   name: module +'.'+ prop,
                   value: data[prop]
                 }
-                db.sysinput.insert(values, (err, article) => {
+                db.graphicdb.insert(values, (err, article) => {
                   if (err) winston.log.error(err);
                 });
-              }
-            } else if (data.hasOwnProperty(prop) && data[prop] instanceof Array) {
-              data[prop].forEach((el, i) => {
-                for (let key in el) {
-                  if (el.hasOwnProperty(key)) {
-                    let values = {
-                      name: module +'.'+ i + '.' + key,
-                      value: el[key]
+              } else if (data.hasOwnProperty(prop) && data[prop] instanceof Array) {
+                data[prop].forEach((el, i) => {
+                  for (let key in el) {
+                    if (el.hasOwnProperty(key)) {
+                      let values = {
+                        name: module +'.'+ i + '.' + key,
+                        value: el[key]
+                      }
+                      db.graphicdb.insert(values, (err, article) => {
+                        if (err) winston.log.error(err);
+                      });
                     }
-                    db.sysinput.insert(values, (err, article) => {
-                      if (err) winston.log.error(err);
-                    });
                   }
-                }
-              });
+                });
+              }
             }
           }
         })
@@ -93,7 +92,7 @@ if (settings.config.modules.cpu.status) {
               name: module +'.'+ 'fullLoad',
               value: data
             }
-            db.sysinput.insert(values, (err, article) => {
+            db.graphicdb.insert(values, (err, article) => {
               if (err) winston.log.error(err);
             });
           }
@@ -103,11 +102,6 @@ if (settings.config.modules.cpu.status) {
         .catch(error => winston.log.error(error));
   }, settings.config.modules.cpu.interval);
 }
-
-exports.getCpuData = (req, res) => {
-  // get from database
-}
-
 
 
 if (settings.config.modules.processes.status) {
@@ -126,25 +120,5 @@ if (settings.config.modules.processes.status) {
   }, settings.config.modules.processes.interval);
 }
 
-exports.getServices = (req, res) => {
-  si.processLoad(req.params.service)
-      .then(data => res.status(200).send(data))
-      .catch(error => {
-        winston.log.error(error);
-        res.status(504).send();
-      });
-}
-
-exports.getProcessLoad = (req, res) => {
-  si.processLoad(req.params.process)
-      .then(data => res.status(200).send(data))
-      .catch(error => {
-        winston.log.error(error);
-        res.status(504).send();
-      });
-}
-
-
-exports.getProcesses = (req, res) => {
-  // get from database
-}
+exports.getServices = si.services;
+exports.getProcessLoad = si.processLoad;

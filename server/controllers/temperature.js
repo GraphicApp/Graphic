@@ -30,7 +30,7 @@ if (settings.config.modules.temperature.status) {
                     name: module +'.'+ prop,
                     value: data[prop]
                   }
-                  db.sysinput.insert(values, (err, article) => {
+                  db.graphicdb.insert(values, (err, article) => {
                     if (err) winston.log.error(err);
                   });
                 }
@@ -65,7 +65,7 @@ if (settings.config.modules.temperature.status) {
               name: module +'.'+ smc.metrics[key],
               value: value
             }
-            db.sysinput.insert(values, (err, article) => {
+            db.graphicdb.insert(values, (err, article) => {
               if (err) winston.log.error(err);
             });
           }
@@ -74,7 +74,6 @@ if (settings.config.modules.temperature.status) {
     }
   }, settings.config.modules.temperature.interval);
 }
-
 
 if (settings.config.modules.fan.status && platform == 'Darwin') {
   let module = 'fan';
@@ -96,14 +95,10 @@ if (settings.config.modules.fan.status && platform == 'Darwin') {
           name: module + '.F'+i+'Ac',
           value: smc.fanRpm(i)
         }
-        db.sysinput.insert(values, (err, article) => {
+        db.graphicdb.insert(values, (err, article) => {
           if (err) winston.log.error(err);
         });
       }
     }
   }, settings.config.modules.fan.interval);
-}
-
-exports.getTemperatureData = (req, res) => {
-  // get from database
 }

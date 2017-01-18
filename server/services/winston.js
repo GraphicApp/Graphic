@@ -7,8 +7,8 @@ if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
 
 const tsFormat = () => (new Date()).toLocaleTimeString();
 function logFormat(options) {
-  return options.timestamp() +' '+ options.level.toUpperCase() +' '+ (options.message ? options.message : '') +
-  (options.meta && Object.keys(options.meta).length ? '\n\t'+ JSON.stringify(options.meta) : '' );
+  return '{'+ JSON.stringify('level') +':'+ JSON.stringify(options.level.toUpperCase()) + ',' + JSON.stringify('timestamp') +':'+ JSON.stringify(options.timestamp()) +','+ JSON.stringify('message') +':'+ JSON.stringify(options.message ? options.message : '') +
+  (options.meta && Object.keys(options.meta).length ? (JSON.stringify('details')+':'+JSON.stringify(options.meta)) : '' )+'},';
 }
 // http://stackoverflow.com/questions/16010915/parsing-huge-logfiles-in-node-js-read-in-line-by-line
 

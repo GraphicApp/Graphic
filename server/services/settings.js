@@ -4,24 +4,25 @@ const fs = require('fs');
 const defaultSettings = {
   logLevel: 'warn',
   saveData: true,
+  port: 3000,
   modules: {
     system: {status: false},
-    cpu: {status: false, interval: 2000},
+    cpu: {status: true, interval: 2000},
     processes: {status: false, interval: 10000}, // todo database
-    memory: {status: false, interval: 2000},
+    memory: {status: true, interval: 2000},
     temperature: {status: true, interval: 2000},
-    fan: {status: false, interval: 2000},
+    fan: {status: true, interval: 2000},
     battery: {status: true, interval: 2000},
-    disk: {status: false, interval: 2000},
+    disk: {status: true, interval: 2000},
     diskfs: {status: false, interval: 900*1000},
-    network: {status: false, interval: 2000, iface: '', ping: ''},
+    network: {status: true, interval: 2000, iface: '', ping: ''},
     netConnections: {status: false, interval: 1800*1000}
   },
   db: {
     rethinkdb: {status: false, host: '', port: '', authKey: '', dbname: ''},
-    postgres: {status: false, host: 'localhost', port: 5432, user: 'postgres', pass: '', dbname: 'sysdata'},
-    pouchdb: {status: false},
-    couchdb: {status: true, host: 'localhost', port: 5984, dbname: '', ssl: false}
+    postgres: {status: false, host: 'localhost', port: 5432, user: 'postgres', pass: '', dbname: 'graphicdb'},
+    pouchdb: {status: true},
+    couchdb: {status: false, host: 'localhost', port: 5984, dbname: '', ssl: false}
   }
 };
 const configFile = './server/services/config.json';
@@ -40,7 +41,7 @@ if (!fs.existsSync(configFile)) {
   }
 }
 
-exports.postSettings = (req, res) => {
+exports.putSettings = (req, res) => {
   var appSettings = req.body.settings;
   let saveConfig = JSON.stringify(appSettings, null, 4);
   try {

@@ -17,25 +17,20 @@ if (settings.config.modules.memory.status) {
             obj.value = data;
             pdb.store(obj);
           }
-          for (let prop in data) {
-            if (data.hasOwnProperty(prop)) {
-              if (settings.config.db.postgres.status) {
+          if (settings.config.db.postgres.status) {
+            for (let prop in data) {
+              if (data.hasOwnProperty(prop)) {
                 let values = {
                   name: module +'.'+ prop,
                   value: data[prop]
                 }
-                db.sysinput.insert(values, (err, article) => {
+                db.graphicdb.insert(values, (err, article) => {
                   if (err) winston.log.error(err);
                 });
               }
-              // other DB
             }
           }
         })
         .catch(error => winston.log.error(error));
   }, settings.config.modules.memory.interval)
-}
-
-exports.getMemoryData = (req, res) => {
-  // get from database
 }

@@ -2,5 +2,8 @@ server/config.js
 node_modules/
 server/services/config.json
 graphicdb/
+graphicdb*/
 _*/
 pouch*/
+config.json
+log.txt

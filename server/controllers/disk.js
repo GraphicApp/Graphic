@@ -17,14 +17,14 @@ if (settings.config.modules.disk.status) {
             obj.value = data;
             pdb.store(obj);
           }
-          for (let prop in data) {
-            if (data.hasOwnProperty(prop) && data[prop] > -1) {
-              if (settings.config.db.postgres.status) {
+          if (settings.config.db.postgres.status) {
+            for (let prop in data) {
+              if (data.hasOwnProperty(prop) && data[prop] > -1) {
                 let values = {
                   name: module +'.'+ prop,
                   value: data[prop]
                 }
-                db.sysinput.insert(values, (err, article) => {
+                db.graphicdb.insert(values, (err, article) => {
                   if (err) winston.log.error(err);
                 });
               }
@@ -42,18 +42,17 @@ if (settings.config.modules.disk.status) {
             obj.value = data;
             pdb.store(obj);
           }
-          for (let prop in data) {
-            if (data.hasOwnProperty(prop) && data[prop] > -1) {
-              if (settings.config.db.postgres.status) {
+          if (settings.config.db.postgres.status) {
+            for (let prop in data) {
+              if (data.hasOwnProperty(prop) && data[prop] > -1) {
                 let values = {
                   name: module +'.'+ prop,
                   value: data[prop]
                 }
-                db.sysinput.insert(values, (err, article) => {
+                db.graphicdb.insert(values, (err, article) => {
                   if (err) winston.log.error(err);
                 });
               }
-              // other DB
             }
           }
         })
@@ -73,32 +72,22 @@ if (settings.config.modules.diskfs.status) {
             obj.value = data;
             pdb.store(obj);
           }
-          data.forEach(el => {
-            for (let prop in el) {
-              if (el.hasOwnProperty(prop) && prop !== 'fs' && prop !== 'type' && prop !== 'mount') {
-                if (settings.config.db.postgres.status) {
+          if (settings.config.db.postgres.status) {
+            data.forEach(el => {
+              for (let prop in el) {
+                if (el.hasOwnProperty(prop) && prop !== 'fs' && prop !== 'type' && prop !== 'mount') {
                   let values = {
                     name: module +'.'+ prop,
                     value: el[prop]
                   }
-                  db.sysinput.insert(values, (err, article) => {
+                  db.graphicdb.insert(values, (err, article) => {
                     if (err) winston.log.error(err);
                   });
                 }
-                // other DB
               }
             }
           })
         })
         .catch(error => winston.log.error(error));
   }, settings.config.modules.diskfs.interval);
-}
-
-
-exports.getDiskData = (req, res) => {
-  // get from database
-}
-
-exports.getDiskSpaceData = (req, res) => {
-  // get from database
 }
