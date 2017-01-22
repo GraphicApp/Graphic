@@ -5,12 +5,10 @@ import LoadingDots from './LoadingDots';
 const NavBar = ({loading}) => {
   return (
     <nav>
-      <IndexLink to="/" activeClassName="active">Dashboard</IndexLink>
-      {" | "}
-      <Link to="/monitor" activeClassName="active">monitor</Link>
-      {" | "}
-      <Link to="/settings" activeClassName="active">settings</Link>
-      {loading && <LoadingDots interval={100} dots={20}/>}
+      <IndexLink to="/" activeClassName="active"><i className="material-icons menu-icon">play_circle_outline</i></IndexLink>
+      <Link to="/monitor" activeClassName="active"><i className="material-icons menu-icon">av_timer</i></Link>
+      <Link to="/settings" activeClassName="active"><i className="material-icons menu-icon">settings</i></Link>
+      {loading && <LoadingDots interval={400} dots={3}/>}
     </nav>
   );
 };

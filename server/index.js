@@ -4,6 +4,7 @@ const path = require('path'),
       cors = require('cors'),
       winston = require('./services/winston'),
       settings = require('./services/settings'),
+      colors = require('colors'),
       port = process.env.PORT || settings.config.port;
 
 import webpack from 'webpack';
@@ -11,45 +12,49 @@ import config from '../webpack.config.development';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import { spawn } from 'child_process';
-const compiler = webpack(config),
-      wdm = webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  stats: {
-    colors: true
-  }
-});
-const app = express();
-app.use(wdm);
-app.use(webpackHotMiddleware(compiler));
-const argv = require('minimist')(process.argv.slice(2));
 
+const app = express();
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(config),
+        wdm = webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    noInfo: false,
+    quiet: true,
+    stats: {
+      colors: true
+    }
+  });
+  app.use(wdm);
+  app.use(webpackHotMiddleware(compiler));
+  const argv = require('minimist')(process.argv.slice(2));
+
+  const server = app.listen(port, (err) => {
+    if (err) return console.error(err);
+    if (argv['start-hot']) {
+      spawn('npm', ['run', 'start-hot'], { shell: true, env: process.env, stdio: 'inherit' })
+        .on('close', code => process.exit(code))
+        .on('error', spawnError => console.error(spawnError));
+    }
+    console.log(` Starting GraphicApp server on port ${port} `.bgCyan.black);
+  });
+
+  process.on('SIGTERM', () => {
+    console.log(' Stopping dev server '.yellow.dim.bgGrey);
+    wdm.close();
+    server.close(() => {
+      process.exit(0);
+    });
+  });
+} else {
+  app.listen(port, (err) => {
+    if (err) return console.error(err);
+    console.log(` Starting GraphicApp server on port ${port} `.bgCyan.black);
+  });
+}
+
+app.use(cors());
+app.use(bodyParser.json());
 module.exports = app;
 const pouchdb = require('./db/pouchdb'),
       postgres = require('./db/postgres'),
       api = require('./controllers/api');
-
-app.use(cors());
-app.use(bodyParser.json());
-
-app.use(require('webpack-hot-middleware')(compiler));
-app.get('*', function(req, res) {
-  res.sendFile(path.join( __dirname, '../src/index.html'));
-});
-
-const server = app.listen(port, (err) => {
-  if (err) return console.error(err);
-  if (argv['start-hot']) {
-    spawn('npm', ['run', 'start-hot'], { shell: true, env: process.env, stdio: 'inherit' })
-      .on('close', code => process.exit(code))
-      .on('error', spawnError => console.error(spawnError));
-  }
-  console.log(`Listening at http://localhost:${port}`);
-});
-
-process.on('SIGTERM', () => {
-  console.log('Stopping dev server');
-  wdm.close();
-  server.close(() => {
-    process.exit(0);
-  });
-});
