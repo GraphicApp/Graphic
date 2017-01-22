@@ -1,3 +1,0 @@
-{
-  "ignore": ["server/services/config.json", "server/logs/*", "server/db/graphicdb/*", "server/db/graphicdb", "log.txt", "config.json"]
-}

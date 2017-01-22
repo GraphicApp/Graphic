@@ -6,24 +6,24 @@ const path = require('path'),
       settings = require('./services/settings'),
       port = process.env.PORT || settings.config.port;
 
-import webpack from ('webpack');
-import config from ('../webpack.config.dev');
+import webpack from 'webpack';
+import config from '../webpack.config.development';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-
+import { spawn } from 'child_process';
 const compiler = webpack(config),
-
-const wdm = webpackDevMiddleware(compiler, {
+      wdm = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   stats: {
     colors: true
   }
 });
+const app = express();
 app.use(wdm);
 app.use(webpackHotMiddleware(compiler));
 const argv = require('minimist')(process.argv.slice(2));
 
-const app = module.exports = express();
+module.exports = app;
 const pouchdb = require('./db/pouchdb'),
       postgres = require('./db/postgres'),
       api = require('./controllers/api');
@@ -36,7 +36,6 @@ app.get('*', function(req, res) {
   res.sendFile(path.join( __dirname, '../src/index.html'));
 });
 
-// http.createServer(app)
 const server = app.listen(port, (err) => {
   if (err) return console.error(err);
   if (argv['start-hot']) {
@@ -44,7 +43,7 @@ const server = app.listen(port, (err) => {
       .on('close', code => process.exit(code))
       .on('error', spawnError => console.error(spawnError));
   }
-  console.log(`Listening at http://localhost:${PORT}`);
+  console.log(`Listening at http://localhost:${port}`);
 });
 
 process.on('SIGTERM', () => {
