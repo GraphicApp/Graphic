@@ -11,6 +11,7 @@ if (settings.config.modules.battery.status) {
   setInterval(() => {
     si.battery()
         .then(data => {
+          
           if (data.hasbattery) {
             if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
               let obj = {};

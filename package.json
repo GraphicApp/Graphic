@@ -2,21 +2,86 @@
   "name": "graphic",
   "version": "0.2.0",
   "description": "",
-  "main": "server/index.js",
   "scripts": {
-    "start": "electron ./public/main.js"
+    "hot-server": "cross-env NODE_ENV=development node --max_old_space_size=2096 -r babel-register server/index.js",
+    "start-hot": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./src/main",
+    "dev": "npm run hot-server -- --start-hot",
+    "prestart": "babel-node server/startMessage",
+    "start": "npm-run-all --parallel server:src electron",
+    "electron": "electron main.js",
+    "server:src": "babel-node server/index.js",
+    "lint": "node_modules/.bin/esw webpack.config.* src",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:watch": "npm run lint -- --watch",
+    "clean-dist": "npm run remove-dist && mkdir dist",
+    "remove-dist": "node_modules/.bin/rimraf dist",
+    "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --progress --profile --colors",
+    "build-renderer": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.prod.js --progress --profile --colors",
+    "prebuild": "npm-run-all clean-dist lint build:html",
+    "build": "npm run build-main && npm run build-renderer",
+    "postbuild": "babel-node server/index.js",
+    "package": "npm run build && build --publish never",
+    "package-win": "npm run build && build --win --x64",
+    "package-linux": "npm run build && build --linux",
+    "package-all": "npm run build && build -mwl",
+    "cleanup": "mop -v"
+  },
+  "build": {
+    "productName": "Graphic",
+    "appId": "org.develar.Graphic",
+    "category": "public.app-category.tools",
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "files": [
+      "dist/",
+      "node_modules/",
+      "index.html",
+      "main.js",
+      "main.js.map",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ]
+    }
+  },
+  "directories": {
+    "buildResources": "resources",
+    "output": "release"
+  },
+  "bin": {
+    "electron": "./node_modules/.bin/electron"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GraphicApp/Graphic.git"
   },
-  "author": "Sid, Brett, Jason, Breydan",
+  "author": "Sid, Brett, Jason, Brayden",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/GraphicApp/Graphic/issues"
   },
   "homepage": "https://github.com/GraphicApp/Graphic#readme",
   "dependencies": {
+    "axios": "^0.15.3",
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
     "dgram": "^1.0.1",
@@ -33,18 +98,43 @@
     "react-redux": "^5.0.2",
     "react-router": "^3.0.1",
     "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
     "request": "^2.79.0",
+    "sass-loader": "^4.1.1",
+    "socket.io": "^1.7.2",
+    "socket.io-client": "^1.7.2",
     "systeminformation": "^3.14.0",
     "winston": "^2.3.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.22.2",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.22.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "colors": "^1.1.2",
+    "compression": "^1.6.2",
+    "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
+    "eslint": "^3.13.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-react": "^6.9.0",
+    "eslint-watch": "^2.1.14",
+    "eventsource-polyfill": "^0.9.6",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.26.0",
+    "minimist": "^1.2.0",
+    "node-sass": "^4.3.0",
+    "npm-run-all": "^4.0.1",
+    "redux-immutable-state-invariant": "^1.2.4",
+    "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-middleware": "^1.9.0",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-hot-middleware": "^2.15.0",
+    "webpack-target-electron-renderer": "^0.4.0"
   }
 }

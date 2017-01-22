@@ -6,5 +6,25 @@ graphicdb*/
 _*/
 pouch*/
 config.json
+
+# Logs
+logs
 log.txt
-logs/
+*.log
+
+public/build/Release
+public/dist
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+#Webstorm metadata
+.idea
+# node-waf configuration
+.lock-wscript
+# Coverage directory used by tools like istanbul
+coverage
+# Mac files
+.DS_Store

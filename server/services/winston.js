@@ -1,5 +1,5 @@
 const winston = require('winston'),
-      fs = require('fs');
+      fs = require('fs'),
       settings = require('../services/settings');
 
 const logDir = 'logs';

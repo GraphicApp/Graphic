@@ -1,0 +1,6 @@
+server/*
+pouch*/
+logs/*
+graphicdb*/
+_*/
+tools/

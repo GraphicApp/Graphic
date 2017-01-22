@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require('electron'),
       path = require('path'),
       url = require('url'),
-      settings = require('../server/services/settings');
+      settings = require('./server/services/settings');
 
 disableHA = () => {
   return app.disableHardwareAcceleration();
@@ -18,7 +18,7 @@ function createWindow () {
 
   // mainWindow.loadURL(`file://${__dirname}/dist/index.html`);
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, './dist/index.html'),
+    pathname: path.join(__dirname, './dist/index'),
     protocol: 'file:',
     slashes: true
   }));
