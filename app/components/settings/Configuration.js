@@ -8,7 +8,7 @@ const Configuration = ({settings}) => {
       <table className="options-main">
         <tbody>
           <tr>
-            <td>Port:</td>
+            <td>Port</td>
             <td>{settings.port}</td>
           </tr>
           <tr>
