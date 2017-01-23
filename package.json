@@ -70,9 +70,8 @@
     "url": "git+https://github.com/GraphicApp/Graphic.git"
   },
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "Brett",
+    "url": "https://github.com/brettinternet"
   },
   "license": "MIT",
   "bugs": {
@@ -142,10 +141,12 @@
     "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
     "mocha": "^3.2.0",
+    "node-sass": "^4.3.0",
     "prompt": "^1.0.0",
     "react-addons-test-utils": "^15.4.2",
     "redux-immutable-state-invariant": "^1.2.4",
     "redux-logger": "^2.7.4",
+    "sass-loader": "^4.1.1",
     "sinon": "^1.17.7",
     "spectron": "^3.4.1",
     "style-loader": "^0.13.1",

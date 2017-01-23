@@ -1,24 +1,25 @@
-import Settings from '../../server/services/config.json';
+// import Settings from '../../server/services/config.json';
 import axios from 'axios';
 import * as types from './actionTypes';
 import {beginAjaxCall} from './ajaxStatusActions';
 
-// export function loadSettingsSuccess(settings) {
-//   return {type: types.LOAD_SETTINGS, settings};
-// }
+export function loadSettingsSuccess(settings) {
+  return {type: types.LOAD_SETTINGS, settings};
+}
 
-// export function loadSettings() {
-//   return dispatch => {
-//     dispatch(beginAjaxCall());
-//     return axios.get(Settings)
-//       .then(res => {
-//         dispatch(loadSettingsSuccess(res.body));
-//       })
-//       .catch(error => {
-//         throw(error);
-//       });
-//   };
-// }
+export function loadSettings() {
+  let url = `http://localhost:${process.env.PORT}/api/settings`;
+  return dispatch => {
+    dispatch(beginAjaxCall());
+    return axios.get(url)
+      .then(res => {
+        dispatch(loadSettingsSuccess(res.data));
+      })
+      .catch(error => {
+        throw(error);
+      });
+  };
+}
 
 
 // export function putSettings(dispatch) {

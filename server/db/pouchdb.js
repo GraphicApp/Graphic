@@ -20,6 +20,7 @@ if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
 
   }
   app.use('/pouch', require('express-pouchdb')(PouchDB, {
+    logPath: './logs/log.txt',
     overrideMode: {
       exclude: [
         'routes/authentication',

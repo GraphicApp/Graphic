@@ -1,13 +1,17 @@
-@import "~font-awesome/css/font-awesome.css";
+@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 body {
   position: relative;
   color: white;
   height: 100vh;
   background-color: #232C39;
-  background-image: linear-gradient(45deg, rgba(0, 216, 255, .5) 10%, rgba(0, 1, 127, .7));
+  background-image: linear-gradient(0deg, rgba(47, 66, 64, 0.5) 10%, rgba(9, 9, 9, .7));
   font-family: Arial, Helvetica, Helvetica Neue, serif;
   overflow-y: hidden;
+  padding-top: 20px;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
 }
 
 h2 {
@@ -16,6 +20,7 @@ h2 {
   font-weight: bold;
   letter-spacing: -.025em;
   color: #fff;
+  outline: none;
 }
 
 p {
@@ -36,4 +41,8 @@ a:hover {
   opacity: 1;
   text-decoration: none;
   cursor: pointer;
+}
+
+.menu-icon {
+  font-size: 2em;
 }

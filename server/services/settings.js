@@ -1,8 +1,8 @@
-const fs = require('fs');
+const fs = require('fs'),
+      colors = require('colors');
 
 const defaultSettings = {
   logLevel: 'warn',
-  saveData: true,
   port: 3000,
   modules: {
     system: {status: false},
@@ -56,7 +56,7 @@ exports.putSettings = (req, res) => {
 var loadConfig = fs.readFileSync(configFile), appSettings;
 try {
   appSettings = JSON.parse(loadConfig);
-  console.error('Settings parsed successfully from config file.');
+  console.error('Settings parsed successfully from config file...'.italic.blue);
 }
 catch (err) {
   console.error(`Error loading settings. Unable to parse config file... ${err}`);

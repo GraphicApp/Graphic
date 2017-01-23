@@ -8,13 +8,13 @@ import routes from './routes';
 import {loadSettings} from './actions/settingsActions';
 // import {loadAllData} from './actions/dataActions';
 
-// import './assets/styles.css';
+import './assets/styles.scss';
 
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // import '../node_modules/toastr/build/toastr.min.css';
 
 const store = configureStore();
-// store.dispatch(loadSettings());
+store.dispatch(loadSettings());
 // store.dispatch(loadAllData());
 
 const history = syncHistoryWithStore(hashHistory, store);
