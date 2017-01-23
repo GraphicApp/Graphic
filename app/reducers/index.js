@@ -5,9 +5,9 @@ import settings from './settingsReducer';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 
 const rootReducer = combineReducers({
-  data,
-  settings,
   routing,
+  settings,
+  data,
   ajaxCallsInProgress
 });
 

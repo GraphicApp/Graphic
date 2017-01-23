@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {bindActionCreators} from 'redux';
+// import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as settingsActions from '../../actions/settingsActions';
 import Config from './Configuration';
@@ -30,8 +30,8 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(settingsActions, dispatch);
-}
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators(settingsActions, dispatch);
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default connect(mapStateToProps)(Settings);
