@@ -22,7 +22,7 @@ const ConfigModules = ({modules}) => {
           <td>Interval</td>
           <td>{modules.network.interval}</td>
         </tr>
-          : ''
+          : null
         }
         <tr>
           <td>Processes</td>
@@ -36,7 +36,7 @@ const ConfigModules = ({modules}) => {
           <td>Interval</td>
           <td>{modules.processes.interval}</td>
         </tr>
-          : ''
+          : null
         }
         <tr>
           <td>Memory</td>
@@ -50,7 +50,7 @@ const ConfigModules = ({modules}) => {
           <td>Interval</td>
           <td>{modules.memory.interval}</td>
         </tr>
-          : ''
+          : null
         }
         <tr>
           <td>Temperature</td>
@@ -64,7 +64,7 @@ const ConfigModules = ({modules}) => {
           <td>Interval</td>
           <td>{modules.temperature.interval}</td>
         </tr>
-          : ''
+          : null
         }
         <tr>
           <td>Fan</td>
@@ -78,7 +78,7 @@ const ConfigModules = ({modules}) => {
           <td>Interval</td>
           <td>{modules.fan.interval}</td>
         </tr>
-          : ''
+          : null
         }
         <tr>
           <td>Battery</td>
@@ -92,7 +92,7 @@ const ConfigModules = ({modules}) => {
           <td>Interval</td>
           <td>{modules.battery.interval}</td>
         </tr>
-          : ''
+          : null
         }
         <tr>
           <td>Disks</td>
@@ -106,7 +106,7 @@ const ConfigModules = ({modules}) => {
           <td>Interval</td>
           <td>{modules.disk.interval}</td>
         </tr>
-          : ''
+          : null
         }
         <tr>
           <td>File System</td>
@@ -120,7 +120,7 @@ const ConfigModules = ({modules}) => {
           <td>Interval</td>
           <td>{modules.diskfs.interval}</td>
         </tr>
-          : ''
+          : null
         }
         <tr>
           <td>Network</td>
@@ -142,7 +142,7 @@ const ConfigModules = ({modules}) => {
             </tr>
           </tbody>
         </table>
-          : ''
+          : null
         }
         <tr>
           <td>Network Connections</td>
@@ -156,7 +156,7 @@ const ConfigModules = ({modules}) => {
           <td>Interval</td>
           <td>{modules.netConnections.interval}</td>
         </tr>
-          : ''
+          : null
         }
       </tbody>
     </table>

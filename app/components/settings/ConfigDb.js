@@ -40,7 +40,7 @@ const ConfigDb = ({db}) => {
             </tr>
           </tbody>
         </table>
-          : ''
+          : null
         }
         <tr>
           <td>PostgreSQL</td>
@@ -74,7 +74,7 @@ const ConfigDb = ({db}) => {
             </tr>
           </tbody>
         </table>
-        : ''
+        : null
         }
       </tbody>
     </table>
