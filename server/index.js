@@ -4,8 +4,14 @@ const path = require('path'),
       cors = require('cors'),
       winston = require('./services/winston'),
       settings = require('./services/settings'),
-      colors = require('colors'),
-      port = process.env.PORT || settings.config.port;
+      colors = require('colors');
+
+let port = '';
+if (!process.env.PORT && settings.config.port && settings.config.port > 1023) {
+  port = process.env.PORT = settings.config.port;
+} else {
+  port = process.env.PORT || 3000;
+}
 
 import webpack from 'webpack';
 import config from '../webpack.config.development';

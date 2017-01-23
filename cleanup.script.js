@@ -22,6 +22,7 @@ prompt.get({
       del([
         'server/services/config.json',
         'logs/*.json',
+        'logs/log.*',
         'npm-debug.log',
         'app/dist',
         'pouch__all_dbs__',

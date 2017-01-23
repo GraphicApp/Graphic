@@ -3,7 +3,6 @@ const fs = require('fs'),
 
 const defaultSettings = {
   logLevel: 'warn',
-  saveData: true,
   port: 3000,
   modules: {
     system: {status: false},

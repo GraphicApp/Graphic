@@ -8,7 +8,7 @@ import routes from './routes';
 import {loadSettings} from './actions/settingsActions';
 // import {loadAllData} from './actions/dataActions';
 
-import './assets/app.global.css';
+import './assets/styles.scss';
 
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // import '../node_modules/toastr/build/toastr.min.css';

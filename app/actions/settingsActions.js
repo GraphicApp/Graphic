@@ -8,13 +8,12 @@ export function loadSettingsSuccess(settings) {
 }
 
 export function loadSettings() {
-  let url = 'http://localhost:3000/api/settings';
+  let url = `http://localhost:${process.env.PORT}/api/settings`;
   return dispatch => {
     dispatch(beginAjaxCall());
     return axios.get(url)
       .then(res => {
-        console.log(res);
-        dispatch(loadSettingsSuccess(res.body));
+        dispatch(loadSettingsSuccess(res.data));
       })
       .catch(error => {
         throw(error);
