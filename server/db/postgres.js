@@ -32,7 +32,6 @@ if (settings.config.db.postgres.status) {
   } catch (err) {
     winston.log.error('PostgreSQL database input does not match any database at that address.', err);
     settings.config.db.postgres.status = false;
-    return;
   }
 
   const massiveInstance = massive.connectSync({

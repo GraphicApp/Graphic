@@ -6,15 +6,15 @@ const defaultSettings = {
   port: 3000,
   modules: {
     system: {status: false},
-    cpu: {status: true, interval: 5000},
+    cpu: {status: false, interval: 5000},
     processes: {status: false, interval: 30000}, // TODO: database
-    memory: {status: true, interval: 5000},
-    temperature: {status: true, interval: 5000},
-    fan: {status: true, interval: 5000},
+    memory: {status: false, interval: 5000},
+    temperature: {status: false, interval: 5000},
+    fan: {status: false, interval: 5000},
     battery: {status: true, interval: 5000},
-    disk: {status: true, interval: 5000},
+    disk: {status: false, interval: 5000},
     diskfs: {status: false, interval: 900*1000},
-    network: {status: true, interval: 5000, iface: '', ping: ''},
+    network: {status: false, interval: 5000, iface: '', ping: ''},
     netConnections: {status: false, interval: 1800*1000}
   },
   db: {

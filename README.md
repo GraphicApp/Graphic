@@ -27,3 +27,4 @@ Everything you'd want to see about your Mac or Linux machine. With the ability t
 - [systeminformation](https://github.com/sebhildebrandt/systeminformation)
 - [Node-SMC](https://github.com/mmarcon/node-smc)
 - [Public IP](https://github.com/sindresorhus/public-ip)
+- [Electron + React help](https://github.com/chentsulin/electron-react-boilerplate)
