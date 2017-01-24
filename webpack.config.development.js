@@ -39,22 +39,22 @@ export default validate(merge(baseConfig, {
     loaders: [
       {
         test: /\.scss$/,
-        include: path.resolve(__dirname, "./src/assets"),
+        // include: path.resolve(__dirname, "./src/assets"),
         loaders: [
           'style-loader',
-          'css-loader',
-          'sass-loader'
+          'css-loader?sourcemaps',
+          'sass-loader?sourcemaps'
         ]
       },
 
-      {
-        test: /\.scss$/,
-        loaders: [
-          'style-loader',
-          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-          'sass-loader?sourceMap'
-        ]
-      },
+      // {
+      //   test: /\.scss$/,
+      //   loaders: [
+      //     'style-loader',
+      //     'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+      //     'sass-loader?sourceMap'
+      //   ]
+      // },
 
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },

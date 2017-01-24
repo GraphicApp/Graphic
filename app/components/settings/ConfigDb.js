@@ -1,20 +1,38 @@
 import React, {PropTypes} from 'react';
 
-const ConfigDb = ({db}) => {
+const ConfigDb = ({db, onChange}) => {
   return (
     <table className="options-db">
       <tbody>
         <tr>
           <td>PouchDB</td>
-          {
-            db.pouchdb.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="db"
+                type="checkbox"
+                name="pouchdb"
+                onChange={onChange}
+                checked={db.pouchdb.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         <tr>
           <td>CouchDB</td>
-          {
-            db.couchdb.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="db"
+                type="checkbox"
+                name="couchdb"
+                onChange={onChange}
+                checked={db.couchdb.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { db.couchdb.status
           ?
@@ -22,7 +40,17 @@ const ConfigDb = ({db}) => {
           <tbody>
             <tr>
               <td>Host</td>
-              <td>{db.couchdb.host}</td>
+              <td>
+                <label className="input">
+                  <input
+                    id="db"
+                    type="checkbox"
+                    name="postgres"
+                    onChange={onChange}
+                    checked={db.postgres.host}
+                  />
+                </label>
+              </td>
             </tr>
             <tr>
               <td>Port</td>
@@ -34,9 +62,18 @@ const ConfigDb = ({db}) => {
             </tr>
             <tr>
               <td>SSL</td>
-              {
-                db.couchdb.status ? <td>On</td> : <td>Off</td>
-              }
+              <td>
+                <label className="switch">
+                  <input
+                    id="db"
+                    type="checkbox"
+                    name="couchdb"
+                    onChange={onChange}
+                    checked={db.couchdb.ssl}
+                  />
+                  <div className="slider round"></div>
+                </label>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -44,9 +81,18 @@ const ConfigDb = ({db}) => {
         }
         <tr>
           <td>PostgreSQL</td>
-          {
-            db.postgres.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="db"
+                type="checkbox"
+                name="postgres"
+                onChange={onChange}
+                checked={db.postgres.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { db.postgres.status
           ?
