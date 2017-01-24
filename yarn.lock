@@ -5661,7 +5661,7 @@ mocha@^3.2.0:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-moment@2.x.x, moment@^2.11.2:
+moment@2.x.x, moment@^2.11.2, moment@^2.17.1:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
@@ -5929,7 +5929,7 @@ npm-install-package@^1.0.2:
   dependencies:
     noop2 "^2.0.0"
 
-"npmlog@0 || 1 || 2", "npmlog@0 || 1 || 2 || 3 || 4", npmlog@2.0.3, npmlog@^2.0.0:
+"npmlog@0 || 1 || 2", npmlog@2.0.3, npmlog@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/npmlog/-/npmlog-2.0.3.tgz#020f99351f0c02e399c674ba256e7c4d3b3dd298"
   dependencies:
@@ -5937,7 +5937,7 @@ npm-install-package@^1.0.2:
     are-we-there-yet "~1.1.2"
     gauge "~1.2.5"
 
-npmlog@^4.0.0, npmlog@^4.0.1:
+"npmlog@0 || 1 || 2 || 3 || 4", npmlog@^4.0.0, npmlog@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/npmlog/-/npmlog-4.0.2.tgz#d03950e0e78ce1527ba26d2a7592e9348ac3e75f"
   dependencies:

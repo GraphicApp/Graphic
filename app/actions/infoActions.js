@@ -20,9 +20,7 @@ export function loadInfo() {
     dispatch(beginAjaxCall());
     return axios.get(url)
       .then(res => {
-        console.log(res);
-        let data = JSON.parse(res.data.body);
-        dispatch(loadInfoSuccess(data.rows));
+        dispatch(loadInfoSuccess(res.data));
       })
       .catch(error => {
         throw(error);
@@ -37,8 +35,7 @@ export function findProcess(process) {
     return axios.get(url)
       .then(res => {
         console.log(res);
-        let data = JSON.parse(res.data.body);
-        dispatch(loadInfoSuccess(process, data));
+        dispatch(loadInfoSuccess(process, res.data));
       })
       .catch(error => {
         throw(error);
@@ -53,8 +50,7 @@ export function findService(service) {
     return axios.get(url)
       .then(res => {
         console.log(res);
-        let data = JSON.parse(res.data.body);
-        dispatch(loadInfoSuccess(service, data));
+        dispatch(loadInfoSuccess(service, res.data));
       })
       .catch(error => {
         throw(error);

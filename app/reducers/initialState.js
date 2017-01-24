@@ -11,7 +11,18 @@ export default {
     network: [],
     netConnections: []
   },
-  info: {},
+  info: {
+    cpu: {},
+    graphics: {
+      controllers: [],
+      displays: []
+    },
+    interfaces: [{}, {}],
+    hardware: {},
+    osInfo: {},
+    time: {},
+    users: [{}]
+  },
   settings: {
     logLevel: '',
     port: '',

@@ -16,9 +16,6 @@ export default function courseReducer(state = initialState.data, action) {
         Object.assign({}, action.data)
       ];
 
-    case types.LOAD_INFO:
-      return actions.info;
-
     default:
       return state;
   }

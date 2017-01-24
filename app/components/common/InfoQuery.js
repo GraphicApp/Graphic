@@ -1,14 +1,14 @@
 import React, {PropTypes} from 'react';
 
-const InfoDisplay = ({info, processInput, serviceInput, onSubmitProcess, onSubmitService}) => {
+const InfoQuery = ({processInput, serviceInput, onSubmitProcess, onChange, onSubmitService}) => {
   return (
     <div>
-      <div>{info.system}</div>
       <form>
         <input
           name="process"
           label="Process"
           value={processInput}
+          onChange={onChange}
           onSubmit={onSubmitProcess}
         />
       </form>
@@ -17,6 +17,7 @@ const InfoDisplay = ({info, processInput, serviceInput, onSubmitProcess, onSubmi
           name="service"
           label="Service"
           value={serviceInput}
+          onChange={onChange}
           onSubmit={onSubmitService}
         />
       </form>
@@ -24,12 +25,9 @@ const InfoDisplay = ({info, processInput, serviceInput, onSubmitProcess, onSubmi
   );
 };
 
-// onChange={onChange}
-
-InfoDisplay.propTypes = {
-  info: React.PropTypes.object.isRequired,
+InfoQuery.propTypes = {
   onSubmitProcess: React.PropTypes.func.isRequired,
   onSubmitService: React.PropTypes.func.isRequired
 };
 
-export default InfoDisplay;
+export default InfoQuery;

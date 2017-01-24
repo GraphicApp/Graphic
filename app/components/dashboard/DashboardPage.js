@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Graph from '../common/Graph';
+import InfoDisplay from '../common/InfoDisplay';
+import InfoQuery from '../common/InfoQuery';
 import * as infoActions from '../../actions/infoActions';
 import * as dataActions from '../../actions/dataActions';
 
@@ -11,10 +13,13 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-      process: '',
-      service: ''
+      sysInput: {
+        process: '',
+        service: ''
+      }
     }
 
+    this.updateInputs = this.updateInputs.bind(this);
     this.getProcess = this.getProcess.bind(this);
     this.getService = this.getService.bind(this);
   }
@@ -22,6 +27,14 @@ class Dashboard extends React.Component {
   componentDidUpdate() {
     let modules = this.props.settings.modules;
     this.modulesLoaded = Object.keys(modules).filter(el => modules[el].status);
+    console.log(this.state);
+  }
+
+  updateInputs(event) {
+    const field = event.target.name;
+    let sysInput = this.state.sysInput;
+    sysInput[field] = event.target.value;
+    return this.setState({sysInput: sysInput});
   }
 
   getProcess() {
@@ -50,10 +63,14 @@ class Dashboard extends React.Component {
         <h2>Dashboard</h2>
         <InfoDisplay
           info={this.props.info}
+          location={this.props.location.pathname}
+        />
+        <InfoQuery
           processInput={this.state.process}
           serviceInput={this.state.service}
           onSubmitProcess={this.getProcess}
           onSubmitService={this.getService}
+          onChange={this.updateInputs}
         />
         <Graph
 

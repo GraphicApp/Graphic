@@ -2,30 +2,43 @@ import React, {PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as settingsActions from '../../actions/settingsActions';
+import InfoDisplay from '../common/InfoDisplay';
 import Config from './Configuration';
 
 class Settings extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
   }
 
   render() {
     return(
       <section>
         <h2>Settings</h2>
-        <Config settings={this.props.settings} />
+        <InfoDisplay
+          info={this.props.info}
+          location={this.props.location.pathname}
+        />
+        <Config
+          settings={this.props.settings}
+        />
       </section>
     )
   }
 }
 
 Settings.propTypes = {
-  settings: PropTypes.object.isRequired
+  settings: PropTypes.object.isRequired,
+  info: PropTypes.object.isRequired
 };
+
+// Settings.contextTypes = {
+//   router: PropTypes.object
+// };
 
 function mapStateToProps(state, ownProps) {
   return {
-    settings: state.settings
+    settings: state.settings,
+    info: state.info
   };
 }
 

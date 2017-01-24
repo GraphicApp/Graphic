@@ -91,7 +91,7 @@ class Monitor extends React.Component {
   render() {
     return(
       <section>
-        <h2>Dashboard</h2>
+        <h2>Monitor</h2>
         <TimeSelect
           onSelectAll={this.getAll}
           onSelectToday={this.getToday}
