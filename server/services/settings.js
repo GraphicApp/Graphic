@@ -5,7 +5,6 @@ const defaultSettings = {
   logLevel: 'warn',
   port: 3000,
   modules: {
-    system: {status: false},
     cpu: {status: false, interval: 5000},
     processes: {status: false, interval: 30000}, // TODO: database
     memory: {status: false, interval: 5000},

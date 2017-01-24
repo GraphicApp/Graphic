@@ -5,12 +5,6 @@ const ConfigModules = ({modules}) => {
     <table className="options-modules">
       <tbody>
         <tr>
-          <td>System Information</td>
-          {
-            modules.system.status ? <td>On</td> : <td>Off</td>
-          }
-        </tr>
-        <tr>
           <td>CPU</td>
           {
             modules.cpu.status ? <td>On</td> : <td>Off</td>
