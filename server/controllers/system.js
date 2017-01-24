@@ -11,7 +11,6 @@ if (settings.config.modules.battery.status) {
   setInterval(() => {
     si.battery()
         .then(data => {
-          
           if (data.hasbattery) {
             if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
               let obj = {};
@@ -43,61 +42,72 @@ if (settings.config.modules.battery.status) {
   }, settings.config.modules.battery.interval);
 }
 
-exports.getSystemInfo = () => {
-  if (settings.config.modules.system.status) {
-    console.log('HOST -', os.hostname());
-    si.users()
-        .then(data => console.log('USERS -', data))
+exports.getSystemInfo = (callback) => {
+  return new Promise((resolve) => {
+    let obj = {};
+    obj.dev = {};
+    obj.disk = {};
+    obj.disk.fsSize = {};
+    let a = si.users()
+        .then(data => obj.users = data)
         .catch(error => winston.log.error(error));
 
-    si.cpu()
-        .then(data => console.log('CPU -', data))
+    let b = si.cpu()
+        .then(data => obj.cpu = data)
         .catch(error => winston.log.error(error));
 
-    console.log(`TIMES - ${si.time()}`)
+    obj.time = si.time();
 
     // network interfaces (use to change graph data)
-    si.networkInterfaces()
-        .then(data => console.log(data))
+    let c = si.networkInterfaces()
+        .then(data => obj.interfaces = data)
         .catch(error => winston.log.error(error));
 
-
-    si.system()
-        .then(data => console.log('HARDWARE -', data))
+    let d = si.system()
+        .then(data => obj.hardware = data)
         .catch(error => winston.log.error(error));
 
-    si.graphics()
-        .then(data => console.log('GRAPHICS -', data))
+    let e = si.graphics()
+        .then(data => obj.graphics = data)
         .catch(error => winston.log.error(error));
 
-    si.osInfo()
-        .then(data => console.log('OS -', data))
+    let f = si.osInfo()
+        .then(data => obj.osInfo = data)
         .catch(error => winston.log.error(error));
 
 
     // disk partitions
-    si.fsSize()
-      .then(data => console.log(data.type, data.mount))
+    let g = si.fsSize()
+      .then(data => {
+        obj.disk.fsSize.type = data.type;
+        obj.disk.fsSize.mount = data.mount;
+      })
       .catch(error => winston.log.error(error));
-    si.blockDevices()
-      .then(data => console.log('DISKS/PARTITIONS -', data))
+    let h = si.blockDevices()
+      .then(data => obj.disk.blockDevices = data)
       .catch(error => winston.log.error(error));
 
 
     // OTHER
     // application
-    console.log('NODE APP UPTIME -', process.uptime());
+    obj.appUptime = process.uptime();
 
     // developer
-    si.versions() // kernal/node versions
-        .then(data => console.log('VERSIONS -', data))
-        .catch(error => console.error(error));
+    let i = si.versions() // kernal/node versions
+        .then(data => obj.dev.versions = data)
+        .catch(error => winston.log.error(error));
 
     // http://unix.stackexchange.com/questions/43539/what-do-the-flags-in-proc-cpuinfo-mean
-    si.cpuFlags()
-        .then(data => console.log('CPU FLAGS -', data))
+    let j = si.cpuFlags()
+        .then(data => obj.dev.cpuFlags = data)
         .catch(error => winston.log.error(error));
-  } else {
-    winston.log.info('System information has been turned off by the user and cannot be retrieved.');
-  }
+
+    Promise.all([a, b, c, d, e, f, g, h, i, j])
+      .then(() => {
+        resolve(obj);
+      })
+      .catch(err => {
+        winston.log.error('Error resolving promise from System Information...', err);
+      });
+  });
 }

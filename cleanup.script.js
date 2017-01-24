@@ -27,6 +27,7 @@ prompt.get({
         'app/dist',
         'pouch__all_dbs__',
         'graphicdb',
+        'graphicdb-*',
         'log.txt',
         '_replicator',
         'app/main.js',

@@ -1,5 +1,28 @@
 export default {
-  data: [],
+  data: {
+    cpu: [],
+    processes: [],
+    memory: [],
+    temperature: [],
+    fan: [],
+    battery: [],
+    disk: [],
+    diskfs: [],
+    network: [],
+    netConnections: []
+  },
+  info: {
+    cpu: {},
+    graphics: {
+      controllers: [],
+      displays: []
+    },
+    interfaces: [{}, {}],
+    hardware: {},
+    osInfo: {},
+    time: {},
+    users: [{}]
+  },
   settings: {
     logLevel: '',
     port: '',
