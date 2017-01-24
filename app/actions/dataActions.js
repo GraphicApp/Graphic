@@ -2,18 +2,18 @@ import * as types from './actionTypes';
 import axios from 'axios';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
-export function loadAllDataSuccess(data) {
-  return { type: types.LOAD_ALL_DATA, data };
+export function loadDataSuccess(module, data) {
+  return { type: types.LOAD_DATA, module, data };
 }
 
-export function loadAllData() {
-  // let url = 'http://localhost:' +settings.port+ '/api/' +module+ '/data' +(time ? time : 'today');
-  let url = 'http://localhost:3000/api/battery/data/all'
+export function loadData(module, time) {
+  let url = 'http://localhost:' +process.env.PORT+ '/api/' +module+ '/data/' +(time ? time : 'today');
   return function(dispatch) {
     dispatch(beginAjaxCall());
     return axios.get(url)
       .then(res => {
-        dispatch(loadAllDataSuccess(res.body.data));
+        let data = JSON.parse(res.data.body);
+        dispatch(loadDataSuccess(module, data.rows));
       })
       .catch(error => {
         throw(error);

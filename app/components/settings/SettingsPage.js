@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-// import {bindActionCreators} from 'redux';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as settingsActions from '../../actions/settingsActions';
 import Config from './Configuration';
@@ -7,7 +7,6 @@ import Config from './Configuration';
 class Settings extends React.Component {
   constructor(props) {
     super(props)
-
   }
 
   render() {
