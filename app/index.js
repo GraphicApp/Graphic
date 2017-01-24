@@ -13,8 +13,6 @@ const store = configureStore();
 store.dispatch(loadSettings());
 store.dispatch(loadInfo());
 
-// import {loadData} from './actions/dataActions';
-// store.dispatch(loadData('battery', 'today'));
 
 const history = syncHistoryWithStore(hashHistory, store);
 

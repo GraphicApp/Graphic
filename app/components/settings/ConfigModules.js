@@ -1,28 +1,46 @@
 import React, {PropTypes} from 'react';
 
-const ConfigModules = ({modules}) => {
+const ConfigModules = ({modules, onChange}) => {
   return (
     <table className="options-modules">
       <tbody>
         <tr>
           <td>CPU</td>
-          {
-            modules.cpu.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="modules"
+                type="checkbox"
+                name="cpu"
+                onChange={onChange}
+                checked={modules.cpu.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { modules.cpu.status
           ?
         <tr>
           <td>Interval</td>
-          <td>{modules.network.interval}</td>
+          <td>{modules.cpu.interval}</td>
         </tr>
           : null
         }
         <tr>
           <td>Processes</td>
-          {
-            modules.processes.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="modules"
+                type="checkbox"
+                name="processes"
+                onChange={onChange}
+                checked={modules.processes.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { modules.processes.status
           ?
@@ -34,9 +52,18 @@ const ConfigModules = ({modules}) => {
         }
         <tr>
           <td>Memory</td>
-          {
-            modules.memory.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="modules"
+                type="checkbox"
+                name="memory"
+                onChange={onChange}
+                checked={modules.memory.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { modules.memory.status
           ?
@@ -48,9 +75,18 @@ const ConfigModules = ({modules}) => {
         }
         <tr>
           <td>Temperature</td>
-          {
-            modules.temperature.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="modules"
+                type="checkbox"
+                name="temperature"
+                onChange={onChange}
+                checked={modules.temperature.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { modules.temperature.status
           ?
@@ -62,9 +98,18 @@ const ConfigModules = ({modules}) => {
         }
         <tr>
           <td>Fan</td>
-          {
-            modules.fan.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="modules"
+                type="checkbox"
+                name="fan"
+                onChange={onChange}
+                checked={modules.fan.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { modules.fan.status
           ?
@@ -76,9 +121,18 @@ const ConfigModules = ({modules}) => {
         }
         <tr>
           <td>Battery</td>
-          {
-            modules.battery.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="modules"
+                type="checkbox"
+                name="battery"
+                onChange={onChange}
+                checked={modules.battery.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { modules.battery.status
           ?
@@ -90,9 +144,18 @@ const ConfigModules = ({modules}) => {
         }
         <tr>
           <td>Disks</td>
-          {
-            modules.disk.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="modules"
+                type="checkbox"
+                name="disk"
+                onChange={onChange}
+                checked={modules.disk.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { modules.disk.status
           ?
@@ -104,9 +167,18 @@ const ConfigModules = ({modules}) => {
         }
         <tr>
           <td>File System</td>
-          {
-            modules.diskfs.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="modules"
+                type="checkbox"
+                name="diskfs"
+                onChange={onChange}
+                checked={modules.diskfs.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { modules.diskfs.status
           ?
@@ -118,9 +190,18 @@ const ConfigModules = ({modules}) => {
         }
         <tr>
           <td>Network</td>
-          {
-            modules.network.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="modules"
+                type="checkbox"
+                name="network"
+                onChange={onChange}
+                checked={modules.network.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { modules.network.status
           ?
@@ -140,9 +221,18 @@ const ConfigModules = ({modules}) => {
         }
         <tr>
           <td>Network Connections</td>
-          {
-            modules.netConnections.status ? <td>On</td> : <td>Off</td>
-          }
+          <td>
+            <label className="switch">
+              <input
+                id="modules"
+                type="checkbox"
+                name="netConnections"
+                onChange={onChange}
+                checked={modules.netConnections.status}
+              />
+              <div className="slider round"></div>
+            </label>
+          </td>
         </tr>
         { modules.netConnections.status
           ?

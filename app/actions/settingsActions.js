@@ -7,6 +7,10 @@ export function loadSettingsSuccess(settings) {
   return {type: types.LOAD_SETTINGS, settings};
 }
 
+export function updateSettingsSuccess(settings) {
+  return {type: types.UPDATE_SETTINGS, settings};
+}
+
 export function loadSettings() {
   let url = `http://localhost:${process.env.PORT}/api/settings`;
   return dispatch => {
@@ -22,13 +26,19 @@ export function loadSettings() {
 }
 
 
-// export function putSettings(dispatch) {
-//   let url = 'local';
-//   axios.put(url)
-//     .then(res => {
-//       dispatch(addSettingsAction(res.body.config));
-//     });
-// }
+export function saveSettings(settings) {
+  let url = `http://localhost:${process.env.PORT}/api/settings`;
+  return dispatch => {
+    dispatch(beginAjaxCall());
+    return axios.put(url, settings)
+      .then(res => {
+        dispatch(updateSettingsSuccess(settings));
+      })
+      .catch(error => {
+        throw(error);
+      });
+  };
+}
 
 
 // settings: {

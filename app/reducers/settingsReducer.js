@@ -6,6 +6,9 @@ export default function settingsReducer(state = initialState.settings, action) {
     case types.LOAD_SETTINGS:
       return action.settings;
 
+    case types.UPDATE_SETTINGS:
+      return action.settings;
+
     default:
       return state;
   }

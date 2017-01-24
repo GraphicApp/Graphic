@@ -40,7 +40,7 @@ if (!fs.existsSync(configFile)) {
 }
 
 exports.putSettings = (req, res) => {
-  var appSettings = req.body.settings;
+  var appSettings = req.body;
   let saveConfig = JSON.stringify(appSettings, null, 4);
   try {
     fs.writeFileSync(configFile, saveConfig);
