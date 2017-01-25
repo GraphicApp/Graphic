@@ -3,7 +3,7 @@ import hashHistory from 'react-router';
 // import './Graph.scss';
 // import {LineChart} from 'react-easy-chart';
 
-import {VictoryLine, VictoryAxis, VictoryLabel, VictoryBar, VictoryPie, VictoryTooltip} from 'victory';
+import {VictoryLine, VictoryAxis, VictoryLabel, VictoryBar, VictoryPie, VictoryTooltip, VictoryVoronoiTooltip, VictoryChart, VictoryZoom } from 'victory';
 
 import {Scrollbars} from 'react-custom-scrollbars';
 
@@ -43,13 +43,7 @@ class Graph extends React.Component {
           text={"% of \n CPU"} />
 
           <g transform={"translate(-10,30)"}>
-            <VictoryAxis
-              standalone={false}
-              style={styles.axisTime}
-              tickValues={tickValues}
-              tickFormat={(x)=>x.toPrecision(1)}
-            />
-
+        {/*First VictoryAxis removed as VictoryZoom/Chart inserts x axis values automatically*/}
             <VictoryAxis dependentAxis
                domain={[0,4]}
                orientation="left"
@@ -58,43 +52,23 @@ class Graph extends React.Component {
                offsetX={50}
             />
             {/* This will be the first data line */}
-            <VictoryLine
-              labelComponent={<VictoryTooltip/>}
-              data={dataSet1}
-              domain={{
-                x:[0,5],
-                y:[0,4]
-              }}
-              interpolation="monotoneX"
-              style={styles.lineOne}
-            />
-            <VictoryLine
-              data={dataSet2}
-              domain={{
-                x:[0,5],
-                y:[0,4]
-              }}
-              interpolation="monotoneX"
-              style={styles.lineTwo}
-            />
-            <VictoryLine
-              data={dataSet3}
-              domain={{
-                x:[0,5],
-                y:[0,4]
-              }}
-              interpolation="monotoneX"
-              style={styles.lineThree}
-            />
-            <VictoryLine
-              data={dataSet4}
-              domain={{
-                x:[0,5],
-                y:[0,4]
-              }}
-              interpolation="monotoneX"
-              style={styles.lineFour}
-            />
+            {/* Removed lines 1 2 and 4 as tooltip only functions on a single one */}
+            <VictoryZoom>
+              <VictoryChart>
+                <VictoryLine
+                  data={dataSet3}
+                  domain={{
+                    x:[0,5],
+                    y:[0,4]
+                  }}
+                  interpolation="monotoneX"
+                  style={styles.lineThree}
+                />
+                <VictoryVoronoiTooltip
+                  data={dataSet3}
+                />
+              </VictoryChart>
+            </VictoryZoom>
           </g>
         </svg>
 
@@ -113,12 +87,6 @@ class Graph extends React.Component {
           text={"network \n metric"} />
 
           <g transform={"translate(-10,30)"}>
-            <VictoryAxis
-              standalone={false}
-              style={styles.axisTime}
-              tickValues={tickValues}
-              tickFormat={(x)=>x.toPrecision(1)}
-            />
             {/* this axis must be dependentAxis */}
             <VictoryAxis dependentAxis
                domain={[0,4]}
@@ -128,30 +96,28 @@ class Graph extends React.Component {
                offsetX={50}
             />
             {/* This will be the first data line */}
-            <VictoryLine
-              data={dataSet1}
-              domain={{
-                x:[0,5],
-                y:[0,4]
-              }}
-              interpolation="bundle"
-              style={styles.lineOne}
-            />
+            <VictoryZoom>
+              <VictoryChart>
+                <VictoryLine
+                  data={dataSet1}
+                  domain={{
+                    x:[0,5],
+                    y:[0,4]
+                  }}
+                  interpolation="bundle"
+                  style={styles.lineOne}
+                />
+                <VictoryVoronoiTooltip
+                  data={dataSet1}
+                />
+              </VictoryChart>
+            </VictoryZoom>
             <VictoryAxis dependentAxis
               domain={[0,200]}
               orientation="right"
               standalone={false}
               style={styles.rightAxis}
               offsetX={70}
-            />
-            <VictoryLine
-              data={dataSet2}
-              domain={{
-                x:[0,5],
-                y:[0,4]
-              }}
-              interpolation="monotoneX"
-              style={styles.lineTwo}
             />
           </g>
         </svg>
@@ -171,12 +137,6 @@ class Graph extends React.Component {
           text={"% of \n CPU"} />
 
           <g transform={"translate(-10,30)"}>
-            <VictoryAxis
-              standalone={false}
-              style={styles.axisTime}
-              tickValues={tickValues}
-              tickFormat={(x)=>x.toPrecision(1)}
-            />
             <VictoryAxis dependentAxis
                domain={[0,4]}
                orientation="left"
@@ -184,25 +144,22 @@ class Graph extends React.Component {
                style={styles.leftVerticalAxis}
                offsetX={50}
             />
-            <VictoryLine
-              data={dataSet1}
-              domain={{
-                x:[0,5],
-                y:[0,4]
-              }}
-              interpolation="cardinal"
-              style={styles.lineOne}
-            />
-
-            <VictoryLine
-              data={dataSet2}
-              domain={{
-                x:[0,5],
-                y:[0,4]
-              }}
-              interpolation="monotoneX"
-              style={styles.lineTwo}
-            />
+            <VictoryZoom>
+              <VictoryChart>
+                <VictoryLine
+                  data={dataSet2}
+                  domain={{
+                    x:[0,5],
+                    y:[0,4]
+                  }}
+                  interpolation="monotoneX"
+                  style={styles.lineTwo}
+                />
+                <VictoryVoronoiTooltip
+                  data={dataSet2}
+                />
+              </VictoryChart>
+            </VictoryZoom>
           </g>
         </svg>
 
@@ -288,33 +245,33 @@ class Graph extends React.Component {
 
   getDataSetTOOLTIP2() {
     return [
-      {x:0.5, y:0},
-      {x:1.5, y:1},
-      {x:2.5, y:2},
-      {x:3.5, y:2},
-      {x:4.5, y:3},
+      {x:0.5, y:0, label: "..."},
+      {x:1.5, y:1, label: "..."},
+      {x:2.5, y:2, label: "..."},
+      {x:3.5, y:2, label: "..."},
+      {x:4.5, y:3, label: "..."},
     ]
   }
 
   getDataSet2() {
     return [
-      {x:0, y:4},
-      {x:1, y:4},
-      {x:2, y:1},
-      {x:3, y:0},
-      {x:4, y:1},
-      {x:5, y:2},
+      {x:0, y:4, label: "data"},
+      {x:1, y:4, label: "data"},
+      {x:2, y:1, label: "data"},
+      {x:3, y:0, label: "data"},
+      {x:4, y:1, label: "data"},
+      {x:5, y:2, label: "data"},
     ]
   }
 
   getDataSet3() {
     return [
-      {x:0, y:1},
-      {x:1, y:3},
-      {x:2, y:0},
-      {x:3, y:4},
-      {x:4, y:2},
-      {x:5, y:2},
+      {x:0, y:1, label: "data"},
+      {x:1, y:3, label: "data"},
+      {x:2, y:0, label: "data"},
+      {x:3, y:4, label: "data"},
+      {x:4, y:2, label: "data"},
+      {x:5, y:2, label: "data"},
     ]
   }
 
