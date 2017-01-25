@@ -7,12 +7,13 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import routes from './routes';
 import {loadSettings} from './actions/settingsActions';
 import {loadInfo} from './actions/infoActions';
+import {loadLogs} from './actions/logsActions';
 import './assets/styles.scss';
 
 const store = configureStore();
 store.dispatch(loadSettings());
 store.dispatch(loadInfo());
-
+store.dispatch(loadLogs());
 
 const history = syncHistoryWithStore(hashHistory, store);
 

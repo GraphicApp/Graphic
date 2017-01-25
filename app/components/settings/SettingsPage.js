@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import * as settingsActions from '../../actions/settingsActions';
 import InfoDisplay from '../common/InfoDisplay';
 import Config from './Configuration';
+import LogsDisplay from './LogsDisplay';
 import toastr from 'toastr';
 
 class Settings extends React.Component {
@@ -13,6 +14,7 @@ class Settings extends React.Component {
       settings: Object.assign({}, props.settings)
     }
     this.changeSettings = this.changeSettings.bind(this);
+    toastr.options = {"positionClass": "toast-bottom-right",}
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,24 +55,26 @@ class Settings extends React.Component {
         .catch(error => {
           toastr.error('Error saving settings...', error);
         })
-    }, 5000);
+    }, 3000);
   }
 
   confirmSettingsSaved() {
     toastr.success('Settings saved');
   }
 
+  componentDidUpdate() {
+    console.log(this.state);
+  }
+
   render() {
     return(
       <section>
-        <h2>Settings</h2>
-        <InfoDisplay
-          info={this.props.info}
-          location={this.props.location.pathname}
-        />
         <Config
           settings={this.state.settings}
           onChange={this.changeSettings}
+        />
+        <LogsDisplay
+          logs={this.props.logs}
         />
       </section>
     )
@@ -79,13 +83,15 @@ class Settings extends React.Component {
 
 Settings.propTypes = {
   settings: PropTypes.object.isRequired,
-  info: PropTypes.object.isRequired
+  info: PropTypes.object.isRequired,
+  logs: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     settings: state.settings,
-    info: state.info
+    info: state.info,
+    logs: state.logs
   };
 }
 

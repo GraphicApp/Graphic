@@ -20,7 +20,7 @@ const InfoDisplay = ({info, location}) => {
           </tr>
         </tbody>
       </table>
-      { (location === '/settings')
+      { (location === '/top')
         ?
         <table>
           <tbody>
