@@ -1,7 +1,3 @@
-/**
- * Base webpack config used across other specific configs
- */
-
 import path from 'path';
 import validate from 'webpack-validator';
 

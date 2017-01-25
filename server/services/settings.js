@@ -5,7 +5,6 @@ const defaultSettings = {
   logLevel: 'warn',
   port: 3000,
   modules: {
-    system: {status: false},
     cpu: {status: false, interval: 5000},
     processes: {status: false, interval: 30000}, // TODO: database
     memory: {status: false, interval: 5000},
@@ -41,7 +40,7 @@ if (!fs.existsSync(configFile)) {
 }
 
 exports.putSettings = (req, res) => {
-  var appSettings = req.body.settings;
+  var appSettings = req.body;
   let saveConfig = JSON.stringify(appSettings, null, 4);
   try {
     fs.writeFileSync(configFile, saveConfig);

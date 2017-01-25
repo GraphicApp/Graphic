@@ -6,16 +6,14 @@ import {Router, hashHistory} from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import routes from './routes';
 import {loadSettings} from './actions/settingsActions';
-// import {loadAllData} from './actions/dataActions';
-
+import {loadInfo} from './actions/infoActions';
+import {loadLogs} from './actions/logsActions';
 import './assets/styles.scss';
-
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-// import '../node_modules/toastr/build/toastr.min.css';
 
 const store = configureStore();
 store.dispatch(loadSettings());
-// store.dispatch(loadAllData());
+store.dispatch(loadInfo());
+store.dispatch(loadLogs());
 
 const history = syncHistoryWithStore(hashHistory, store);
 

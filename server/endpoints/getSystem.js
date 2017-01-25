@@ -8,19 +8,25 @@ const winston = require('../services/winston'),
 let couch = settings.config.db.couchdb,
     xouchdbUrl = (couch.ssl ? 'https://' : 'http://') +couch.host+ ':' + (couch.status ? couch.port : settings.config.port).toString() + (settings.config.db.pouchdb.status ? '/pouch/' : '/') + (couch.dbname ? couch.dbname : 'graphicdb');
 
-exports.getSystemInfo = (req, res) => {
-  if (!settings.config.modules.system.status) {
-    res.status(200).send('Cannot GET...', module, 'data is turned off.');
-  } else if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
-    system.getSystemInfo();
-    // promise based response after all is collected
-  }
+exports.getSystemInfo = (req, response) => {
+  // if (!settings.config.modules.system.status) {
+  //   res.status(200).send('Cannot GET...', module, 'data is turned off.');
+  // } else if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+    system.getSystemInfo()
+      .then(res => {
+        response.status(200).send(res);
+      })
+      .catch(err => {
+        winston.log.error('Error getting system information...', err);
+        response.status(500).send(err);
+      });
+  // }
 }
 
 exports.getBatteryData = (req, response) => {
   let module = 'battery';
   if (!settings.config.modules.battery.status) {
-    res.status(200).send('Cannot GET...', module, 'data is turned off.');
+    response.status(200).send('Cannot GET...', module, 'data is turned off.');
   } else if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
     let dbUrl = xouchdbUrl +'/_design/' + module + '/_view/' + req.params.time;
     request.get(dbUrl, (err, res) => {

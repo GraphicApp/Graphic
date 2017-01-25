@@ -2,9 +2,9 @@ import React, {PropTypes} from 'react';
 import ConfigModules from './ConfigModules';
 import ConfigDb from './ConfigDb';
 
-const Configuration = ({settings}) => {
+const Configuration = ({settings, onChange}) => {
   return (
-    <section className="options-configure">
+    <div className="options-configure">
       <table className="options-main">
         <tbody>
           <tr>
@@ -17,9 +17,15 @@ const Configuration = ({settings}) => {
           </tr>
         </tbody>
       </table>
-      <ConfigModules modules={settings.modules} />
-      <ConfigDb db={settings.db} />
-    </section>
+      <ConfigModules
+        modules={settings.modules}
+        onChange={onChange}
+      />
+      <ConfigDb
+        db={settings.db}
+        onChange={onChange}
+      />
+  </div>
   );
 };
 
