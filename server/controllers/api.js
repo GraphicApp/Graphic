@@ -6,7 +6,8 @@ const app = require('../index'),
       getDisk = require('../endpoints/getDisk'),
       getNetwork = require('../endpoints/getNetwork'),
       deletePouchDb = require('../endpoints/deletePouchDb'),
-      settings = require('../services/settings');
+      settings = require('../services/settings'),
+      getLogs = require('../endpoints/getLogs');
 
       // getSettings = require('../endpoints/getSettings'),
       // putSettings = require('../endpoints/getSettings'),
@@ -38,5 +39,7 @@ app.get('/api/checkurl/:url', getNetwork.getCheckUrl);
 
 app.get('/api/settings', settings.getSettings);
 app.put('/api/settings', settings.putSettings);
+
+app.get('/api/logs', getLogs.getLogs);
 
 app.delete('/api/db/pouchdb', deletePouchDb.destroyPouchDb);

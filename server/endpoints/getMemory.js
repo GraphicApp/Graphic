@@ -7,11 +7,11 @@ const winston = require('../services/winston'),
 let couch = settings.config.db.couchdb,
     xouchdbUrl = (couch.ssl ? 'https://' : 'http://') +couch.host+ ':' + (couch.status ? couch.port : settings.config.port).toString() + (settings.config.db.pouchdb.status ? '/pouch/' : '/') + (couch.dbname ? couch.dbname : 'graphicdb');
 
-exports.getMemoryData = (req, res) => {
+exports.getMemoryData = (req, response) => {
   let module = 'memory';
   if (!settings.config.modules.memory.status) {
     winston.log.error('Attempted to get', module, 'but data for that module is turned off');
-    res.status(200).send('Cannot GET...', module, 'data is turned off.');
+    response.status(200).send('Cannot GET...', module, 'data is turned off.');
   } else if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
     let dbUrl = xouchdbUrl +'/_design/' + module + '/_view/' + req.params.time;
     request.get(dbUrl, (err, res) => {

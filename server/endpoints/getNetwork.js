@@ -8,11 +8,11 @@ const winston = require('../services/winston'),
 let couch = settings.config.db.couchdb,
     xouchdbUrl = (couch.ssl ? 'https://' : 'http://') +couch.host+ ':' + (couch.status ? couch.port : settings.config.port).toString() + (settings.config.db.pouchdb.status ? '/pouch/' : '/') + (couch.dbname ? couch.dbname : 'graphicdb');
 
-exports.getNetworkData = (req, res) => {
+exports.getNetworkData = (req, response) => {
   let module = 'network';
   if (!settings.config.modules.network.status) {
     winston.log.error('Attempted to get', module, 'but data for that module is turned off');
-    res.status(200).send('Cannot GET...', module, 'data is turned off.');
+    response.status(200).send('Cannot GET...', module, 'data is turned off.');
   } else if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
     let dbUrl = xouchdbUrl +'/_design/' + module + '/_view/' + req.params.time;
     request.get(dbUrl, (err, res) => {
@@ -32,7 +32,7 @@ exports.getNetworkData = (req, res) => {
   }
 }
 
-exports.getNetConnections = (req, res) => {
+exports.getNetConnections = (req, response) => {
   let module = 'netConnections';
   if (!settings.config.modules.netConnections.status) {
     winston.log.error('Attempted to get', module, 'but data for that module is turned off');
@@ -56,15 +56,15 @@ exports.getNetConnections = (req, res) => {
   }
 }
 
-exports.getPublicIp = (req, res) => {
-  network.getPublicIp().then(ip => res.status(200).send(data));
+exports.getPublicIp = (req, response) => {
+  network.getPublicIp().then(ip => response.status(200).send(data));
 }
 
-exports.getCheckUrl = (req, res) => {
+exports.getCheckUrl = (req, response) => {
   network.getCheckUrl(req.params.url)
-      .then(data => res.status(200).send(data))
+      .then(data => response.status(200).send(data))
       .catch(error => {
         winston.log.error(error);
-        res.status(504).send();
+        response.status(504).send();
       });
 }
