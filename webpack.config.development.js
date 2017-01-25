@@ -1,9 +1,3 @@
-/* eslint-disable max-len */
-/**
- * Build config for development process that uses Hot-Module-Replacement
- * https://webpack.github.io/docs/hot-module-replacement-with-webpack.html
- */
-
 import webpack from 'webpack';
 import validate from 'webpack-validator';
 import merge from 'webpack-merge';

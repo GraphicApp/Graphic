@@ -11,66 +11,20 @@ import * as dataActions from '../../actions/dataActions';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      sysInput: {
-        process: '',
-        service: ''
-      }
-    }
-
-    this.updateInputs = this.updateInputs.bind(this);
-    this.getProcess = this.getProcess.bind(this);
-    this.getService = this.getService.bind(this);
   }
 
   componentDidUpdate() {
     let modules = this.props.settings.modules;
     this.modulesLoaded = Object.keys(modules).filter(el => modules[el].status);
-    console.log(this.state);
-  }
-
-  updateInputs(event) {
-    const field = event.target.name;
-    let sysInput = this.state.sysInput;
-    sysInput[field] = event.target.value;
-    return this.setState({sysInput: sysInput});
-  }
-
-  getProcess() {
-    this.props.actions.getProcess(this.state.process)
-      .then(() => {
-        console.log(this.props.info);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-
-  getService() {
-    this.props.actions.getService(this.state.service)
-      .then(() => {
-        console.log(this.props.info);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    console.log('ACTIVE MODULES:', this.modulesLoaded);
   }
 
   render() {
     return(
       <section>
-        <h2>Dashboard</h2>
         <InfoDisplay
           info={this.props.info}
           location={this.props.location.pathname}
-        />
-        <InfoQuery
-          processInput={this.state.process}
-          serviceInput={this.state.service}
-          onSubmitProcess={this.getProcess}
-          onSubmitService={this.getService}
-          onChange={this.updateInputs}
         />
         <Graph
 

@@ -46,5 +46,6 @@ export default {
       couchdb: {status: '', host: '', port: '', dbname: '', ssl: ''}
     }
   },
+  logs: {},
   ajaxCallsInProgress: 0
 };

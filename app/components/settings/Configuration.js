@@ -4,7 +4,7 @@ import ConfigDb from './ConfigDb';
 
 const Configuration = ({settings, onChange}) => {
   return (
-    <section className="options-configure">
+    <div className="options-configure">
       <table className="options-main">
         <tbody>
           <tr>
@@ -25,7 +25,7 @@ const Configuration = ({settings, onChange}) => {
         db={settings.db}
         onChange={onChange}
       />
-    </section>
+  </div>
   );
 };
 
