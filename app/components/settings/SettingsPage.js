@@ -68,7 +68,7 @@ class Settings extends React.Component {
 
   render() {
     return(
-      <section>
+      <section className="settings-page">
         <Config
           settings={this.state.settings}
           onChange={this.changeSettings}
@@ -84,7 +84,7 @@ class Settings extends React.Component {
 Settings.propTypes = {
   settings: PropTypes.object.isRequired,
   info: PropTypes.object.isRequired,
-  logs: PropTypes.object.isRequired
+  logs: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state, ownProps) {

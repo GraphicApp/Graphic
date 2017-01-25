@@ -25,7 +25,7 @@ const Configuration = ({settings, onChange}) => {
         db={settings.db}
         onChange={onChange}
       />
-  </div>
+    </div>
   );
 };
 
