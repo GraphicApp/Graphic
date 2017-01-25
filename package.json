@@ -161,7 +161,6 @@
   "dependencies": {
     "axios": "^0.15.3",
     "body-parser": "^1.16.0",
-    "breakpoint-sass": "^2.7.1",
     "cors": "^2.8.1",
     "dgram": "^1.0.1",
     "dns-socket": "^1.4.2",
@@ -181,7 +180,6 @@
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "singularitygs": "^1.7.1",
     "socket.io": "^1.7.2",
     "socket.io-client": "^1.7.2",
     "source-map-support": "^0.4.8",

@@ -26,9 +26,6 @@ class Dashboard extends React.Component {
           info={this.props.info}
           location={this.props.location.pathname}
         />
-        <Graph
-
-        />
       </section>
     )
   }

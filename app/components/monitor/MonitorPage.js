@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as dataActions from '../../actions/dataActions';
 import Graph from '../common/Graph';
 import TimeSelect from './TimeSelect';
+import toastr from 'toastr';
 
 
 class Monitor extends React.Component {
@@ -20,19 +21,19 @@ class Monitor extends React.Component {
   componentDidUpdate() {
     let modules = this.props.settings.modules;
     this.modulesLoaded = Object.keys(modules).filter(el => modules[el].status);
-    // this.getToday();
-    console.log(this.props.data);
-
   }
 
   getAll() {
     let time = 'all';
+    toastr.info('Getting', time, 'data from database...');
     this.modulesLoaded.forEach(el => {
       this.props.actions.loadData(el, time)
         .then(() => {
-          console.log(this.props.data.battery);
+          toastr.success('Data received');
+          console.log(this.props.data.cpu);
         })
         .catch(error => {
+          toastr.error('Could not fetch data');
           console.error(error);
         });
     })
@@ -40,12 +41,15 @@ class Monitor extends React.Component {
 
   getToday() {
     let time = 'today';
+    toastr.info('Getting', time, 'data from database...');
     this.modulesLoaded.forEach(el => {
       this.props.actions.loadData(el, time)
         .then(() => {
-          console.log(this.props.data.battery);
+          toastr.success('Data received');
+          console.log(this.props.data.cpu);
         })
         .catch(error => {
+          toastr.error('Could not fetch data');
           console.error(error);
         });
     })
@@ -53,12 +57,15 @@ class Monitor extends React.Component {
 
   getLastThreeHours() {
     let time = 'lastThreeHours';
+    toastr.info('Getting', time, 'data from database...');
     this.modulesLoaded.forEach(el => {
       this.props.actions.loadData(el, time)
         .then(() => {
+          toastr.success('Data received');
           console.log(this.props.data.cpu);
         })
         .catch(error => {
+          toastr.error('Could not fetch data');
           console.error(error);
         });
     })
@@ -66,12 +73,15 @@ class Monitor extends React.Component {
 
   getLastSevenDays() {
     let time = 'lastSevenDays';
+    toastr.info('Getting', time, 'data from database...');
     this.modulesLoaded.forEach(el => {
       this.props.actions.loadData(el, time)
         .then(() => {
-          console.log(this.props.data.battery);
+          toastr.success('Data received');
+          console.log(this.props.data.cpu);
         })
         .catch(error => {
+          toastr.error('Could not fetch data');
           console.error(error);
         });
     })
@@ -79,12 +89,15 @@ class Monitor extends React.Component {
 
   getThisMonth() {
     let time = 'thisMonth';
+    toastr.info('Getting', time, 'data from database...');
     this.modulesLoaded.forEach(el => {
       this.props.actions.loadData(el, time)
         .then(() => {
-          console.log(this.props.data.battery);
+          toastr.success('Data received');
+          console.log(this.props.data.cpu);
         })
         .catch(error => {
+          toastr.error('Could not fetch data');
           console.error(error);
         });
     })
@@ -102,7 +115,7 @@ class Monitor extends React.Component {
           onSelectThisMonth={this.getThisMonth}
         />
         <Graph
-
+          data={this.props.data}
           />
       </section>
     )
@@ -110,7 +123,7 @@ class Monitor extends React.Component {
 }
 
 Monitor.propTypes = {
-  settings: PropTypes.object.isRequired
+  settings: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {

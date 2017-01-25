@@ -1,22 +1,27 @@
 import React, {PropTypes} from 'react';
+import moment from 'moment';
 
 const LogsDisplay = ({logs}) => {
-  console.log(logs);
   return (
-    <div>
-      {/*logs.map(log, i =>
-        <div key={i}>
-          <span>{log.level}</span>
-          <span>{log.message}</span>
-          <span>{log.timestamp}</span>
-        </div>
-      )*/}
+    <div className="log-component">
+      { (logs.length > 0) ? <h3>Logs</h3> : null }
+      <table>
+        <tbody>
+        {logs.map((log, i) =>
+          <tr key={i}>
+            <td className="left">{log.level}</td>
+            <td className="left">{log.message}</td>
+            <td>{moment(log.timestamp).format("h:mm:ss a, MMM Do YY")}</td>
+          </tr>
+        )}
+        </tbody>
+      </table>
     </div>
   );
 };
 
 LogsDisplay.propTypes = {
-  logs: PropTypes.object.isRequired
+  logs: PropTypes.array.isRequired
 };
 
 export default LogsDisplay;

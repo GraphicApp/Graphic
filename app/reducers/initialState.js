@@ -1,6 +1,27 @@
 export default {
   data: {
-    cpu: [],
+    cpu: [
+      {value: {
+        avg: '',
+        max: '',
+        min: ''
+      }
+    }, {
+      value: ''
+    }, {
+      value: {
+        avgload: '',
+        cpus: [
+          {
+            load: '',
+            load_irq: '',
+            load_nice: '',
+            load_system: '',
+            load_user: ''
+          }
+        ]
+      }
+    }],
     processes: [],
     memory: [],
     temperature: [],
@@ -46,6 +67,6 @@ export default {
       couchdb: {status: '', host: '', port: '', dbname: '', ssl: ''}
     }
   },
-  logs: {},
+  logs: [],
   ajaxCallsInProgress: 0
 };

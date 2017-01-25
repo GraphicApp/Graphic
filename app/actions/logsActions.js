@@ -12,7 +12,7 @@ export function loadLogs(query) {
     dispatch(beginAjaxCall());
     return axios.get(url)
       .then(res => {
-        dispatch(loadLogsSuccess(res.data));
+        dispatch(loadLogsSuccess(res.data.file));
       })
       .catch(error => {
         throw(error);

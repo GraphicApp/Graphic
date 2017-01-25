@@ -3,7 +3,7 @@ import moment from 'moment';
 import LoadingDots from './LoadingDots';
 
 const InfoDisplay = ({info, location}) => {
-  console.log(info);
+  // console.log(info);
   const appUptime = moment(moment().seconds(-info.appUptime)).local().fromNow();
   const sysUptime = moment(moment().seconds(-info.time.uptime)).local().fromNow();
   return (
