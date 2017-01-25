@@ -26,7 +26,7 @@ exports.getSystemInfo = (req, response) => {
 exports.getBatteryData = (req, response) => {
   let module = 'battery';
   if (!settings.config.modules.battery.status) {
-    res.status(200).send('Cannot GET...', module, 'data is turned off.');
+    response.status(200).send('Cannot GET...', module, 'data is turned off.');
   } else if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
     let dbUrl = xouchdbUrl +'/_design/' + module + '/_view/' + req.params.time;
     request.get(dbUrl, (err, res) => {

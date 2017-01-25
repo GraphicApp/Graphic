@@ -12,7 +12,7 @@ class Monitor extends React.Component {
 
     this.getAll = this.getAll.bind(this);
     this.getToday = this.getToday.bind(this);
-    this.getLastThreeDays = this.getLastThreeDays.bind(this);
+    this.getLastThreeHours = this.getLastThreeHours.bind(this);
     this.getLastSevenDays = this.getLastSevenDays.bind(this);
     this.getThisMonth = this.getThisMonth.bind(this);
   }
@@ -21,6 +21,8 @@ class Monitor extends React.Component {
     let modules = this.props.settings.modules;
     this.modulesLoaded = Object.keys(modules).filter(el => modules[el].status);
     // this.getToday();
+    console.log(this.props.data);
+
   }
 
   getAll() {
@@ -49,12 +51,12 @@ class Monitor extends React.Component {
     })
   }
 
-  getLastThreeDays() {
-    let time = 'lastThreeDays';
+  getLastThreeHours() {
+    let time = 'lastThreeHours';
     this.modulesLoaded.forEach(el => {
       this.props.actions.loadData(el, time)
         .then(() => {
-          console.log(this.props.data.battery);
+          console.log(this.props.data.cpu);
         })
         .catch(error => {
           console.error(error);
@@ -95,7 +97,7 @@ class Monitor extends React.Component {
         <TimeSelect
           onSelectAll={this.getAll}
           onSelectToday={this.getToday}
-          onSelectLastThreeDays={this.getLastThreeDays}
+          onSelectLastThreeHours={this.getLastThreeHours}
           onSelectLastSevenDays={this.getLastSevenDays}
           onSelectThisMonth={this.getThisMonth}
         />

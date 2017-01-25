@@ -6,15 +6,13 @@ export function loadLogsSuccess(logs) {
   return { type: types.LOAD_LOGS, logs };
 }
 
-export function loadLogs() {
-  let url = `http://localhost:${process.env.PORT}/api/logs`;
+export function loadLogs(query) {
+  let url = `http://localhost:${process.env.PORT}/api/logs${(query && query.limit) ? '?limit=' +query.limit : ''}`;
   return function(dispatch) {
     dispatch(beginAjaxCall());
     return axios.get(url)
       .then(res => {
-        console.log(res.data);
-        let data = JSON.parse(res.data);
-        dispatch(loadLogsSuccess(data));
+        dispatch(loadLogsSuccess(res.data));
       })
       .catch(error => {
         throw(error);
