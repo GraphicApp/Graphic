@@ -15,12 +15,17 @@ class Settings extends React.Component {
     }
     this.changeSettings = this.changeSettings.bind(this);
     toastr.options = {"positionClass": "toast-bottom-right",}
+    console.log(this.props.loading);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.settings.logLevel != nextProps.settings.logLevel) {
       this.setState({settings: Object.assign({}, nextProps.settings)});
     }
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.loading);
   }
 
   changeSettings(event) {
@@ -63,7 +68,7 @@ class Settings extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   render() {
@@ -91,7 +96,8 @@ function mapStateToProps(state, ownProps) {
   return {
     settings: state.settings,
     info: state.info,
-    logs: state.logs
+    logs: state.logs,
+    loading: state.ajaxCallsInProgress > 0
   };
 }
 

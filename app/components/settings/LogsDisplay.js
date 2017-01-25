@@ -4,6 +4,7 @@ import moment from 'moment';
 const LogsDisplay = ({logs}) => {
   return (
     <div className="log-component">
+      { (logs.length > 0) ? <h3>Logs</h3> : null }
       <table>
         <tbody>
         {logs.map((log, i) =>

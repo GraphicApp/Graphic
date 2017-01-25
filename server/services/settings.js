@@ -5,12 +5,12 @@ const defaultSettings = {
   logLevel: 'warn',
   port: 3000,
   modules: {
-    cpu: {status: false, interval: 5000},
+    cpu: {status: true, interval: 20000},
     processes: {status: false, interval: 30000}, // TODO: database
     memory: {status: false, interval: 5000},
     temperature: {status: false, interval: 5000},
     fan: {status: false, interval: 5000},
-    battery: {status: true, interval: 5000},
+    battery: {status: false, interval: 5000},
     disk: {status: false, interval: 5000},
     diskfs: {status: false, interval: 900*1000},
     network: {status: false, interval: 5000, iface: '', ping: ''},
