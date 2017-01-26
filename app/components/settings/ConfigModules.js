@@ -7,6 +7,7 @@ const ConfigModules = ({modules, onChange}) => {
         <tbody>
           <tr>
             <td>CPU</td>
+            <td></td>
             <td>
               <label className="switch">
                 <input
@@ -24,12 +25,23 @@ const ConfigModules = ({modules, onChange}) => {
             ?
           <tr>
             <td>Interval</td>
-            <td>{modules.cpu.interval}</td>
+            <td>
+              <input
+                id="modules"
+                type="number"
+                name="cpu"
+                onChange={onChange}
+                value={modules.cpu.interval}
+                placeholder="5000"
+              />
+            </td>
+            <td>ms</td>
           </tr>
             : null
           }
           <tr>
             <td>Processes</td>
+            <td></td>
             <td>
               <label className="switch">
                 <input
@@ -47,12 +59,23 @@ const ConfigModules = ({modules, onChange}) => {
             ?
           <tr>
             <td>Interval</td>
-            <td>{modules.processes.interval}</td>
+            <td>
+              <input
+                id="modules"
+                type="number"
+                name="processes"
+                onChange={onChange}
+                value={modules.processes.interval}
+                placeholder="5000"
+              />
+            </td>
+            <td>ms</td>
           </tr>
             : null
           }
           <tr>
             <td>Memory</td>
+            <td></td>
             <td>
               <label className="switch">
                 <input
@@ -70,12 +93,23 @@ const ConfigModules = ({modules, onChange}) => {
             ?
           <tr>
             <td>Interval</td>
-            <td>{modules.memory.interval}</td>
+            <td>
+              <input
+                id="modules"
+                type="number"
+                name="memory"
+                onChange={onChange}
+                value={modules.memory.interval}
+                placeholder="5000"
+              />
+            </td>
+            <td>ms</td>
           </tr>
             : null
           }
           <tr>
             <td>Temperature</td>
+            <td></td>
             <td>
               <label className="switch">
                 <input
@@ -93,12 +127,23 @@ const ConfigModules = ({modules, onChange}) => {
             ?
           <tr>
             <td>Interval</td>
-            <td>{modules.temperature.interval}</td>
+            <td>
+              <input
+                id="modules"
+                type="number"
+                name="temperature"
+                onChange={onChange}
+                value={modules.temperature.interval}
+                placeholder="5000"
+              />
+            </td>
+            <td>ms</td>
           </tr>
             : null
           }
           <tr>
             <td>Fan</td>
+            <td></td>
             <td>
               <label className="switch">
                 <input
@@ -116,12 +161,23 @@ const ConfigModules = ({modules, onChange}) => {
             ?
           <tr>
             <td>Interval</td>
-            <td>{modules.fan.interval}</td>
+            <td>
+              <input
+                id="modules"
+                type="number"
+                name="fan"
+                onChange={onChange}
+                value={modules.fan.interval}
+                placeholder="5000"
+              />
+            </td>
+            <td>ms</td>
           </tr>
             : null
           }
           <tr>
             <td>Battery</td>
+            <td></td>
             <td>
               <label className="switch">
                 <input
@@ -139,12 +195,23 @@ const ConfigModules = ({modules, onChange}) => {
             ?
           <tr>
             <td>Interval</td>
-            <td>{modules.battery.interval}</td>
+            <td>
+              <input
+                id="modules"
+                type="number"
+                name="battery"
+                onChange={onChange}
+                value={modules.battery.interval}
+                placeholder="5000"
+              />
+            </td>
+            <td>ms</td>
           </tr>
             : null
           }
           <tr>
             <td>Disks</td>
+            <td></td>
             <td>
               <label className="switch">
                 <input
@@ -162,12 +229,23 @@ const ConfigModules = ({modules, onChange}) => {
             ?
           <tr>
             <td>Interval</td>
-            <td>{modules.disk.interval}</td>
+            <td>
+              <input
+                id="modules"
+                type="number"
+                name="disk"
+                onChange={onChange}
+                value={modules.disk.interval}
+                placeholder="5000"
+              />
+            </td>
+            <td>ms</td>
           </tr>
             : null
           }
           <tr>
             <td>File System</td>
+            <td></td>
             <td>
               <label className="switch">
                 <input
@@ -185,43 +263,23 @@ const ConfigModules = ({modules, onChange}) => {
             ?
           <tr>
             <td>Interval</td>
-            <td>{modules.diskfs.interval}</td>
-          </tr>
-            : null
-          }
-          <tr>
-            <td>Network</td>
             <td>
-              <label className="switch">
-                <input
-                  id="modules"
-                  type="checkbox"
-                  name="network"
-                  onChange={onChange}
-                  checked={modules.network.status}
-                />
-                <div className="slider round"></div>
-              </label>
+              <input
+                id="modules"
+                type="number"
+                name="diskfs"
+                onChange={onChange}
+                value={modules.diskfs.interval}
+                placeholder="5000"
+              />
             </td>
+            <td>ms</td>
           </tr>
-          { modules.network.status
-            ?
-          <table>
-            <tbody>
-              <tr>
-                <td>Interface</td>
-                <td>{modules.network.iface}</td>
-              </tr>
-              <tr>
-                <td>Ping</td>
-                <td>{modules.network.ping}</td>
-              </tr>
-            </tbody>
-          </table>
             : null
           }
           <tr>
             <td>Network Connections</td>
+            <td></td>
             <td>
               <label className="switch">
                 <input
@@ -239,11 +297,87 @@ const ConfigModules = ({modules, onChange}) => {
             ?
           <tr>
             <td>Interval</td>
-            <td>{modules.netConnections.interval}</td>
+            <td>
+              <input
+                id="modules"
+                type="number"
+                name="netConnections"
+                onChange={onChange}
+                value={modules.netConnections.interval}
+                placeholder="5000"
+              />
+            </td>
+            <td>ms</td>
           </tr>
             : null
           }
+          <tr>
+            <td>Network</td>
+            <td></td>
+            <td>
+              <label className="switch">
+                <input
+                  id="modules"
+                  type="checkbox"
+                  name="network"
+                  onChange={onChange}
+                  checked={modules.network.status}
+                />
+                <div className="slider round"></div>
+              </label>
+            </td>
+          </tr>
         </tbody>
+        { modules.network.status
+          ?
+        <tbody>
+          <tr>
+            <td>Interval</td>
+            <td>
+              <input
+                id="modules"
+                type="number"
+                name="network"
+                onChange={onChange}
+                value={modules.network.interval}
+                placeholder="5000"
+              />
+            </td>
+            <td>ms</td>
+          </tr>
+          <tr>
+            <td>Interface</td>
+            { modules.network.iface ? <td></td> : <td>default:</td> }
+            <td>
+              <input
+                id="modules"
+                type="text"
+                name="network"
+                onChange={onChange}
+                value={modules.network.iface}
+                placeholder="en0"
+                className="iface"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Ping</td>
+            { modules.network.ping ? <td></td> : <td>default:</td> }
+            <td>
+              <input
+                id="modules"
+                type="text"
+                name="network"
+                onChange={onChange}
+                value={modules.network.ping}
+                placeholder="8.8.8.8"
+                className="ping"
+              />
+            </td>
+          </tr>
+        </tbody>
+          : null
+        }
       </table>
     </div>
   );

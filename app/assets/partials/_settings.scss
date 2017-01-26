@@ -3,14 +3,34 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+
+
+
+  tbody {
+    width: 100%;
+  }
+
+  table {
+    width: 200px;;
+  }
 }
 
 .options-configure {
-  margin: 0 40px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
 }
 
-.options-modules {
+.options-modules, .options-right {
   margin: 0 40px;
+  width: 300px;
+  padding: 0 10px;
+
+  td {
+    padding: 5px 0;
+    width: 100px!important;
+  }
 }
 
 .options-configure {
