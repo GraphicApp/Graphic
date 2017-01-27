@@ -1,5 +1,4 @@
 const winston = require('../services/winston'),
-      settings = require('../services/settings'),
       pouchdb = require('../db/pouchdb');
 
 exports.destroyPouchDb = (req, response) => {

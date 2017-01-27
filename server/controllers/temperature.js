@@ -1,22 +1,22 @@
 const si = require('systeminformation'),
       winston = require('../services/winston'),
-      settings = require('../services/settings'),
       os = require('os'),
       app = require('../index'),
       db = app.get('db'),
+      settings = app.locals.settings.config,
       smc = require('../services/smc/smc'),
       pdb = require('../db/pouchdb');
 
 
 let platform = os.type();
 
-if (settings.config.modules.temperature.status) {
+if (settings.modules.temperature.status) {
   let module = 'temperature';
   setInterval(() => {
     if (platform == 'Linux') {
       si.cpuTemperature()
           .then(data => {
-            if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            if (settings.db.pouchdb.status || settings.db.couchdb.status) {
               let obj = {};
               obj.time = new Date().getTime();
               obj.name = module;
@@ -25,7 +25,7 @@ if (settings.config.modules.temperature.status) {
             }
             for (let prop in data) {
               if (data.hasOwnProperty(prop) && data[prop] > 0) {
-                if (settings.config.db.postgres.status) {
+                if (settings.db.postgres.status) {
                   let values = {
                     name: module +'.'+ prop,
                     value: data[prop]
@@ -40,7 +40,7 @@ if (settings.config.modules.temperature.status) {
           })
           .catch(error => winston.log.error(error));
     } else if (platform == 'Darwin') {
-      if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+      if (settings.db.pouchdb.status || settings.db.couchdb.status) {
         let tempObj = smc.metrics,
             newTempObj = {};
         for (var prop in tempObj) {
@@ -60,7 +60,7 @@ if (settings.config.modules.temperature.status) {
       Object.keys(smc.metrics).forEach(function(key) {
         var value = smc.get(key);
         if (value > 0) {
-          if (settings.config.db.postgres.status) {
+          if (settings.db.postgres.status) {
             let values = {
               name: module +'.'+ smc.metrics[key],
               value: value
@@ -72,15 +72,15 @@ if (settings.config.modules.temperature.status) {
         }
       });
     }
-  }, settings.config.modules.temperature.interval);
+  }, settings.modules.temperature.interval);
 }
 
-if (settings.config.modules.fan.status && platform == 'Darwin') {
+if (settings.modules.fan.status && platform == 'Darwin') {
   let module = 'fan';
   setInterval(() => {
     let i, f = smc.fans();
     for (i = 0; i < f; i++) {
-      if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+      if (settings.db.pouchdb.status || settings.db.couchdb.status) {
         let data = {};
         data.fan = 'F'+i+'Ac';
         data.rpm = smc.fanRpm(i);
@@ -90,7 +90,7 @@ if (settings.config.modules.fan.status && platform == 'Darwin') {
         obj.value = data;
         pdb.store(obj);
       }
-      if (settings.config.db.postgres.status) {
+      if (settings.db.postgres.status) {
         let values = {
           name: module + '.F'+i+'Ac',
           value: smc.fanRpm(i)
@@ -100,5 +100,5 @@ if (settings.config.modules.fan.status && platform == 'Darwin') {
         });
       }
     }
-  }, settings.config.modules.fan.interval);
+  }, settings.modules.fan.interval);
 }

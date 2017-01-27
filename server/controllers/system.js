@@ -1,25 +1,25 @@
 const os = require('os'),
       si = require('systeminformation'),
       winston = require('../services/winston'),
-      settings = require('../services/settings'),
       app = require('../index'),
       db = app.get('db'),
+      settings = app.locals.settings.config,
       pdb = require('../db/pouchdb');
 
-if (settings.config.modules.battery.status) {
+if (settings.modules.battery.status) {
   let module = 'battery';
   setInterval(() => {
     si.battery()
         .then(data => {
           if (data.hasbattery) {
-            if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+            if (settings.db.pouchdb.status || settings.db.couchdb.status) {
               let obj = {};
               obj.time = new Date().getTime();
               obj.name = module;
               obj.value = data;
               pdb.store(obj);
             }
-            if (settings.config.db.postgres.status) {
+            if (settings.db.postgres.status) {
               for (let prop in data) {
                 if (data.hasOwnProperty(prop) && prop !== 'hasbattery') {
                   if (typeof(data[prop]) === 'boolean') {
@@ -39,7 +39,7 @@ if (settings.config.modules.battery.status) {
           }
         })
         .catch(error => winston.log.error(error));
-  }, settings.config.modules.battery.interval);
+  }, settings.modules.battery.interval);
 }
 
 exports.getSystemInfo = (callback) => {

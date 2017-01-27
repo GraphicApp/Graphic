@@ -1,20 +1,20 @@
 const PouchDB = require('pouchdb'),
       winston = require('../services/winston'),
       app = require('../index'),
-      settings = require('../services/settings'),
+      settings = app.locals.settings.config,
       request = require('request');
 
-if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+if (settings.db.pouchdb.status || settings.db.couchdb.status) {
   let database = 'graphicdb';
-  if (settings.config.db.couchdb.status && !settings.config.db.pouchdb.status) {
-    let couch = settings.config.db.couchdb;
+  if (settings.db.couchdb.status && !settings.db.pouchdb.status) {
+    let couch = settings.db.couchdb;
     database = (couch.ssl ? 'https://' : 'http://') +couch.host+ ':' + couch.port.toString() +'/'+ (couch.dbname ? couch.dbname : 'graphicdb');
     request.put(database, (err, res, body) => {
       if (err && err === 'file_exists') winston.log.info('Confirmed CouchDB database');
       if (err && err !== 'file_exists') winston.log.error('Could not create CouchDB database...', err);
     });
   }
-  winston.log.info('Connecting to', (settings.config.db.couchdb.status ? 'CouchDB':'PouchDB'), database);
+  winston.log.info('Connecting to', (settings.db.couchdb.status ? 'CouchDB':'PouchDB'), database);
 
   if (true) {
 
