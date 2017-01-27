@@ -25,7 +25,9 @@ class Dashboard extends React.Component {
         <InfoDisplay
           info={this.props.info}
           location={this.props.location.pathname}
+          data={this.props.data}
         />
+
       </section>
     )
   }

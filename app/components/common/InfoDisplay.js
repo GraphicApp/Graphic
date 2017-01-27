@@ -1,12 +1,54 @@
 import React, {PropTypes} from 'react';
 import moment from 'moment';
 import LoadingDots from './LoadingDots';
+// import {Chart} from 'highcharts';
+// import {options} from 'highcharts';
 
-const InfoDisplay = ({info, location}) => {
+
+
+
+
+const InfoDisplay = ({info, data, location}) => {
   // console.log(info);
+  console.log("info display data:", data);
   const appUptime = moment(moment().seconds(-info.appUptime)).local().fromNow();
   const sysUptime = moment(moment().seconds(-info.time.uptime)).local().fromNow();
+
+
+  // let filtered = data.cpu.filter(function(el) {
+  //   return el.value.avg >0
+  // })
+  //
+  // console.log("filtered in infoDisplay: ", filtered)
+  //
+  // let reformattedArray = filtered.map(function(obj) {
+  //   var rObj = {};
+  //   rObj["avgVal"] = obj.value.avg;
+  //   return rObj;
+  // })
+  //
+  // // console.log("reformattedArray in MV: ", reformattedArray)
+  //
+  // // console.log("reformatted Array value is: ", reformattedArray[0].avgVal)
+  // let nums = [];
+  // for (var i =0; i < reformattedArray.length; i++) {
+  //   // console.log("reformattedArray value is: ", reformattedArray[i].avgVal)
+  //   nums.push(reformattedArray[i].avgVal);
+  //   // return nums;
+  // }
+  // // this.setState({nums});
+  //
+  // console.log("nums in infoDisplay: ", nums)
+
+
+
+
+
+
   return (
+
+
+
     <div>
       <table>
         <tbody>
@@ -74,6 +116,11 @@ const InfoDisplay = ({info, location}) => {
         </table>
         : null
       }
+
+      <div>
+        Testing text
+      </div>
+      
     </div>
   );
 };
