@@ -1,22 +1,22 @@
 const massive = require('massive'),
       app = require('../index'),
+      settings = app.locals.settings.config,
       winston = require('../services/winston'),
-      settings = require('../services/settings'),
       request = require('request');
 
-if (settings.config.db.postgres.status) {
-  if (!settings.config.db.postgres.host) winston.log.info('Using default PostgreSQL host.');
-  if (!settings.config.db.postgres.user) winston.log.info('Using default PostgreSQL user.');
-  if (!settings.config.db.postgres.dbname) winston.log.info('Using default PostgreSQL database name.');
+if (settings.db.postgres.status) {
+  if (!settings.db.postgres.host) winston.log.info('Using default PostgreSQL host.');
+  if (!settings.db.postgres.user) winston.log.info('Using default PostgreSQL user.');
+  if (!settings.db.postgres.dbname) winston.log.info('Using default PostgreSQL database name.');
 
-  let port = settings.config.db.postgres.port,
+  let port = settings.db.postgres.port,
       portString = '';
   if (port !== 5432) portString = ':' + port.toString();
   mConfig = {
-    user: settings.config.db.postgres.user,
-    pass: settings.config.db.postgres.pass,
-    host: settings.config.db.postgres.host,
-    dbname: settings.config.db.postgres.dbname
+    user: settings.db.postgres.user,
+    pass: settings.db.postgres.pass,
+    host: settings.db.postgres.host,
+    dbname: settings.db.postgres.dbname
   }
 
   let connectionString = `postgres://${mConfig.user}:${mConfig.pass}@${mConfig.host}${portString}/${mConfig.dbname}`;
@@ -31,7 +31,7 @@ if (settings.config.db.postgres.status) {
     });
   } catch (err) {
     winston.log.error('PostgreSQL database input does not match any database at that address.', err);
-    settings.config.db.postgres.status = false;
+    settings.db.postgres.status = false;
   }
 
   const massiveInstance = massive.connectSync({

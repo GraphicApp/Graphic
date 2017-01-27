@@ -1,23 +1,23 @@
 const si = require('systeminformation'),
-      settings = require('../services/settings'),
       winston = require('../services/winston'),
       app = require('../index'),
       db = app.get('db'),
+      settings = app.locals.settings.config,
       pdb = require('../db/pouchdb');
 
-if (settings.config.modules.memory.status) {
+if (settings.modules.memory.status) {
   let module = 'memory';
   setInterval(() => {
     si.mem()
         .then(data => {
-          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+          if (settings.db.pouchdb.status || settings.db.couchdb.status) {
             let obj = {};
             obj.time = new Date().getTime();
             obj.name = module;
             obj.value = data;
             pdb.store(obj);
           }
-          if (settings.config.db.postgres.status) {
+          if (settings.db.postgres.status) {
             for (let prop in data) {
               if (data.hasOwnProperty(prop)) {
                 let values = {
@@ -32,5 +32,5 @@ if (settings.config.modules.memory.status) {
           }
         })
         .catch(error => winston.log.error(error));
-  }, settings.config.modules.memory.interval)
+  }, settings.modules.memory.interval)
 }

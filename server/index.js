@@ -20,6 +20,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import { spawn } from 'child_process';
 
 const app = express();
+app.set('config', settings.config);
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config),
         wdm = webpackDevMiddleware(compiler, {
