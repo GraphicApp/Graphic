@@ -108,7 +108,7 @@ class Monitor extends React.Component {
       this.props.actions.loadData(el, time)
         .then(() => {
           toastr.success('Data received');
-          console.log(this.props.data.cpu);
+          console.log(this.props.data);
         })
         .catch(error => {
           toastr.error('Could not fetch data');

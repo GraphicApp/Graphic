@@ -1,4 +1,5 @@
 const winston = require('../services/winston'),
+      disk = require('../controllers/disk'),
       request = require('request'),
       app = require('../index'),
       db = app.get('db');

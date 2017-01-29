@@ -1,4 +1,5 @@
 const winston = require('../services/winston'),
+      memory = require('../controllers/memory'),
       request = require('request'),
       app = require('../index'),
       db = app.get('db');

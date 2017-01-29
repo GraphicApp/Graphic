@@ -4,9 +4,9 @@ const si = require('systeminformation'),
       db = app.get('db'),
       pdb = require('../db/pouchdb');
 
-if (app.locals.settings.config.modules.disk.status) {
+setInterval(() => {
   let module = 'disk';
-  setInterval(() => {
+  if (app.locals.settings.config.modules.disk.status) {
     si.fsStats()
         .then(data => {
           if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
@@ -56,12 +56,12 @@ if (app.locals.settings.config.modules.disk.status) {
           }
         })
         .catch(error => winston.log.error(error));
-  }, app.locals.settings.config.modules.disk.interval)
-}
+  }
+}, app.locals.settings.config.modules.disk.interval);
 
-if (app.locals.settings.config.modules.diskfs.status) {
+setInterval(() => {
   let module = 'diskfs'
-  setInterval(() => {
+  if (app.locals.settings.config.modules.diskfs.status) {
     si.fsSize()
         .then(data => {
           if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
@@ -84,9 +84,9 @@ if (app.locals.settings.config.modules.diskfs.status) {
                   });
                 }
               }
-            }
-          })
+            })
+          }
         })
         .catch(error => winston.log.error(error));
-  }, app.locals.settings.config.modules.diskfs.interval);
-}
+  }
+}, app.locals.settings.config.modules.diskfs.interval);

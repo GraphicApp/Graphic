@@ -4,9 +4,9 @@ const si = require('systeminformation'),
       db = app.get('db'),
       pdb = require('../db/pouchdb');
 
-if (app.locals.settings.config.modules.cpu.status) {
+setInterval(() => {
   let module = 'cpu';
-  setInterval(() => {
+  if (app.locals.settings.config.modules.cpu.status) {
     si.cpuCurrentspeed()
         .then(data => {
           if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
@@ -99,12 +99,13 @@ if (app.locals.settings.config.modules.cpu.status) {
 
         })
         .catch(error => winston.log.error(error));
-  }, app.locals.settings.config.modules.cpu.interval);
-}
+  }
+}, app.locals.settings.config.modules.cpu.interval);
 
 
-if (app.locals.settings.config.modules.processes.status) {
-  setInterval(() => {
+setInterval(() => {
+  let module = 'processes';
+  if (app.locals.settings.config.modules.processes.status) {
     si.processes()
         .then(data => {
           if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
@@ -116,8 +117,8 @@ if (app.locals.settings.config.modules.processes.status) {
           }
         })
         .catch(error => winston.log.error(error));
-  }, app.locals.settings.config.modules.processes.interval);
-}
+  }
+}, app.locals.settings.config.modules.processes.interval);
 
 exports.getServices = si.services;
 exports.getProcessLoad = si.processLoad;
