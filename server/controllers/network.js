@@ -4,22 +4,21 @@ const si = require('systeminformation'),
       getip = require('../services/getip'),
       app = require('../index'),
       db = app.get('db'),
-      settings = app.locals.settings.config,
       pdb = require('../db/pouchdb');
 
-if (settings.modules.network.status) {
+if (app.locals.settings.config.modules.network.status) {
   let module = 'network';
   setInterval(() => {
-    si.networkStats(settings.modules.network.iface)
+    si.networkStats(app.locals.settings.config.modules.network.iface)
         .then(data => {
-          if (settings.db.pouchdb.status || settings.db.couchdb.status) {
+          if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
             let obj = {};
             obj.time = new Date().getTime();
             obj.name = module;
             obj.value = data;
             pdb.store(obj);
           }
-          if (settings.db.postgres.status) {
+          if (app.locals.settings.config.db.postgres.status) {
             for (let prop in data) {
               if (data.hasOwnProperty(prop) && data[prop] > -1 && prop !== 'iface' && prop !== 'operstate') {
                 let values = {
@@ -35,16 +34,16 @@ if (settings.modules.network.status) {
           }
         })
         .catch(error => winston.log.error(error));
-    si.inetLatency(settings.modules.network.ping)
+    si.inetLatency(app.locals.settings.config.modules.network.ping)
         .then(data => {
-          if (settings.db.pouchdb.status || settings.db.couchdb.status) {
+          if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
             let obj = {};
             obj.time = new Date().getTime();
             obj.name = module;
             obj.value = data;
             pdb.store(obj);
           }
-          if (settings.db.postgres.status) {
+          if (app.locals.settings.config.db.postgres.status) {
             let values = {
               name: module +'.latency',
               value: data
@@ -55,22 +54,22 @@ if (settings.modules.network.status) {
           }
         })
         .catch(error => winston.log.error(error));
-  }, settings.modules.network.interval);
+  }, app.locals.settings.config.modules.network.interval);
 }
 
-if (settings.modules.netConnections.status) {
+if (app.locals.settings.config.modules.netConnections.status) {
   let module = 'netConnections';
   setInterval(() => {
   si.networkConnections()
       .then(data => {
-        if (settings.db.pouchdb.status || settings.db.couchdb.status) {
+        if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
           let obj = {};
           obj.time = new Date().getTime();
           obj.name = module;
           obj.value = data;
           pdb.store(obj);
         }
-        if (settings.db.postgres.status) {
+        if (app.locals.settings.config.db.postgres.status) {
           data.forEach((el, i) => {
             for (let prop in el) {
               if (el.hasOwnProperty(prop)) {
@@ -115,7 +114,7 @@ if (settings.modules.netConnections.status) {
       })
       .catch(error => winston.log.error(error));
 
-  }, settings.modules.netConnections.interval);
+  }, app.locals.settings.config.modules.netConnections.interval);
 }
 
 exports.getPublicIp = getip.v4;
