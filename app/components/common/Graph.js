@@ -21,6 +21,8 @@ class Graph extends React.Component {
     const tickValues = this.getTickValues();
 
     const dataSetTemp = this.getDataSetTemp();
+    const dataSetRX_SEC = this.getDataSetRX_SEC();
+    const dataSetTX_SEC = this.getDataSetTX_SEC();
 
     const data = this.props.data;
     let filtered = data.cpu.filter(function(el) {
@@ -130,7 +132,7 @@ class Graph extends React.Component {
           <g transform={"translate(-10,30)"}>
             {/* this axis must be dependentAxis */}
             <VictoryAxis dependentAxis
-               domain={[0,4]}
+               domain={[0,20000]}
                orientation="left"
                standalone={false}
                style={styles.leftVerticalAxis}
@@ -139,18 +141,30 @@ class Graph extends React.Component {
             {/* This will be the first data line */}
             <VictoryZoom>
               <VictoryChart>
-                <VictoryLine
-                  data={dataSet1}
+                <VictoryBar
+                  // labelComponent={<VictoryTooltip/>}
+                  data={dataSetRX_SEC}
                   domain={{
                     x:[0,5],
                     y:[0,4]
                   }}
-                  interpolation="bundle"
+                  interpolation="natural"
                   style={styles.lineOne}
                 />
-                <VictoryVoronoiTooltip
-                  data={dataSet1}
+
+                <VictoryBar
+                  // labelComponent={<VictoryTooltip/>}
+                  data={dataSetTX_SEC}
+                  domain={{
+                    x:[0,5],
+                    y:[0,4]
+                  }}
+                  interpolation="monotoneX"
+                  style={styles.lineTwo}
                 />
+                {/* <VictoryVoronoiTooltip
+                  data={dataSet1}
+                /> */}
               </VictoryChart>
             </VictoryZoom>
             {/* <VictoryAxis dependentAxis
@@ -310,6 +324,14 @@ class Graph extends React.Component {
 
   getDataSetTemp() {
     return this.props.temp
+  }
+
+  getDataSetRX_SEC() {
+    return this.props.rx_sec
+  }
+
+  getDataSetTX_SEC() {
+    return this.props.tx_sec
   }
 
   getDataSetTOOLTIP() {

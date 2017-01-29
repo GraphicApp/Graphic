@@ -13,7 +13,8 @@ class Monitor extends React.Component {
 
     this.state = {
       nums: [],
-      network: [],
+      rx_sec: [],
+      tx_sec: [],
       temp: [],
       disk: [],
       battery: []
@@ -61,15 +62,61 @@ class Monitor extends React.Component {
     // console.log("State on MV page: ", this.state)
   }
 
+  filterRX_sec() {
+    let filtered = this.props.data.network.filter(function(el) {
+      return el.value.rx_sec > -2
+    })
+
+    let reformRX = filtered.map(function(obj) {
+      var rObj = {};
+      rObj["rx_sec"] = obj.value.rx_sec;
+      return rObj
+    })
+
+    let rx_sec = [];
+    for(var i=0; i <reformRX.length; i++) {
+      rx_sec.push(reformRX[i].rx_sec);
+    }
+    console.log('rx_sec is: ', rx_sec)
+    this.setState({rx_sec})
+  }
+
+  filterTX_sec() {
+    let filtered = this.props.data.network.filter(function(el) {
+      return el.value.tx_sec > -2
+    })
+
+    let reformTX = filtered.map(function(obj) {
+      var rObj = {};
+      rObj["tx_sec"] = obj.value.tx_sec;
+      return rObj
+    })
+    console.log('reform tx: ', reformTX)
+
+    let reformAgainTX = filtered.map(function(obj) {
+      var r2Obj = {};
+      r2Obj["x"]= 0;
+      r2Obj["y"]= obj.value.tx_sec;
+      r2Obj["value"]=obj.value.tx_sec;
+      return r2Obj
+    })
+    console.log("not sure if this will work: ", reformAgainTX)
+
+    reformAgainTX.forEach(function(el) {
+
+    })
+
+    let tx_sec = [];
+    for(var i=0; i <reformTX.length; i++) {
+      tx_sec.push(reformTX[i].tx_sec);
+    }
+    console.log('tx_sec is: ', tx_sec)
+    this.setState({tx_sec})
+  }
+
+
+
   filterTemp() {
-    let filtered1 = this.props.data.temperature.filter(function(el) {
-      return el.value.cores[0] >0
-    });
-    let filtered2 = this.props.data.temperature.filter(function(el) {
-      return el.value.cores[1] >0
-    });
-    // console.log("filtered1: ", filtered1)
-    // console.log("filtered2: ", filtered2)
 
     let tempData = this.props.data.temperature;
 
@@ -134,6 +181,8 @@ class Monitor extends React.Component {
           toastr.success('Data received');
           this.filterCPU();
           this.filterTemp();
+          this.filterRX_sec();
+          this.filterTX_sec();
           console.log("LAST THREE HOURS DATA LOG: ", this.props.data);
         })
         .catch(error => {
@@ -189,7 +238,9 @@ class Monitor extends React.Component {
         <Graph
           data={this.props.data}
           nums={this.state.nums}
-          network={this.state.network}
+          // network={this.state.network}
+          rx_sec={this.state.rx_sec}
+          tx_sec={this.state.tx_sec}
           temp={this.state.temp}
           disk={this.state.disk}
           battery={this.state.battery}
