@@ -37,6 +37,60 @@ class Monitor extends React.Component {
     // this.getLastThreeHours();
   }
 
+  filterCPU() {
+
+    let filtered = this.props.data.cpu.filter(function(el) {
+      return el.value.avg >0
+    })
+
+    let reformattedArray = filtered.map(function(obj) {
+      var rObj = {};
+      rObj["avgVal"] = obj.value.avg;
+      return rObj;
+    })
+    // console.log("reformattedArray in MV: ", reformattedArray)
+    // console.log("reformatted Array value is: ", reformattedArray[0].avgVal)
+    let nums = [];
+    for (var i =0; i < reformattedArray.length; i++) {
+      // console.log("reformattedArray value is: ", reformattedArray[i].avgVal)
+      nums.push(reformattedArray[i].avgVal);
+      // return nums;
+    }
+    this.setState({nums});
+    // console.log("nums: ", nums)
+    // console.log("State on MV page: ", this.state)
+  }
+
+  filterTemp() {
+    let filtered1 = this.props.data.temperature.filter(function(el) {
+      return el.value.cores[0] >0
+    });
+    let filtered2 = this.props.data.temperature.filter(function(el) {
+      return el.value.cores[1] >0
+    });
+    // console.log("filtered1: ", filtered1)
+    // console.log("filtered2: ", filtered2)
+
+    let tempData = this.props.data.temperature;
+
+    let reformTemp = tempData.map(function(obj) {
+      var rObj = {};
+      rObj["main"]=obj.value.main;
+      return rObj;
+    })
+    // console.log('reformTemp: ', reformTemp)
+
+    let temp=[];
+    for (var i = 0; i < reformTemp.length; i ++) {
+      temp.push(reformTemp[i].main)
+    }
+    // console.log('temp array is: ', temp)
+    // var temp = Object.assign({}, tempA);
+    console.log('temp is: ', temp)
+
+    this.setState({temp})
+  }
+
   getAll() {
     let time = 'all';
     toastr.info('Getting', time, 'data from database...');
@@ -71,36 +125,6 @@ class Monitor extends React.Component {
 
   getLastThreeHours() {
 
-    console.log("this.props.data: ", this.props.data)
-    console.log("from monitorpage getLastThreeHours: ", this.props.data.cpu)
-
-
-    let filtered = this.props.data.cpu.filter(function(el) {
-      return el.value.avg >0
-    })
-
-    console.log("filtered: ", filtered)
-
-    let reformattedArray = filtered.map(function(obj) {
-      var rObj = {};
-      rObj["avgVal"] = obj.value.avg;
-      return rObj;
-    })
-
-    console.log("reformattedArray in MV: ", reformattedArray)
-
-    // console.log("reformatted Array value is: ", reformattedArray[0].avgVal)
-    let nums = [];
-    for (var i =0; i < reformattedArray.length; i++) {
-      // console.log("reformattedArray value is: ", reformattedArray[i].avgVal)
-      nums.push(reformattedArray[i].avgVal);
-      // return nums;
-    }
-    this.setState({nums});
-
-    console.log("nums: ", nums)
-    console.log("State on MV page: ", this.state)
-
 
     let time = 'lastThreeHours';
     toastr.info('Getting', time, 'data from database...');
@@ -108,7 +132,9 @@ class Monitor extends React.Component {
       this.props.actions.loadData(el, time)
         .then(() => {
           toastr.success('Data received');
-          console.log(this.props.data);
+          this.filterCPU();
+          this.filterTemp();
+          console.log("LAST THREE HOURS DATA LOG: ", this.props.data);
         })
         .catch(error => {
           toastr.error('Could not fetch data');

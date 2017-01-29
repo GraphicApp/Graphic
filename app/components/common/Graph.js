@@ -20,6 +20,8 @@ class Graph extends React.Component {
     const dataSetTOOLTIP2 = this.getDataSetTOOLTIP2();
     const tickValues = this.getTickValues();
 
+    const dataSetTemp = this.getDataSetTemp();
+
     const data = this.props.data;
     let filtered = data.cpu.filter(function(el) {
       return el.value.avg >0
@@ -49,7 +51,7 @@ class Graph extends React.Component {
     // console.log("please work: ", nums)
 
 
-    console.log("graph page nums: ", this.props.nums)
+    // console.log("graph page nums: ", this.props.nums)
 
     return (
 
@@ -186,10 +188,10 @@ class Graph extends React.Component {
             <VictoryZoom>
               <VictoryChart>
                 <VictoryLine
-                  data={dataSet1}
+                  data={dataSetTemp}
                   domain={{
                     x:[0,5],
-                    y:[0,4]
+                    y:[0,100]
                   }}
                   interpolation="monotoneX"
                   style={styles.lineTwo}
@@ -304,6 +306,10 @@ class Graph extends React.Component {
 
   getDataSet1() {
     return this.props.nums
+  }
+
+  getDataSetTemp() {
+    return this.props.temp
   }
 
   getDataSetTOOLTIP() {
