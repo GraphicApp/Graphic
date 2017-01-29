@@ -5,9 +5,9 @@ const os = require('os'),
       db = app.get('db'),
       pdb = require('../db/pouchdb');
 
-if (app.locals.settings.config.modules.battery.status) {
+setInterval(() => {
   let module = 'battery';
-  setInterval(() => {
+  if (app.locals.settings.config.modules.battery.status) {
     si.battery()
         .then(data => {
           if (data.hasbattery) {
@@ -38,8 +38,8 @@ if (app.locals.settings.config.modules.battery.status) {
           }
         })
         .catch(error => winston.log.error(error));
-  }, app.locals.settings.config.modules.battery.interval);
-}
+  }
+}, app.locals.settings.config.modules.battery.interval);
 
 exports.getSystemInfo = (callback) => {
   return new Promise((resolve) => {

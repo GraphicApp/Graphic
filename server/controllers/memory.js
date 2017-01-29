@@ -4,9 +4,9 @@ const si = require('systeminformation'),
       db = app.get('db'),
       pdb = require('../db/pouchdb');
 
-if (app.locals.settings.config.modules.memory.status) {
+setInterval(() => {
   let module = 'memory';
-  setInterval(() => {
+  if (app.locals.settings.config.modules.memory.status) {
     si.mem()
         .then(data => {
           if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
@@ -31,5 +31,5 @@ if (app.locals.settings.config.modules.memory.status) {
           }
         })
         .catch(error => winston.log.error(error));
-  }, app.locals.settings.config.modules.memory.interval)
-}
+  }
+}, app.locals.settings.config.modules.memory.interval);

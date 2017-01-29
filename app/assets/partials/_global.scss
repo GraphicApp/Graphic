@@ -38,6 +38,14 @@ a {
 input {
   background-color: inherit;
   outline: none;
+  color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-color: darken($body, 8%);
+  padding: 3px 5px;
+  width: 70px;
+  background-color: darken($body, 3.5%);
+  font-size: 1em;
 }
 
 section {

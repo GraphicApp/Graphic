@@ -1,4 +1,5 @@
 const winston = require('../services/winston'),
+      temperature = require('../controllers/temperature'),
       request = require('request'),
       app = require('../index'),
       db = app.get('db');

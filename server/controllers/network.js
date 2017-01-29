@@ -6,9 +6,9 @@ const si = require('systeminformation'),
       db = app.get('db'),
       pdb = require('../db/pouchdb');
 
-if (app.locals.settings.config.modules.network.status) {
+setInterval(() => {
   let module = 'network';
-  setInterval(() => {
+  if (app.locals.settings.config.modules.network.status) {
     si.networkStats(app.locals.settings.config.modules.network.iface)
         .then(data => {
           if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
@@ -54,12 +54,12 @@ if (app.locals.settings.config.modules.network.status) {
           }
         })
         .catch(error => winston.log.error(error));
-  }, app.locals.settings.config.modules.network.interval);
-}
+  }
+}, app.locals.settings.config.modules.network.interval);
 
-if (app.locals.settings.config.modules.netConnections.status) {
+setInterval(() => {
   let module = 'netConnections';
-  setInterval(() => {
+  if (app.locals.settings.config.modules.netConnections.status) {
   si.networkConnections()
       .then(data => {
         if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
@@ -114,8 +114,8 @@ if (app.locals.settings.config.modules.netConnections.status) {
       })
       .catch(error => winston.log.error(error));
 
-  }, app.locals.settings.config.modules.netConnections.interval);
-}
+  }
+}, app.locals.settings.config.modules.netConnections.interval);
 
 exports.getPublicIp = getip.v4;
 exports.getCheckUrl = si.inetChecksite;

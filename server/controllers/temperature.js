@@ -7,10 +7,9 @@ const si = require('systeminformation'),
       pdb = require('../db/pouchdb');
 
 let platform = os.type();
-
-if (app.locals.settings.config.modules.temperature.status) {
+setInterval(() => {
   let module = 'temperature';
-  setInterval(() => {
+  if (app.locals.settings.config.modules.temperature.status) {
     if (platform == 'Linux') {
       si.cpuTemperature()
           .then(data => {
@@ -70,12 +69,12 @@ if (app.locals.settings.config.modules.temperature.status) {
         }
       });
     }
-  }, app.locals.settings.config.modules.temperature.interval);
-}
+  }
+}, app.locals.settings.config.modules.temperature.interval);
 
-if (app.locals.settings.config.modules.fan.status && platform == 'Darwin') {
+setInterval(() => {
   let module = 'fan';
-  setInterval(() => {
+  if (app.locals.settings.config.modules.fan.status && platform == 'Darwin') {
     let i, f = smc.fans();
     for (i = 0; i < f; i++) {
       if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
@@ -98,5 +97,5 @@ if (app.locals.settings.config.modules.fan.status && platform == 'Darwin') {
         });
       }
     }
-  }, app.locals.settings.config.modules.fan.interval);
-}
+  }
+}, app.locals.settings.config.modules.fan.interval);
