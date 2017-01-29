@@ -11,6 +11,14 @@ class Monitor extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      nums: [],
+      network: [],
+      temp: [],
+      disk: [],
+      battery: []
+    }
+
     this.getAll = this.getAll.bind(this);
     this.getToday = this.getToday.bind(this);
     this.getLastThreeHours = this.getLastThreeHours.bind(this);
@@ -21,6 +29,12 @@ class Monitor extends React.Component {
   componentDidUpdate() {
     let modules = this.props.settings.modules;
     this.modulesLoaded = Object.keys(modules).filter(el => modules[el].status);
+  }
+
+  componentWillMount() {
+    let modules = this.props.settings.modules;
+    this.modulesLoaded = Object.keys(modules).filter(el => modules[el].status);
+    // this.getLastThreeHours();
   }
 
   getAll() {
@@ -56,6 +70,38 @@ class Monitor extends React.Component {
   }
 
   getLastThreeHours() {
+
+    console.log("this.props.data: ", this.props.data)
+    console.log("from monitorpage getLastThreeHours: ", this.props.data.cpu)
+
+
+    let filtered = this.props.data.cpu.filter(function(el) {
+      return el.value.avg >0
+    })
+
+    console.log("filtered: ", filtered)
+
+    let reformattedArray = filtered.map(function(obj) {
+      var rObj = {};
+      rObj["avgVal"] = obj.value.avg;
+      return rObj;
+    })
+
+    console.log("reformattedArray in MV: ", reformattedArray)
+
+    // console.log("reformatted Array value is: ", reformattedArray[0].avgVal)
+    let nums = [];
+    for (var i =0; i < reformattedArray.length; i++) {
+      // console.log("reformattedArray value is: ", reformattedArray[i].avgVal)
+      nums.push(reformattedArray[i].avgVal);
+      // return nums;
+    }
+    this.setState({nums});
+
+    console.log("nums: ", nums)
+    console.log("State on MV page: ", this.state)
+
+
     let time = 'lastThreeHours';
     toastr.info('Getting', time, 'data from database...');
     this.modulesLoaded.forEach(el => {
@@ -116,6 +162,11 @@ class Monitor extends React.Component {
         />
         <Graph
           data={this.props.data}
+          nums={this.state.nums}
+          network={this.state.network}
+          temp={this.state.temp}
+          disk={this.state.disk}
+          battery={this.state.battery}
           />
       </section>
     )
@@ -128,6 +179,7 @@ Monitor.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
+    // nums: state.nums,
     data: state.data,
     settings: state.settings
   };

@@ -1,8 +1,9 @@
 // const r = require('rethinkdb'),
 //       settings = require('../services/settings'),
-//       app = require('../index');
+//       app = require('../index'),
+//       settings = app.locals.settings.config,
 //
-// if (settings.config.db.rethinkdb.status) {
+// if (settings.db.rethinkdb.status) {
 //   rdbConfig = {
 //       rethinkdb: {
 //           host: "localhost",

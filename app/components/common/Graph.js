@@ -20,12 +20,44 @@ class Graph extends React.Component {
     const dataSetTOOLTIP2 = this.getDataSetTOOLTIP2();
     const tickValues = this.getTickValues();
 
+    const data = this.props.data;
+    let filtered = data.cpu.filter(function(el) {
+      return el.value.avg >0
+    })
+
+    // const numberSet = this.props.nums;
+    // console.log("numberSet: ", this.props.nums)
+    //
+    // console.log("filtered: ", filtered)
+    //
+    // let reformattedArray = filtered.map(function(obj) {
+    //   var rObj = {};
+    //   rObj["avgVal"] = obj.value.avg;
+    //   return rObj;
+    // })
+    //
+    // console.log("reformattedArray: ", reformattedArray)
+
+    // console.log("reformatted Array value is: ", reformattedArray[0].avgVal)
+    // let nums = [];
+    // for (var i =0; i < reformattedArray.length; i++) {
+    //   console.log("reformattedArray value is: ", reformattedArray[i].avgVal)
+    //   nums.push(reformattedArray[i].avgVal);
+    // //   // return nums;
+    // }
+
+    // console.log("please work: ", nums)
+
+
+    console.log("graph page nums: ", this.props.nums)
 
     return (
 
       <div>
+        {/* {this.props.nums} */}
+
         <Scrollbars style={{
-          height:600,
+          height:800,
           color: 'white'
         }}>
         <svg
@@ -37,13 +69,20 @@ class Graph extends React.Component {
           text="CPU" />
 
           <VictoryLabel x={150} y={317}        style={styles.title}
-          text="Time in Seconds" />
+          text="Interval Time" />
 
           <VictoryLabel x={25} y={45}        style={styles.title}
           text={"% of \n CPU"} />
 
           <g transform={"translate(-10,30)"}>
         {/*First VictoryAxis removed as VictoryZoom/Chart inserts x axis values automatically*/}
+          {/* <VictoryAxis
+            standalone={false}
+            style={styles.axisTime}
+            tickValues={tickValues}
+            tickFormat={(x)=>x.toPrecision(1)}
+          /> */}
+
             <VictoryAxis dependentAxis
                domain={[0,4]}
                orientation="left"
@@ -56,7 +95,7 @@ class Graph extends React.Component {
             <VictoryZoom>
               <VictoryChart>
                 <VictoryLine
-                  data={dataSet3}
+                  data={dataSet1}
                   domain={{
                     x:[0,5],
                     y:[0,4]
@@ -65,7 +104,7 @@ class Graph extends React.Component {
                   style={styles.lineThree}
                 />
                 <VictoryVoronoiTooltip
-                  data={dataSet3}
+                  data={dataSet1}
                 />
               </VictoryChart>
             </VictoryZoom>
@@ -81,7 +120,7 @@ class Graph extends React.Component {
           text="Network" />
 
           <VictoryLabel x={150} y={317}        style={styles.title}
-          text="Time in Seconds" />
+          text="Interval Time" />
 
           <VictoryLabel x={25} y={45}        style={styles.title}
           text={"network \n metric"} />
@@ -112,13 +151,13 @@ class Graph extends React.Component {
                 />
               </VictoryChart>
             </VictoryZoom>
-            <VictoryAxis dependentAxis
+            {/* <VictoryAxis dependentAxis
               domain={[0,200]}
               orientation="right"
               standalone={false}
               style={styles.rightAxis}
               offsetX={70}
-            />
+            /> */}
           </g>
         </svg>
 
@@ -128,13 +167,13 @@ class Graph extends React.Component {
           viewBox="0 0 400 325">
 
           <VictoryLabel x={175} y={25}        style={styles.title}
-          text="CPU" />
+          text="Temperature" />
 
           <VictoryLabel x={150} y={317}        style={styles.title}
-          text="Time in Seconds" />
+          text="Interval Time" />
 
           <VictoryLabel x={25} y={45}        style={styles.title}
-          text={"% of \n CPU"} />
+          text={"Main Temps"} />
 
           <g transform={"translate(-10,30)"}>
             <VictoryAxis dependentAxis
@@ -147,7 +186,7 @@ class Graph extends React.Component {
             <VictoryZoom>
               <VictoryChart>
                 <VictoryLine
-                  data={dataSet2}
+                  data={dataSet1}
                   domain={{
                     x:[0,5],
                     y:[0,4]
@@ -156,7 +195,49 @@ class Graph extends React.Component {
                   style={styles.lineTwo}
                 />
                 <VictoryVoronoiTooltip
-                  data={dataSet2}
+                  data={dataSet1}
+                />
+              </VictoryChart>
+            </VictoryZoom>
+          </g>
+        </svg>
+
+
+        <svg
+          width={400} height={300}
+          style={styles.parent}
+          viewBox="0 0 400 325">
+
+          <VictoryLabel x={175} y={25}        style={styles.title}
+          text="Disk" />
+
+          <VictoryLabel x={150} y={317}        style={styles.title}
+          text="Interval Time" />
+
+          <VictoryLabel x={25} y={45}        style={styles.title}
+          text={"Read IOs on \n mounted devices"} />
+
+          <g transform={"translate(-10,30)"}>
+            <VictoryAxis dependentAxis
+               domain={[0,4]}
+               orientation="left"
+               standalone={false}
+               style={styles.leftVerticalAxis}
+               offsetX={50}
+            />
+            <VictoryZoom>
+              <VictoryChart>
+                <VictoryLine
+                  data={dataSet1}
+                  domain={{
+                    x:[0,5],
+                    y:[0,4]
+                  }}
+                  interpolation="monotoneX"
+                  style={styles.lineFour}
+                />
+                <VictoryVoronoiTooltip
+                  data={dataSet1}
                 />
               </VictoryChart>
             </VictoryZoom>
@@ -172,17 +253,17 @@ class Graph extends React.Component {
           text="Battery" />
 
           <VictoryLabel x={150} y={317}        style={styles.title}
-          text="Time in Seconds" />
+          text="Interval Time" />
 
           <VictoryLabel x={25} y={45}        style={styles.title}
-          text={"% of \n Battery Remaining"} />
+          text={"Current \n Capacity of Battery"} />
 
           <g transform={"translate(-10,30)"}>
             <VictoryAxis
               standalone={false}
               style={styles.axisTime}
-              tickValues={tickValues}
-              tickFormat={(x)=>x.toPrecision(1)}
+              // tickValues={tickValues}
+              // tickFormat={(x)=>x.toPrecision(1)}
             />
             <VictoryAxis dependentAxis
                domain={[0,4]}
@@ -194,7 +275,7 @@ class Graph extends React.Component {
 
             <VictoryBar
               labelComponent={<VictoryTooltip/>}
-              data={dataSetTOOLTIP}
+              data={dataSet1}
               domain={{
                 x:[0,5],
                 y:[0,4]
@@ -205,7 +286,7 @@ class Graph extends React.Component {
 
             <VictoryBar
               labelComponent={<VictoryTooltip/>}
-              data={dataSetTOOLTIP2}
+              data={dataSet1}
               domain={{
                 x:[0,5],
                 y:[0,4]
@@ -222,14 +303,7 @@ class Graph extends React.Component {
   }
 
   getDataSet1() {
-    return [
-      {x:0, y:0, label:0},
-      {x:1, y:1, label:1},
-      {x:2, y:2, label:2},
-      {x:3, y:2, label:2},
-      {x:4, y:3, label:3},
-      {x:5, y:4, label:4},
-    ]
+    return this.props.nums
   }
 
   getDataSetTOOLTIP() {

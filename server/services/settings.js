@@ -40,7 +40,8 @@ if (!fs.existsSync(configFile)) {
 }
 
 exports.putSettings = (req, res) => {
-  var appSettings = req.body;
+  const app = require('../index');
+  let appSettings = req.body;
   let saveConfig = JSON.stringify(appSettings, null, 4);
   try {
     fs.writeFileSync(configFile, saveConfig);
@@ -50,6 +51,7 @@ exports.putSettings = (req, res) => {
     console.error(`Could not save settings. ${err}`);
     rs.status(504).send(`Could not save settings. ${err}`);
   }
+  app.set('config', appSettings);
 };
 
 var loadConfig = fs.readFileSync(configFile), appSettings;
@@ -72,7 +74,8 @@ catch (err) {
 }
 
 exports.getSettings = (req, res) => {
-  res.status(200).send(appSettings);
+  const app = require('../index');
+  res.status(200).send(app.locals.settings.config);
 }
 
 exports.config = appSettings;

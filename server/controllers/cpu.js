@@ -1,23 +1,22 @@
 const si = require('systeminformation'),
       winston = require('../services/winston'),
-      settings = require('../services/settings'),
       app = require('../index'),
       db = app.get('db'),
       pdb = require('../db/pouchdb');
 
-if (settings.config.modules.cpu.status) {
+if (app.locals.settings.config.modules.cpu.status) {
   let module = 'cpu';
   setInterval(() => {
     si.cpuCurrentspeed()
         .then(data => {
-          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+          if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
             let obj = {};
             obj.time = new Date().getTime();
             obj.name = module;
             obj.value = data;
             pdb.store(obj);
           }
-          if (settings.config.db.postgres.status) {
+          if (app.locals.settings.config.db.postgres.status) {
             for (let prop in data) {
               if (data.hasOwnProperty(prop)) {
                 if (typeof(data[prop]) === 'boolean') {
@@ -38,14 +37,14 @@ if (settings.config.modules.cpu.status) {
 
     si.currentLoad()
         .then(data => {
-          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+          if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
             let obj = {};
             obj.time = new Date().getTime();
             obj.name = module;
             obj.value = data;
             pdb.store(obj);
           }
-          if (settings.config.db.postgres.status) {
+          if (app.locals.settings.config.db.postgres.status) {
             for (let prop in data) {
               if (data.hasOwnProperty(prop) && !data[prop] instanceof Array) {
                 if (typeof(data[prop]) === 'boolean') {
@@ -80,14 +79,14 @@ if (settings.config.modules.cpu.status) {
 
     si.fullLoad()
         .then(data => {
-          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+          if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
             let obj = {};
             obj.time = new Date().getTime();
             obj.name = module;
             obj.value = data;
             pdb.store(obj);
           }
-          if (settings.config.db.postgres.status) {
+          if (app.locals.settings.config.db.postgres.status) {
             let values = {
               name: module +'.'+ 'fullLoad',
               value: data
@@ -100,15 +99,15 @@ if (settings.config.modules.cpu.status) {
 
         })
         .catch(error => winston.log.error(error));
-  }, settings.config.modules.cpu.interval);
+  }, app.locals.settings.config.modules.cpu.interval);
 }
 
 
-if (settings.config.modules.processes.status) {
+if (app.locals.settings.config.modules.processes.status) {
   setInterval(() => {
     si.processes()
         .then(data => {
-          if (settings.config.db.pouchdb.status || settings.config.db.couchdb.status) {
+          if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
             let obj = {};
             obj.time = new Date().getTime();
             obj.name = module;
@@ -117,7 +116,7 @@ if (settings.config.modules.processes.status) {
           }
         })
         .catch(error => winston.log.error(error));
-  }, settings.config.modules.processes.interval);
+  }, app.locals.settings.config.modules.processes.interval);
 }
 
 exports.getServices = si.services;
