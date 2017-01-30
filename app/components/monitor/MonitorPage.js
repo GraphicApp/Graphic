@@ -19,7 +19,9 @@ class Monitor extends React.Component {
       tx_sec2:[],
       temp: [],
       disk: [],
-      battery: []
+      battery: [],
+      activeMemory: [],
+      swapUsedMemory:[]
     }
 
     this.getAll = this.getAll.bind(this);
@@ -141,6 +143,42 @@ class Monitor extends React.Component {
     this.setState({temp})
   }
 
+  filterActiveMemory() {
+
+    let memData = this.props.data.memory;
+
+    let reformActiveMemory = memData.map(function(obj, index) {
+      var rObj = {};
+      rObj["x"] = index;
+      rObj["y"]= obj.value.active;
+      rObj["value"]=obj.value.active;
+      return rObj;
+    })
+
+    let activeMemory = reformActiveMemory
+
+    this.setState({activeMemory})
+    // console.log("activeMemory: ", activeMemory)
+  }
+
+  filterSwapUsedMemory() {
+
+    let memData = this.props.data.memory;
+
+    let reformActiveMemory = memData.map(function(obj, index) {
+      var rObj = {};
+      rObj["x"] = index;
+      rObj["y"]= obj.value.swapused;
+      rObj["value"]=obj.value.swapused;
+      return rObj;
+    })
+
+    let swapUsedMemory = reformActiveMemory
+
+    this.setState({swapUsedMemory})
+    console.log("swapMemory: ", swapUsedMemory)
+  }
+
   getAll() {
     let time = 'all';
     toastr.info('Getting', time, 'data from database...');
@@ -186,6 +224,8 @@ class Monitor extends React.Component {
           this.filterTemp();
           this.filterRX_sec();
           this.filterTX_sec();
+          this.filterActiveMemory();
+          this.filterSwapUsedMemory();
           console.log("LAST THREE HOURS DATA LOG: ", this.props.data);
         })
         .catch(error => {
@@ -247,6 +287,8 @@ class Monitor extends React.Component {
           temp={this.state.temp}
           disk={this.state.disk}
           battery={this.state.battery}
+          activeMemory={this.state.activeMemory}
+          swapMemory={this.state.swapUsedMemory}
           />
       </section>
     )
