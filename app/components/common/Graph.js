@@ -64,6 +64,7 @@ class Graph extends React.Component {
           height:800,
           color: 'white'
         }}>
+        {/* /////////////        CPU   /////////////// */}
         <svg
           width={400} height={300}
           style={styles.parent}
@@ -105,7 +106,7 @@ class Graph extends React.Component {
                     y:[0,4]
                   }}
                   interpolation="monotoneX"
-                  style={styles.lineThree}
+                  style={styles.lineSix}
                 />
                 <VictoryVoronoiTooltip
                   data={dataSet1}
@@ -115,6 +116,7 @@ class Graph extends React.Component {
           </g>
         </svg>
 
+{/* ////////////////// NETWORK /////////////////// */}
         <svg
           width={400} height={300}
           style={styles.parent}
@@ -126,57 +128,63 @@ class Graph extends React.Component {
           <VictoryLabel x={150} y={317}        style={styles.title}
           text="Interval Time" />
 
-          <VictoryLabel x={25} y={45}        style={styles.title}
-          text={"network \n metric"} />
+          <VictoryLabel x={25} y={40}        style={styles.network_titles1}
+          text={"received bytes/sec"} />
+          <VictoryLabel x={25} y={55}        style={styles.network_titles2}
+          text={"transmitted bytes/sec"} />
 
           <g transform={"translate(-10,30)"}>
             {/* this axis must be dependentAxis */}
             <VictoryAxis dependentAxis
-               domain={[0,20000]}
+               domain={[0,60000]}
                orientation="left"
                standalone={false}
-               style={styles.leftVerticalAxis}
+               style={styles.leftNETWORKVerticalAxis}
                offsetX={50}
             />
             {/* This will be the first data line */}
-            <VictoryZoom>
-              <VictoryChart>
-                <VictoryBar
-                  // labelComponent={<VictoryTooltip/>}
-                  data={dataSetRX_SEC}
-                  domain={{
-                    x:[0,5],
-                    y:[0,4]
-                  }}
-                  interpolation="natural"
-                  style={styles.lineOne}
-                />
+            {/* <VictoryZoom>
+              <VictoryChart> */}
+            <VictoryBar
+              // labelComponent={<VictoryTooltip/>}
+              data={dataSetRX_SEC}
+              domain={{
+                x:[0,20],
+                y:[0,100000]
+              }}
+              interpolation="natural"
+              style={styles.lineOne}
+            />
 
-                <VictoryBar
-                  // labelComponent={<VictoryTooltip/>}
-                  data={dataSetTX_SEC}
-                  domain={{
-                    x:[0,5],
-                    y:[0,4]
-                  }}
-                  interpolation="monotoneX"
-                  style={styles.lineTwo}
-                />
+            <VictoryAxis dependentAxis
+               domain={[0,4000]}
+               orientation="left"
+               standalone={true}
+               style={styles.rightNETWORKVerticalAxis}
+               offsetX={50}
+              //  offsetY={450}
+
+            />
+            <VictoryBar
+              // labelComponent={<VictoryTooltip/>}
+              data={dataSetTX_SEC}
+              domain={{
+                x:[0,20],
+                y:[0,4000]
+              }}
+              interpolation="monotoneX"
+              style={styles.lineTwo}
+            />
                 {/* <VictoryVoronoiTooltip
                   data={dataSet1}
                 /> */}
-              </VictoryChart>
-            </VictoryZoom>
-            {/* <VictoryAxis dependentAxis
-              domain={[0,200]}
-              orientation="right"
-              standalone={false}
-              style={styles.rightAxis}
-              offsetX={70}
-            /> */}
+              {/* </VictoryChart>
+            </VictoryZoom> */}
+
           </g>
         </svg>
 
+{/* //////////////////  TEMPERATURE  ////////////// */}
         <svg
           width={400} height={300}
           style={styles.parent}
@@ -208,7 +216,7 @@ class Graph extends React.Component {
                     y:[0,100]
                   }}
                   interpolation="monotoneX"
-                  style={styles.lineTwo}
+                  style={styles.lineFive}
                 />
                 <VictoryVoronoiTooltip
                   data={dataSet1}
@@ -218,7 +226,7 @@ class Graph extends React.Component {
           </g>
         </svg>
 
-
+{/* //////////   DISK?? //////////////////////////  */}
         <svg
           width={400} height={300}
           style={styles.parent}
@@ -260,6 +268,8 @@ class Graph extends React.Component {
           </g>
         </svg>
 
+
+{/* ////////////  BATTERY  ////////////////////////// */}
         <svg
           width={400} height={300}
           style={styles.parent}
@@ -317,7 +327,7 @@ class Graph extends React.Component {
       </div>
     );
   }
-
+// ///////////  GET DATA AND STYLES /////////////////////
   getDataSet1() {
     return this.props.nums
   }
@@ -393,9 +403,14 @@ class Graph extends React.Component {
   }
 
   getStyles() {
+    //rgb(176, 148, 27)
     //define constants here?
     const BLUE_LINE = "rgb(30, 219, 231)";
-    const PURPLE_LINE = "rgb(169, 32, 226)"
+    const PURPLE_LINE = "rgb(169, 32, 226)";
+    const ORANGE_LINE = "rgb(238, 169, 14)";
+    const GREEN_LINE = 'rgb(43, 191, 31)';
+    const HIGHLIGHTER_LINE= 'rgb(238, 230, 29)';
+    const RED_LINE = 'rgb(241, 10, 58)';
     //this will return an object, not an array
     return {
       parent: {
@@ -412,6 +427,20 @@ class Graph extends React.Component {
         fill: "white",
         fontFamily: "inherit",
         fontSize: "16px",
+        fontWeight: "bold"
+      },
+
+      network_titles1: {
+        fill:BLUE_LINE,
+        fontFamily: "inherit",
+        fontSize: "13px",
+        fontWeight: "bold"
+      },
+
+      network_titles2: {
+        fill:PURPLE_LINE,
+        fontFamily: "inherit",
+        fontSize: "13px",
         fontWeight: "bold"
       },
 
@@ -451,7 +480,23 @@ class Graph extends React.Component {
         }
       },
 
-      rightAxis: {
+      leftNETWORKVerticalAxis: {
+        grid: {
+          stroke: (tick) =>
+            tick === -10 ? "transparent" : "rgba(127, 125, 129, 0.71)",
+          strokeWidth: 2
+        },
+
+        axis: {stroke: BLUE_LINE, strokeWidth:3},
+        ticks: {stroke: BLUE_LINE, strokeWidth:3},
+        tickLabels: {
+          fill: BLUE_LINE,
+          fontFamily: "inherit",
+          fontSize:15
+        }
+      },
+
+      rightNETWORKVerticalAxis: {
         axis: {stroke: PURPLE_LINE, strokeWidth:3},
         ticks: {stroke: PURPLE_LINE, strokeWidth:3},
         tickLabels: {
@@ -469,10 +514,16 @@ class Graph extends React.Component {
         data: {stroke: PURPLE_LINE, strokeWidth:3}
       },
       lineThree: {
-        data: {stroke: 'rgb(176, 148, 27)', strokeWidth:3}
+        data: {stroke: ORANGE_LINE, strokeWidth:3}
       },
       lineFour: {
-        data: {stroke: 'rgb(43, 191, 31)', strokeWidth:3}
+        data: {stroke: GREEN_LINE, strokeWidth:3}
+      },
+      lineFive: {
+        data: {stroke: HIGHLIGHTER_LINE, strokeWidth:3}
+      },
+      lineSix: {
+        data: {stroke: RED_LINE, strokeWidth:3}
       }
     }
   }

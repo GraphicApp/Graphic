@@ -15,6 +15,8 @@ class Monitor extends React.Component {
       nums: [],
       rx_sec: [],
       tx_sec: [],
+      //testing
+      tx_sec2:[],
       temp: [],
       disk: [],
       battery: []
@@ -93,9 +95,9 @@ class Monitor extends React.Component {
     })
     console.log('reform tx: ', reformTX)
 
-    let reformAgainTX = filtered.map(function(obj) {
+    let reformAgainTX = filtered.map(function(obj, index) {
       var r2Obj = {};
-      r2Obj["x"]= 0;
+      r2Obj["x"]= index+.5;
       r2Obj["y"]= obj.value.tx_sec;
       r2Obj["value"]=obj.value.tx_sec;
       return r2Obj
@@ -106,12 +108,13 @@ class Monitor extends React.Component {
 
     })
 
+    let tx_sec2 = reformAgainTX;
     let tx_sec = [];
     for(var i=0; i <reformTX.length; i++) {
       tx_sec.push(reformTX[i].tx_sec);
     }
     console.log('tx_sec is: ', tx_sec)
-    this.setState({tx_sec})
+    this.setState({tx_sec2})
   }
 
 
@@ -240,7 +243,7 @@ class Monitor extends React.Component {
           nums={this.state.nums}
           // network={this.state.network}
           rx_sec={this.state.rx_sec}
-          tx_sec={this.state.tx_sec}
+          tx_sec={this.state.tx_sec2}
           temp={this.state.temp}
           disk={this.state.disk}
           battery={this.state.battery}
