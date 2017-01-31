@@ -10,6 +10,12 @@ import {Scrollbars} from 'react-custom-scrollbars';
 
 class Graph extends React.Component {
   render() {
+    //check to see if user has selected anything first
+
+
+
+
+
     //these are defined below the return statement
     const styles = this.getStyles();
     const dataSet1 = this.getDataSet1();
@@ -20,36 +26,22 @@ class Graph extends React.Component {
     const dataSetTOOLTIP2 = this.getDataSetTOOLTIP2();
     const tickValues = this.getTickValues();
 
+    const dataSetTemp = this.getDataSetTemp();
+    const dataSetRX_SEC = this.getDataSetRX_SEC();
+    const dataSetTX_SEC = this.getDataSetTX_SEC();
+    const dataSetActiveMemory = this.getDataSetActiveMemory();
+    const dataSetUsedSwapMemory = this.getDataSetUsedSwapMemory();
+
     const data = this.props.data;
     let filtered = data.cpu.filter(function(el) {
       return el.value.avg >0
     })
 
-    // const numberSet = this.props.nums;
-    // console.log("numberSet: ", this.props.nums)
-    //
-    // console.log("filtered: ", filtered)
-    //
-    // let reformattedArray = filtered.map(function(obj) {
-    //   var rObj = {};
-    //   rObj["avgVal"] = obj.value.avg;
-    //   return rObj;
-    // })
-    //
-    // console.log("reformattedArray: ", reformattedArray)
-
-    // console.log("reformatted Array value is: ", reformattedArray[0].avgVal)
-    // let nums = [];
-    // for (var i =0; i < reformattedArray.length; i++) {
-    //   console.log("reformattedArray value is: ", reformattedArray[i].avgVal)
-    //   nums.push(reformattedArray[i].avgVal);
-    // //   // return nums;
+    // if (!this.props.data) {
+    //   return(
+    //     <h3>Please select a time frame from the left, and give me a minute to collect all your data</h3>
+    //   )
     // }
-
-    // console.log("please work: ", nums)
-
-
-    console.log("graph page nums: ", this.props.nums)
 
     return (
 
@@ -60,6 +52,7 @@ class Graph extends React.Component {
           height:800,
           color: 'white'
         }}>
+        {/* /////////////        CPU   /////////////// */}
         <svg
           width={400} height={300}
           style={styles.parent}
@@ -101,7 +94,7 @@ class Graph extends React.Component {
                     y:[0,4]
                   }}
                   interpolation="monotoneX"
-                  style={styles.lineThree}
+                  style={styles.lineSix}
                 />
                 <VictoryVoronoiTooltip
                   data={dataSet1}
@@ -111,6 +104,7 @@ class Graph extends React.Component {
           </g>
         </svg>
 
+{/* ////////////////// NETWORK /////////////////// */}
         <svg
           width={400} height={300}
           style={styles.parent}
@@ -122,45 +116,67 @@ class Graph extends React.Component {
           <VictoryLabel x={150} y={317}        style={styles.title}
           text="Interval Time" />
 
-          <VictoryLabel x={25} y={45}        style={styles.title}
-          text={"network \n metric"} />
+          <VictoryLabel x={25} y={40}        style={styles.network_titles1}
+          text={"received bytes/sec"} />
+          <VictoryLabel x={25} y={55}        style={styles.network_titles2}
+          text={"transmitted bytes/sec"} />
 
-          <g transform={"translate(-10,30)"}>
+          <g transform={"translate(-20,30)"}>
+
             {/* this axis must be dependentAxis */}
+
+
+
             <VictoryAxis dependentAxis
-               domain={[0,4]}
+               domain={[0,60000]}
                orientation="left"
                standalone={false}
-               style={styles.leftVerticalAxis}
+               style={styles.leftNETWORKVerticalAxis}
                offsetX={50}
             />
             {/* This will be the first data line */}
-            <VictoryZoom>
-              <VictoryChart>
-                <VictoryLine
+            {/* <VictoryZoom>
+              <VictoryChart> */}
+            <VictoryBar
+              // labelComponent={<VictoryTooltip/>}
+              data={dataSetRX_SEC}
+              domain={{
+                x:[0,10],
+                y:[0,100000]
+              }}
+              interpolation="natural"
+              style={styles.lineOne}
+            />
+
+            <VictoryAxis dependentAxis
+               domain={[0,4000]}
+               orientation="right"
+               standalone={true}
+               style={styles.rightNETWORKVerticalAxis}
+               offsetX={50}
+              //  offsetY={450}
+
+            />
+            <VictoryBar
+              // labelComponent={<VictoryTooltip/>}
+              data={dataSetTX_SEC}
+              domain={{
+                x:[0,10],
+                y:[0,4000]
+              }}
+              interpolation="monotoneX"
+              style={styles.lineTwo}
+            />
+                {/* <VictoryVoronoiTooltip
                   data={dataSet1}
-                  domain={{
-                    x:[0,5],
-                    y:[0,4]
-                  }}
-                  interpolation="bundle"
-                  style={styles.lineOne}
-                />
-                <VictoryVoronoiTooltip
-                  data={dataSet1}
-                />
-              </VictoryChart>
-            </VictoryZoom>
-            {/* <VictoryAxis dependentAxis
-              domain={[0,200]}
-              orientation="right"
-              standalone={false}
-              style={styles.rightAxis}
-              offsetX={70}
-            /> */}
+                /> */}
+              {/* </VictoryChart>
+            </VictoryZoom> */}
+
           </g>
         </svg>
 
+{/* //////////////////  TEMPERATURE  ////////////// */}
         <svg
           width={400} height={300}
           style={styles.parent}
@@ -186,13 +202,13 @@ class Graph extends React.Component {
             <VictoryZoom>
               <VictoryChart>
                 <VictoryLine
-                  data={dataSet1}
+                  data={dataSetTemp}
                   domain={{
                     x:[0,5],
-                    y:[0,4]
+                    y:[0,100]
                   }}
                   interpolation="monotoneX"
-                  style={styles.lineTwo}
+                  style={styles.lineFive}
                 />
                 <VictoryVoronoiTooltip
                   data={dataSet1}
@@ -202,89 +218,95 @@ class Graph extends React.Component {
           </g>
         </svg>
 
-
+{/* //////////   MEMORY 1?? //////////////////////////  */}
         <svg
           width={400} height={300}
           style={styles.parent}
           viewBox="0 0 400 325">
 
           <VictoryLabel x={175} y={25}        style={styles.title}
-          text="Disk" />
+          text="Active Memory" />
 
           <VictoryLabel x={150} y={317}        style={styles.title}
           text="Interval Time" />
 
           <VictoryLabel x={25} y={45}        style={styles.title}
-          text={"Read IOs on \n mounted devices"} />
+          text={"Used Actively"} />
 
           <g transform={"translate(-10,30)"}>
             <VictoryAxis dependentAxis
-               domain={[0,4]}
+               domain={[0,3000000000]}
                orientation="left"
                standalone={false}
-               style={styles.leftVerticalAxis}
+               style={styles.leftMEMORYVerticalAxis}
                offsetX={50}
             />
             <VictoryZoom>
               <VictoryChart>
                 <VictoryLine
-                  data={dataSet1}
+                  data={dataSetActiveMemory}
                   domain={{
-                    x:[0,5],
-                    y:[0,4]
+                    x:[0,10],
+                    y:[2000000000,3000000000]
                   }}
                   interpolation="monotoneX"
                   style={styles.lineFour}
                 />
-                <VictoryVoronoiTooltip
-                  data={dataSet1}
-                />
+                {/* <VictoryVoronoiTooltip
+                  data={dataSetActiveMemory}
+                /> */}
               </VictoryChart>
             </VictoryZoom>
           </g>
         </svg>
 
+
+{/* ////////////  swapUsedMemory ////////////////////// */}
         <svg
           width={400} height={300}
           style={styles.parent}
           viewBox="0 0 400 325">
 
           <VictoryLabel x={175} y={25}        style={styles.title}
-          text="Battery" />
+          text="Used Swap Memory" />
 
           <VictoryLabel x={150} y={317}        style={styles.title}
           text="Interval Time" />
 
           <VictoryLabel x={25} y={45}        style={styles.title}
-          text={"Current \n Capacity of Battery"} />
+          text={"Used \n bytes Swap Memory"} />
 
           <g transform={"translate(-10,30)"}>
-            <VictoryAxis
+            {/* <VictoryAxis
               standalone={false}
               style={styles.axisTime}
               // tickValues={tickValues}
               // tickFormat={(x)=>x.toPrecision(1)}
-            />
+            /> */}
             <VictoryAxis dependentAxis
-               domain={[0,4]}
+               domain={[0,3000000000]}
                orientation="left"
                standalone={false}
                style={styles.leftVerticalAxis}
                offsetX={50}
             />
 
-            <VictoryBar
-              labelComponent={<VictoryTooltip/>}
-              data={dataSet1}
-              domain={{
-                x:[0,5],
-                y:[0,4]
-              }}
-              interpolation="natural"
-              style={styles.lineOne}
-            />
+            <VictoryZoom>
+              <VictoryChart>
+                <VictoryLine
+                  data={dataSetUsedSwapMemory}
+                  domain={{
+                    x:[0,10],
+                    y:[2000000000,3000000000]
+                  }}
+                  interpolation="monotoneX"
+                  style={styles.lineSeven}
+                />
+            
+              </VictoryChart>
+            </VictoryZoom>
 
-            <VictoryBar
+            {/* <VictoryBar
               labelComponent={<VictoryTooltip/>}
               data={dataSet1}
               domain={{
@@ -293,7 +315,7 @@ class Graph extends React.Component {
               }}
               interpolation="monotoneX"
               style={styles.lineTwo}
-            />
+            /> */}
           </g>
         </svg>
 
@@ -301,9 +323,29 @@ class Graph extends React.Component {
       </div>
     );
   }
-
+// ///////////  GET DATA AND STYLES /////////////////////
   getDataSet1() {
     return this.props.nums
+  }
+
+  getDataSetTemp() {
+    return this.props.temp
+  }
+
+  getDataSetRX_SEC() {
+    return this.props.rx_sec
+  }
+
+  getDataSetTX_SEC() {
+    return this.props.tx_sec
+  }
+
+  getDataSetActiveMemory() {
+    return this.props.activeMemory
+  }
+
+  getDataSetUsedSwapMemory() {
+    return this.props.swapUsedMemory
   }
 
   getDataSetTOOLTIP() {
@@ -365,9 +407,15 @@ class Graph extends React.Component {
   }
 
   getStyles() {
+    //rgb(176, 148, 27)
     //define constants here?
     const BLUE_LINE = "rgb(30, 219, 231)";
-    const PURPLE_LINE = "rgb(169, 32, 226)"
+    const PURPLE_LINE = "rgb(169, 32, 226)";
+    const ORANGE_LINE = "rgb(238, 169, 14)";
+    const GREEN_LINE = 'rgb(43, 191, 31)';
+    const HIGHLIGHTER_LINE= 'rgb(238, 230, 29)';
+    const RED_LINE = 'rgb(241, 10, 58)';
+    const PINK_LINE = 'rgb(246, 36, 206)';
     //this will return an object, not an array
     return {
       parent: {
@@ -384,6 +432,20 @@ class Graph extends React.Component {
         fill: "white",
         fontFamily: "inherit",
         fontSize: "16px",
+        fontWeight: "bold"
+      },
+
+      network_titles1: {
+        fill:BLUE_LINE,
+        fontFamily: "inherit",
+        fontSize: "13px",
+        fontWeight: "bold"
+      },
+
+      network_titles2: {
+        fill:PURPLE_LINE,
+        fontFamily: "inherit",
+        fontSize: "13px",
         fontWeight: "bold"
       },
 
@@ -423,15 +485,47 @@ class Graph extends React.Component {
         }
       },
 
-      rightAxis: {
+      leftNETWORKVerticalAxis: {
+        grid: {
+          stroke: (tick) =>
+            tick === -10 ? "transparent" : "rgba(127, 125, 129, 0.71)",
+          strokeWidth: 2
+        },
+
+        axis: {stroke: BLUE_LINE, strokeWidth:3},
+        ticks: {stroke: BLUE_LINE, strokeWidth:3},
+        tickLabels: {
+          fill: BLUE_LINE,
+          fontFamily: "inherit",
+          fontSize:10
+        }
+      },
+
+      rightNETWORKVerticalAxis: {
         axis: {stroke: PURPLE_LINE, strokeWidth:3},
         ticks: {stroke: PURPLE_LINE, strokeWidth:3},
         tickLabels: {
           fill: PURPLE_LINE,
           fontFamily: "inherit",
-          fontSize:15
+          fontSize:10
       }
     },
+
+      leftMEMORYVerticalAxis: {
+        grid: {
+          stroke: (tick) =>
+            tick === -10 ? "transparent" : "rgba(127, 125, 129, 0.71)",
+          strokeWidth: 2
+        },
+
+        axis: {stroke: "white", strokeWidth:3},
+        ticks: {stroke: "white", strokeWidth:3},
+        tickLabels: {
+          fill: "white",
+          fontFamily: "inherit",
+          fontSize:10
+        }
+      },
 
       //line styles
       lineOne: {
@@ -441,10 +535,19 @@ class Graph extends React.Component {
         data: {stroke: PURPLE_LINE, strokeWidth:3}
       },
       lineThree: {
-        data: {stroke: 'rgb(176, 148, 27)', strokeWidth:3}
+        data: {stroke: ORANGE_LINE, strokeWidth:3}
       },
       lineFour: {
-        data: {stroke: 'rgb(43, 191, 31)', strokeWidth:3}
+        data: {stroke: GREEN_LINE, strokeWidth:3}
+      },
+      lineFive: {
+        data: {stroke: HIGHLIGHTER_LINE, strokeWidth:3}
+      },
+      lineSix: {
+        data: {stroke: RED_LINE, strokeWidth:3}
+      },
+      lineSeven: {
+        data: {stroke: PINK_LINE, strokeWidth:3}
       }
     }
   }
