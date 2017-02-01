@@ -30,7 +30,7 @@ class Graph extends React.Component {
     const dataSetRX_SEC = this.getDataSetRX_SEC();
     const dataSetTX_SEC = this.getDataSetTX_SEC();
     const dataSetActiveMemory = this.getDataSetActiveMemory();
-    const dataSetUsedSwapMemory = this.getDataSetUsedSwapMemory();
+    const dataSetSwapUsedMemory = this.getDataSetSwapUsedMemory();
 
     const data = this.props.data;
     let filtered = data.cpu.filter(function(el) {
@@ -277,45 +277,26 @@ class Graph extends React.Component {
           text={"Used \n bytes Swap Memory"} />
 
           <g transform={"translate(-10,30)"}>
-            {/* <VictoryAxis
-              standalone={false}
-              style={styles.axisTime}
-              // tickValues={tickValues}
-              // tickFormat={(x)=>x.toPrecision(1)}
-            /> */}
             <VictoryAxis dependentAxis
                domain={[0,3000000000]}
                orientation="left"
                standalone={false}
-               style={styles.leftVerticalAxis}
+               style={styles.leftMEMORYVerticalAxis}
                offsetX={50}
             />
-
             <VictoryZoom>
               <VictoryChart>
                 <VictoryLine
-                  data={dataSetUsedSwapMemory}
+                  data={dataSetSwapUsedMemory}
                   domain={{
                     x:[0,10],
-                    y:[2000000000,3000000000]
+                    y:[3000000000,4000000000]
                   }}
                   interpolation="monotoneX"
                   style={styles.lineSeven}
                 />
-            
               </VictoryChart>
             </VictoryZoom>
-
-            {/* <VictoryBar
-              labelComponent={<VictoryTooltip/>}
-              data={dataSet1}
-              domain={{
-                x:[0,5],
-                y:[0,4]
-              }}
-              interpolation="monotoneX"
-              style={styles.lineTwo}
-            /> */}
           </g>
         </svg>
 
@@ -344,8 +325,8 @@ class Graph extends React.Component {
     return this.props.activeMemory
   }
 
-  getDataSetUsedSwapMemory() {
-    return this.props.swapUsedMemory
+  getDataSetSwapUsedMemory() {
+    return this.props.swapMemory
   }
 
   getDataSetTOOLTIP() {
