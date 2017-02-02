@@ -150,8 +150,8 @@ class Monitor extends React.Component {
     let reformActiveMemory = memData.map(function(obj, index) {
       var rObj = {};
       rObj["x"] = index;
-      rObj["y"]= obj.value.active;
-      rObj["value"]=obj.value.active;
+      rObj["y"]= obj.value.active/1000000000;
+      rObj["value"]=obj.value.active/1000000000;
       return rObj;
     })
 
@@ -168,8 +168,8 @@ class Monitor extends React.Component {
     let reformActiveMemory = memData.map(function(obj, index) {
       var rObj = {};
       rObj["x"] = index;
-      rObj["y"]= obj.value.swapused;
-      rObj["value"]=obj.value.swapused;
+      rObj["y"]= obj.value.swapused/1000000000;
+      rObj["value"]=obj.value.swapused/1000000000;
       return rObj;
     })
 

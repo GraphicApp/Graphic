@@ -286,7 +286,7 @@ class Graph extends React.Component {
                   data={dataSetActiveMemory}
                   domain={{
                     x:[0,10],
-                    y:[1000000000,4000000000]
+                    y:[1,4]
                   }}
                   interpolation="monotoneX"
                   style={styles.lineFour}
@@ -319,7 +319,7 @@ class Graph extends React.Component {
             <VictoryZoom>
               <VictoryChart>
                 <VictoryAxis dependentAxis
-                  domain={[0,3000000000]}
+                  // domain={[0,3]}
                   orientation="left"
                   standalone={false}
                   style={styles.leftMEMORYVerticalAxis}
@@ -332,7 +332,7 @@ class Graph extends React.Component {
                   data={dataSetSwapUsedMemory}
                   domain={{
                     x:[0,10],
-                    y:[3000000000,4000000000]
+                    y:[0,4]
                   }}
                   interpolation="monotoneX"
                   style={styles.lineSeven}
@@ -491,11 +491,11 @@ class Graph extends React.Component {
           fontSize: 16
         }
       },
-
+      // rgba(127, 125, 129, 0.71)
       leftVerticalAxis: {
         grid: {
           stroke: (tick) =>
-            tick === -10 ? "transparent" : "rgba(127, 125, 129, 0.71)",
+            tick === -10 ? "transparent" : "rgb(83, 80, 93)",
           strokeWidth: 2
         },
 
@@ -511,7 +511,7 @@ class Graph extends React.Component {
       leftNETWORKVerticalAxis: {
         grid: {
           stroke: (tick) =>
-            tick === -10 ? "transparent" : "rgba(127, 125, 129, 0.71)",
+            tick === -10 ? "transparent" : "rgb(83, 80, 93)",
           strokeWidth: 2
         },
 
@@ -537,7 +537,7 @@ class Graph extends React.Component {
       leftMEMORYVerticalAxis: {
         grid: {
           stroke: (tick) =>
-            tick === -10 ? "transparent" : "rgba(127, 125, 129, 0.71)",
+            tick === -10 ? "transparent" : "rgb(83, 80, 93)",
           strokeWidth: 2
         },
 
