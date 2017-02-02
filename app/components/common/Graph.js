@@ -286,7 +286,7 @@ class Graph extends React.Component {
                   data={dataSetActiveMemory}
                   domain={{
                     x:[0,10],
-                    y:[2000000000,3000000000]
+                    y:[1000000000,4000000000]
                   }}
                   interpolation="monotoneX"
                   style={styles.lineFour}
@@ -515,10 +515,10 @@ class Graph extends React.Component {
           strokeWidth: 2
         },
 
-        axis: {stroke: BLUE_LINE, strokeWidth:3},
+        axis: {stroke: "white", strokeWidth:3},
         ticks: {stroke: BLUE_LINE, strokeWidth:3},
         tickLabels: {
-          fill: BLUE_LINE,
+          fill: "white",
           fontFamily: "inherit",
           fontSize:10
         }
@@ -552,10 +552,10 @@ class Graph extends React.Component {
 
       //line styles
       lineOne: {
-        data: {stroke: BLUE_LINE, strokeWidth:3}
+        data: {stroke: BLUE_LINE, strokeWidth:3, fill:BLUE_LINE}
       },
       lineTwo: {
-        data: {stroke: PURPLE_LINE, strokeWidth:3}
+        data: {stroke: PURPLE_LINE, strokeWidth:3, fill:PURPLE_LINE}
       },
       lineThree: {
         data: {stroke: ORANGE_LINE, strokeWidth:3}
