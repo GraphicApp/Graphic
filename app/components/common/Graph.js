@@ -3,7 +3,7 @@ import hashHistory from 'react-router';
 // import './Graph.scss';
 // import {LineChart} from 'react-easy-chart';
 
-import {VictoryLine, VictoryAxis, VictoryLabel, VictoryBar, VictoryPie, VictoryTooltip, VictoryVoronoiTooltip, VictoryChart, VictoryZoom } from 'victory';
+import {VictoryLine, VictoryAxis, VictoryLabel, VictoryBar, VictoryPie, VictoryTooltip, VictoryVoronoiTooltip, VictoryChart, VictoryZoom, VictoryGroup } from 'victory';
 
 import {Scrollbars} from 'react-custom-scrollbars';
 
@@ -24,7 +24,7 @@ class Graph extends React.Component {
     const dataSet4 = this.getDataSet4();
     const dataSetTOOLTIP = this.getDataSetTOOLTIP();
     const dataSetTOOLTIP2 = this.getDataSetTOOLTIP2();
-    const tickValues = this.getTickValues();
+    // const tickValues = this.getTickValues();
 
     const dataSetTemp = this.getDataSetTemp();
     const dataSetRX_SEC = this.getDataSetRX_SEC();
@@ -76,17 +76,20 @@ class Graph extends React.Component {
             tickFormat={(x)=>x.toPrecision(1)}
           /> */}
 
-            <VictoryAxis dependentAxis
-               domain={[0,4]}
-               orientation="left"
-               standalone={false}
-               style={styles.leftVerticalAxis}
-               offsetX={50}
-            />
             {/* This will be the first data line */}
             {/* Removed lines 1 2 and 4 as tooltip only functions on a single one */}
             <VictoryZoom>
               <VictoryChart>
+                <VictoryAxis dependentAxis
+                  domain={[0,4]}
+                  orientation="left"
+                  standalone={false}
+                  style={styles.leftVerticalAxis}
+                  offsetX={50}
+                />
+                <VictoryAxis
+                  style={styles.axisTime}
+                />
                 <VictoryLine
                   data={dataSet1}
                   domain={{
@@ -125,48 +128,57 @@ class Graph extends React.Component {
 
             {/* this axis must be dependentAxis */}
 
+            <VictoryZoom>
+              <VictoryChart>
+                <VictoryAxis dependentAxis
+                  domain={[0,60000]}
+                  orientation="left"
+                  standalone={false}
+                  style={styles.leftNETWORKVerticalAxis}
+                  offsetX={50}
+                />
+                <VictoryAxis
+                  style={styles.axisTime}
+                />
+                {/* This will be the first data line */}
+                {/* <VictoryZoom>
+                  <VictoryChart> */}
+                  <VictoryBar
+                    // labelComponent={<VictoryTooltip/>}
+                    data={dataSetRX_SEC}
+                    domain={{
+                      x:[0,10],
+                      y:[0,100000]
+                    }}
+                    interpolation="natural"
+                    style={styles.lineOne}
+                  />
 
+                  <VictoryAxis dependentAxis
+                    domain={[0,4000]}
+                    orientation="right"
+                    standalone={true}
+                    style={styles.rightNETWORKVerticalAxis}
+                    offsetX={50}
+                    //  offsetY={450}
 
-            <VictoryAxis dependentAxis
-               domain={[0,60000]}
-               orientation="left"
-               standalone={false}
-               style={styles.leftNETWORKVerticalAxis}
-               offsetX={50}
-            />
-            {/* This will be the first data line */}
-            {/* <VictoryZoom>
-              <VictoryChart> */}
-            <VictoryBar
-              // labelComponent={<VictoryTooltip/>}
-              data={dataSetRX_SEC}
-              domain={{
-                x:[0,10],
-                y:[0,100000]
-              }}
-              interpolation="natural"
-              style={styles.lineOne}
-            />
+                  />
+                  {/* <VictoryAxis
+                    style={styles.axisTime}
+                  /> */}
+                  <VictoryBar
+                    // labelComponent={<VictoryTooltip/>}
+                    data={dataSetTX_SEC}
+                    domain={{
+                      x:[0,10],
+                      y:[0,4000]
+                    }}
+                    interpolation="monotoneX"
+                    style={styles.lineTwo}
+                  />
+              </VictoryChart>
+            </VictoryZoom>
 
-            <VictoryAxis dependentAxis
-               domain={[0,4000]}
-               orientation="right"
-               standalone={true}
-               style={styles.rightNETWORKVerticalAxis}
-               offsetX={50}
-              //  offsetY={450}
-
-            />
-            <VictoryBar
-              // labelComponent={<VictoryTooltip/>}
-              data={dataSetTX_SEC}
-              domain={{
-                x:[0,10],
-                y:[0,4000]
-              }}
-              interpolation="monotoneX"
-              style={styles.lineTwo}
-            />
                 {/* <VictoryVoronoiTooltip
                   data={dataSet1}
                 /> */}
@@ -192,15 +204,39 @@ class Graph extends React.Component {
           text={"Main Temps"} />
 
           <g transform={"translate(-10,30)"}>
-            <VictoryAxis dependentAxis
-               domain={[0,4]}
+            {/* <VictoryAxis dependentAxis
+              //  domain={[0,4]}
                orientation="left"
                standalone={false}
                style={styles.leftVerticalAxis}
                offsetX={50}
-            />
+            /> */}
             <VictoryZoom>
-              <VictoryChart>
+              <VictoryChart
+                domain={{
+                  x:[0,5],
+                  y:[0,100]
+                }}
+                style={{
+                  axis:{
+                    axis: {stroke: "white", strokeWidth:3},
+                  }
+                }}
+                >
+                  <VictoryAxis
+                    //  domain={[0,4]}
+                    //  orientation="left"
+                    //  standalone={false}
+                     style={styles.axisTime}
+                    //  offsetX={50}
+                  />
+                  <VictoryAxis dependentAxis
+                    //  domain={[0,4]}
+                    //  orientation="left"
+                    //  standalone={false}
+                     style={styles.leftVerticalAxis}
+                    //  offsetX={50}
+                  />
                 <VictoryLine
                   data={dataSetTemp}
                   domain={{
@@ -234,20 +270,23 @@ class Graph extends React.Component {
           text={"Used Actively"} />
 
           <g transform={"translate(-10,30)"}>
-            <VictoryAxis dependentAxis
-               domain={[0,3000000000]}
-               orientation="left"
-               standalone={false}
-               style={styles.leftMEMORYVerticalAxis}
-               offsetX={50}
-            />
             <VictoryZoom>
               <VictoryChart>
+                <VictoryAxis dependentAxis
+                  // domain={[0,3000000000]}
+                  orientation="left"
+                  standalone={false}
+                  style={styles.leftMEMORYVerticalAxis}
+                  offsetX={50}
+                />
+                <VictoryAxis
+                  style={styles.axisTime}
+                />
                 <VictoryLine
                   data={dataSetActiveMemory}
                   domain={{
                     x:[0,10],
-                    y:[2000000000,3000000000]
+                    y:[1,4]
                   }}
                   interpolation="monotoneX"
                   style={styles.lineFour}
@@ -277,20 +316,23 @@ class Graph extends React.Component {
           text={"Used \n bytes Swap Memory"} />
 
           <g transform={"translate(-10,30)"}>
-            <VictoryAxis dependentAxis
-               domain={[0,3000000000]}
-               orientation="left"
-               standalone={false}
-               style={styles.leftMEMORYVerticalAxis}
-               offsetX={50}
-            />
             <VictoryZoom>
               <VictoryChart>
+                <VictoryAxis dependentAxis
+                  // domain={[0,3]}
+                  orientation="left"
+                  standalone={false}
+                  style={styles.leftMEMORYVerticalAxis}
+                  offsetX={50}
+                />
+                <VictoryAxis
+                  style={styles.axisTime}
+                />
                 <VictoryLine
                   data={dataSetSwapUsedMemory}
                   domain={{
                     x:[0,10],
-                    y:[3000000000,4000000000]
+                    y:[0,4]
                   }}
                   interpolation="monotoneX"
                   style={styles.lineSeven}
@@ -383,9 +425,9 @@ class Graph extends React.Component {
     ]
   }
 
-  getTickValues() {
-    return [0,1,2,3,4,5];
-  }
+  // getTickValues() {
+  //   return [0,1,2,3,4,5];
+  // }
 
   getStyles() {
     //rgb(176, 148, 27)
@@ -449,11 +491,11 @@ class Graph extends React.Component {
           fontSize: 16
         }
       },
-
+      // rgba(127, 125, 129, 0.71)
       leftVerticalAxis: {
         grid: {
           stroke: (tick) =>
-            tick === -10 ? "transparent" : "rgba(127, 125, 129, 0.71)",
+            tick === -10 ? "transparent" : "rgb(83, 80, 93)",
           strokeWidth: 2
         },
 
@@ -469,14 +511,14 @@ class Graph extends React.Component {
       leftNETWORKVerticalAxis: {
         grid: {
           stroke: (tick) =>
-            tick === -10 ? "transparent" : "rgba(127, 125, 129, 0.71)",
+            tick === -10 ? "transparent" : "rgb(83, 80, 93)",
           strokeWidth: 2
         },
 
-        axis: {stroke: BLUE_LINE, strokeWidth:3},
+        axis: {stroke: "white", strokeWidth:3},
         ticks: {stroke: BLUE_LINE, strokeWidth:3},
         tickLabels: {
-          fill: BLUE_LINE,
+          fill: "white",
           fontFamily: "inherit",
           fontSize:10
         }
@@ -495,7 +537,7 @@ class Graph extends React.Component {
       leftMEMORYVerticalAxis: {
         grid: {
           stroke: (tick) =>
-            tick === -10 ? "transparent" : "rgba(127, 125, 129, 0.71)",
+            tick === -10 ? "transparent" : "rgb(83, 80, 93)",
           strokeWidth: 2
         },
 
@@ -504,16 +546,16 @@ class Graph extends React.Component {
         tickLabels: {
           fill: "white",
           fontFamily: "inherit",
-          fontSize:10
+          fontSize:8
         }
       },
 
       //line styles
       lineOne: {
-        data: {stroke: BLUE_LINE, strokeWidth:3}
+        data: {stroke: BLUE_LINE, strokeWidth:3, fill:BLUE_LINE}
       },
       lineTwo: {
-        data: {stroke: PURPLE_LINE, strokeWidth:3}
+        data: {stroke: PURPLE_LINE, strokeWidth:3, fill:PURPLE_LINE}
       },
       lineThree: {
         data: {stroke: ORANGE_LINE, strokeWidth:3}

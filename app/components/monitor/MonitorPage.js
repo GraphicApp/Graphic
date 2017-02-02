@@ -150,8 +150,8 @@ class Monitor extends React.Component {
     let reformActiveMemory = memData.map(function(obj, index) {
       var rObj = {};
       rObj["x"] = index;
-      rObj["y"]= obj.value.active;
-      rObj["value"]=obj.value.active;
+      rObj["y"]= obj.value.active/1000000000;
+      rObj["value"]=obj.value.active/1000000000;
       return rObj;
     })
 
@@ -168,8 +168,8 @@ class Monitor extends React.Component {
     let reformActiveMemory = memData.map(function(obj, index) {
       var rObj = {};
       rObj["x"] = index;
-      rObj["y"]= obj.value.swapused;
-      rObj["value"]=obj.value.swapused;
+      rObj["y"]= obj.value.swapused/1000000000;
+      rObj["value"]=obj.value.swapused/1000000000;
       return rObj;
     })
 
@@ -186,7 +186,13 @@ class Monitor extends React.Component {
       this.props.actions.loadData(el, time)
         .then(() => {
           toastr.success('Data received');
-          console.log(this.props.data.cpu);
+          this.filterCPU();
+          this.filterTemp();
+          this.filterRX_sec();
+          this.filterTX_sec();
+          this.filterActiveMemory();
+          this.filterSwapUsedMemory();
+          // console.log(this.props.data.cpu);
         })
         .catch(error => {
           toastr.error('Could not fetch data');
@@ -202,7 +208,13 @@ class Monitor extends React.Component {
       this.props.actions.loadData(el, time)
         .then(() => {
           toastr.success('Data received');
-          console.log(this.props.data.cpu);
+          this.filterCPU();
+          this.filterTemp();
+          this.filterRX_sec();
+          this.filterTX_sec();
+          this.filterActiveMemory();
+          this.filterSwapUsedMemory();
+          // console.log(this.props.data.cpu);
         })
         .catch(error => {
           toastr.error('Could not fetch data');
@@ -242,7 +254,13 @@ class Monitor extends React.Component {
       this.props.actions.loadData(el, time)
         .then(() => {
           toastr.success('Data received');
-          console.log(this.props.data.cpu);
+          this.filterCPU();
+          this.filterTemp();
+          this.filterRX_sec();
+          this.filterTX_sec();
+          this.filterActiveMemory();
+          this.filterSwapUsedMemory();
+          // console.log(this.props.data.cpu);
         })
         .catch(error => {
           toastr.error('Could not fetch data');
@@ -258,7 +276,13 @@ class Monitor extends React.Component {
       this.props.actions.loadData(el, time)
         .then(() => {
           toastr.success('Data received');
-          console.log(this.props.data.cpu);
+          this.filterCPU();
+          this.filterTemp();
+          this.filterRX_sec();
+          this.filterTX_sec();
+          this.filterActiveMemory();
+          this.filterSwapUsedMemory();
+          // console.log(this.props.data.cpu);
         })
         .catch(error => {
           toastr.error('Could not fetch data');
