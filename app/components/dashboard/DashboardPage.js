@@ -22,11 +22,12 @@ class Dashboard extends React.Component {
   render() {
     return(
       <section>
-        <InfoDisplay
+        {/* <InfoDisplay
           info={this.props.info}
           location={this.props.location.pathname}
           data={this.props.data}
-        />
+        /> */}
+        Jason's stuff here
 
       </section>
     )
