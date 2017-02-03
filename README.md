@@ -8,6 +8,9 @@ This project is currently incomplete.
 [Project ruberic](https://docs.google.com/spreadsheets/d/1NnR_H7F6Ocec5QttvUbtUrtSZAw1vbfDjFquP_HYTl8/edit#gid=1688051739)
 
 ## Features
+
+[image](./images/cpu_data.png)
+
 Everything you'd want to see about your Mac or Linux machine. With the ability to customize the information you see, this app is tailored towards developers and lay users. View CPU, memory, network, temperatures, battery, disks, partitions and other system information.
 
 ## Installation
