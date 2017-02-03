@@ -118,7 +118,7 @@ const InfoDisplay = ({info, data, location}) => {
       }
 
       <div>
-        Testing text
+
       </div>
       
     </div>
