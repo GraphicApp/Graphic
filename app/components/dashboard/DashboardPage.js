@@ -13,6 +13,8 @@ import toastr from 'toastr';
 import TimeSelect from '../monitor/TimeSelect';
 import Snapshot from '../common/Snapshot';
 
+import DashboardList from './dashboard-list';
+import DashboardDetail from './dashboard-detail';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -304,17 +306,16 @@ class Dashboard extends React.Component {
           location={this.props.location.pathname}
           data={this.props.data}
         /> */}
-        Jason's stuff here
 
 
-        <TimeSelect
+        {/* <TimeSelect
           onSelectAll={this.getAll}
           onSelectToday={this.getToday}
           onSelectLastThreeHours={this.getLastThreeHours}
           onSelectLastSevenDays={this.getLastSevenDays}
           onSelectThisMonth={this.getThisMonth}
-        />
-        <Snapshot
+        /> */}
+        {/* <Snapshot
           data={this.props.data}
           nums={this.state.nums}
           // network={this.state.network}
@@ -325,7 +326,10 @@ class Dashboard extends React.Component {
           battery={this.state.battery}
           activeMemory={this.state.activeMemory}
           swapMemory={this.state.swapUsedMemory}
-         />
+         /> */}
+
+         <DashboardList />
+         <DashboardDetail />
       </section>
     )
   }
