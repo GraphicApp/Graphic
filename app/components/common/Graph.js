@@ -148,7 +148,7 @@ class Graph extends React.Component {
                     data={dataSetRX_SEC}
                     domain={{
                       x:[0,10],
-                      y:[0,100000]
+                      y:[0,1000]
                     }}
                     interpolation="natural"
                     style={styles.lineOne}
@@ -546,7 +546,7 @@ class Graph extends React.Component {
         tickLabels: {
           fill: "white",
           fontFamily: "inherit",
-          fontSize:8
+          fontSize:14
         }
       },
 

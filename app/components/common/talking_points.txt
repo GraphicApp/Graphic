@@ -1,0 +1,28 @@
+General flow of presentation:
+-start with brett, show app while nothing has been collected. Show settings page and talk about back end options.
+Set it up so that cpu memory temp and network are all being collected, pick intervals that are different but make sense for presentation.
+
+-move on to dashboard page where jason talks about visual data in table form. talks about process of learning react and setting up electron- trying out different databases and what not. shows the crowd how different buttons would give different values of data- still need to work on this page
+
+-move on to monitor page where sid and brayden talk about struggles of gettting working graphs on page. Brayden- talks about d3 and react, sid talks about formatting data. On this page sid can control graphs while brayden talks about what it is we see on screen.
+
+-end with brett talking about use cases of this app and how in this demonstration we only showed 3 hour time select, but in perfect world a user would leave this running to see trends over time.
+
+Sid:
+-using victoryjs and react.
+-getting data from backend
+-formatting data from 4 billion bytes to something readable on screen.
+react components and how they deal with rendering graphs instead of text - not too different- just set up graphs to take in a prop from a button click.
+
+brayden:
+-d3 and react.
+-faux dom, reactd3, having d3 do math while react does rendering, things we tried.
+-experience with Victory
+-experience with hosting
+
+brett:
+-what the app is, what the app does, and everything backend
+
+Jason:
+-electron and react
+-going through the dashboard page
