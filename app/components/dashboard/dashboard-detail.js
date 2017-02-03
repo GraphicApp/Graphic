@@ -11,16 +11,16 @@ class DashboardDetail extends React.Component {
 
     return (
       <div>
-        
-        <div>
-          {this.props.graph.description}
-        </div>
+
         <div>
           {this.props.graph.exampleGraph}
         </div>
         <div>
-          {this.props.graph.details}
+          {this.props.graph.description}
         </div>
+        {/* <div>
+          {this.props.graph.details}
+        </div> */}
 
 
       </div>

@@ -427,7 +427,7 @@ export default function() {
             display: "inline",
             margin: 25,
           }}>
-          <VictoryLabel x={175} y={25}
+          <VictoryLabel x={110} y={25}
             style={{
             fill: "white",
             fontFamily: "inherit",
@@ -563,7 +563,7 @@ export default function() {
             display: "inline",
             margin: 25,
           }}>
-          <VictoryLabel x={175} y={25}
+          <VictoryLabel x={100} y={25}
             style={{
             fill: "white",
             fontFamily: "inherit",
