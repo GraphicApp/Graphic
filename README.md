@@ -12,17 +12,25 @@ This project is currently in progress.
 
 Here we have our main view which is the monitor page. This page displays any graphs that have been activated in the settings so that they are ready to display their respective data.
 
+
+
 ![alt text](./images/settings_page.png)
 
 Here on the settings page you can toggle which graphs you want to view on the monitor page. You can also change the data retrieval interval, which port you want to use, and a few other useful options.
+
+
 
 ![alt text](./images/cpu_data.png)
 
 Once the settings have been saved and graphs have been toggled on, you can navigate back to the monitor view and use the buttons on the left side to choose a period of time for data to display. The above image shows an example of 3 hours of CPU data.
 
+
+
 ![alt text](./images/memory.png)
 
 This is an example of 3 hours of memory data.
+
+
 
 ![alt text](./images/info.png)
 
