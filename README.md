@@ -9,7 +9,7 @@ This project is currently incomplete.
 
 ## Features
 
-(./images/cpu_data.png)
+[image](./images/cpu_data.png)
 
 Everything you'd want to see about your Mac or Linux machine. With the ability to customize the information you see, this app is tailored towards developers and lay users. View CPU, memory, network, temperatures, battery, disks, partitions and other system information.
 
