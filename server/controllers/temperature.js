@@ -3,6 +3,7 @@ const si = require('systeminformation'),
       os = require('os'),
       app = require('../index'),
       db = app.get('db'),
+      smc = require('../services/smc/smc'),
       pdb = require('../db/pouchdb');
 
 let platform = os.type();
