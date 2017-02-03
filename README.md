@@ -26,6 +26,12 @@ Once the settings have been saved and graphs have been toggled on, you can navig
 
 
 
+![alt text](./images/dashboard2.png)
+
+This view is home to some example graphs we have created in order to help those who need a better understanding of the types of information they are seeing. A user can select one of the available example graphs at the top of the view which will populate a graph below with dummy data so that they can learn more about it.
+
+
+
 ![alt text](./images/memory.png)
 
 This is an example of 3 hours of memory data.
@@ -36,11 +42,13 @@ This is an example of 3 hours of memory data.
 
 Lastly, this is the info view which displays all sorts of useful tidbits of information for the users machine.
 
+
+
 ## Installation
 `NPM install` the dependencies. Then, `NPM start` to start the Electron app.
 
 ## To Do
-- VictoryJS graphic implementation
+- VictoryJS graph implementation
 - Frontend in React
 
 ## Developed By
