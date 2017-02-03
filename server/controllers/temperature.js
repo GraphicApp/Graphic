@@ -37,6 +37,7 @@ setInterval(() => {
           })
           .catch(error => winston.log.error(error));
     } else if (platform == 'Darwin') {
+      let smc = require('../services/smc/smc');
       if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
         let tempObj = smc.metrics,
             newTempObj = {};
@@ -75,6 +76,7 @@ setInterval(() => {
 setInterval(() => {
   let module = 'fan';
   if (app.locals.settings.config.modules.fan.status && platform == 'Darwin') {
+    let smc = require('../services/smc/smc');
     let i, f = smc.fans();
     for (i = 0; i < f; i++) {
       if (app.locals.settings.config.db.pouchdb.status || app.locals.settings.config.db.couchdb.status) {
